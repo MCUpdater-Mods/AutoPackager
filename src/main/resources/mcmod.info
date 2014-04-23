@@ -1,14 +1,14 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
-  "version": "${version}",
-  "mcversion": "${mcversion}",
+  "modid": "autopackager",
+  "name": "AutoPackager",
+  "description": "Autocraft recipes made of a single item type",
+  "version": "@version@",
+  "mcversion": "@mcversion@",
   "url": "",
   "updateUrl": "",
-  "authors": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
+  "authorList": ["smbarbour"],
+  "credits": "JadedCat, for making Agrarian Skies, for which the need for this arose.",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
