@@ -23,6 +23,10 @@ minecraft {
 	version = "1.6.4-9.11.1.964"
 }
 
+dependencies {
+	compile files("lib/CoFHCore.jar")
+}
+
 processResources
 {
     // replace stuff in mcmod.info, nothing else
