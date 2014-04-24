@@ -15,8 +15,6 @@ import net.minecraftforge.common.ForgeDirection;
 import org.mcupdater.shared.Position;
 import org.mcupdater.shared.Utils;
 
-import java.util.ArrayList;
-
 public class BlockPackager extends BlockContainer
 {
 	Icon textureFront;
@@ -37,6 +35,8 @@ public class BlockPackager extends BlockContainer
 		ForgeDirection orientation = Utils.get2dOrientation(new Position(entityliving.posX, entityliving.posY, entityliving.posZ), new Position(i, j, k));
 
 		world.setBlockMetadataWithNotify(i, j, k, orientation.getOpposite().ordinal(),1);
+		System.out.println("Placed meta: " + orientation.getOpposite().ordinal());
+		((TilePackager) world.getBlockTileEntity(i, j, k)).setOrientation(orientation);
 	}
 
 	@Override
@@ -52,11 +52,6 @@ public class BlockPackager extends BlockContainer
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world) {
-		return new TilePackager();
-	}
-
-	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister iconRegistry)
 	{
@@ -64,4 +59,8 @@ public class BlockPackager extends BlockContainer
 		textureSide = iconRegistry.registerIcon("autopackager:packager_side");
 	}
 
+	@Override
+	public TileEntity createNewTileEntity(World world) {
+		return new TilePackager();
+	}
 }
