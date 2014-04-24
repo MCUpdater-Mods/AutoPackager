@@ -25,6 +25,7 @@ minecraft {
 
 dependencies {
 	compile files("lib/CoFHCore.jar")
+    compile files("lib/ThermalExpansion.jar")
 }
 
 processResources

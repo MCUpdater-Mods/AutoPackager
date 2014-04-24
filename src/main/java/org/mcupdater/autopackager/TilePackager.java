@@ -45,7 +45,7 @@ public class TilePackager extends TileEnergyHandler
 				//Test moving items
 				if (invInput.getStackInSlot(slot) != null && invInput.getStackInSlot(slot).stackSize >= 4) {
 					ItemStack testStack = invInput.getStackInSlot(slot).copy();
-					testStack.stackSize = 4;
+					testStack.stackSize = 1;
 					InventoryCrafting smallCraft = new InventoryCrafting(new Container(){
 						@Override
 						public boolean canInteractWith(EntityPlayer entityPlayer) {
@@ -59,7 +59,32 @@ public class TilePackager extends TileEnergyHandler
 					if (result != null) {
 						testStack = InventoryHelper.simulateInsertItemStackIntoInventory(invOutput, result, 1);
 						if (testStack == null) {
-							ItemStack moving = invInput.getStackInSlot(slot).splitStack(4);
+							invInput.getStackInSlot(slot).splitStack(4);
+							if (invInput.getStackInSlot(slot).stackSize == 0) {
+								invInput.setInventorySlotContents(slot, null);
+							}
+							InventoryHelper.insertItemStackIntoInventory(invOutput, result, 1);
+							return true;
+						}
+					}
+				}
+				if (invInput.getStackInSlot(slot) != null && invInput.getStackInSlot(slot).stackSize >= 9) {
+					ItemStack testStack = invInput.getStackInSlot(slot).copy();
+					testStack.stackSize = 1;
+					InventoryCrafting largeCraft = new InventoryCrafting(new Container(){
+						@Override
+						public boolean canInteractWith(EntityPlayer entityPlayer) {
+							return false;
+						}
+					}, 3, 3);
+					for (int craftSlot = 0; craftSlot < 9; craftSlot++) {
+						largeCraft.setInventorySlotContents(craftSlot, testStack);
+					}
+					ItemStack result = CraftingManager.getInstance().findMatchingRecipe(largeCraft, worldObj);
+					if (result != null) {
+						testStack = InventoryHelper.simulateInsertItemStackIntoInventory(invOutput, result, 1);
+						if (testStack == null) {
+							invInput.getStackInSlot(slot).splitStack(9);
 							if (invInput.getStackInSlot(slot).stackSize == 0) {
 								invInput.setInventorySlotContents(slot, null);
 							}

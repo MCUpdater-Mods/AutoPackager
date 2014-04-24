@@ -7,11 +7,15 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import thermalexpansion.item.TEItems;
 
-@Mod(modid = "autopackager", name="AutoPackager", version="1.0", acceptedMinecraftVersions="[1.6,1.7],", dependencies = "required-after:CoFHCore")
+@Mod(modid = "autopackager", name="AutoPackager", version="1.0", acceptedMinecraftVersions="[1.6,1.7],", dependencies = "required-after:CoFHCore;required-after:ThermalExpansion")
 @NetworkMod(clientSideRequired = true, serverSideRequired = true)
 public class AutoPackager {
 	public static Configuration config;
@@ -40,7 +44,20 @@ public class AutoPackager {
 
 	@Mod.EventHandler
 	public void postInit(FMLPostInitializationEvent evt) {
-
+		loadRecipes();
 	}
 
+	public void loadRecipes() {
+		ShapedOreRecipe recipePackager = new ShapedOreRecipe(
+			new ItemStack(packagerBlock, 1),
+			"ipi",
+			"ptp",
+			"ici",
+			'i', Item.ingotIron,
+			'p', Block.pistonBase,
+			't', Block.workbench,
+			'c', TEItems.powerCoilGold
+		);
+		GameRegistry.addRecipe(recipePackager);
+	}
 }
