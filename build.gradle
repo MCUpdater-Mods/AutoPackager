@@ -28,6 +28,14 @@ dependencies {
     compile files("lib/ThermalExpansion.jar")
 }
 
+sourceSets {
+    external {
+        java {
+            srcDir 'src/external/java'
+        }
+    }
+}
+
 processResources
 {
     // replace stuff in mcmod.info, nothing else

@@ -16,14 +16,16 @@ import org.mcupdater.shared.Position;
 public class TilePackager extends TileEnergyHandler
 {
 	private ForgeDirection orientation;
+	static int tickCounter = 0;
 
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		if (storage.getEnergyStored() > 1000) {
-			storage.extractEnergy(1000,false);
-			if (!tryCraft()) {
-				storage.receiveEnergy(1000,false);
+		if (++tickCounter % 10 == 0) {
+			if (storage.getEnergyStored() > 1000) {
+				if (tryCraft()) {
+					storage.extractEnergy(1000, false);
+				}
 			}
 		}
 	}
@@ -42,7 +44,6 @@ public class TilePackager extends TileEnergyHandler
 			IInventory invInput = (IInventory) tileInput;
 			IInventory invOutput = (IInventory) tileOutput;
 			for (int slot = 0; slot < invInput.getSizeInventory(); slot++) {
-				//Test moving items
 				if (invInput.getStackInSlot(slot) != null && invInput.getStackInSlot(slot).stackSize >= 4) {
 					ItemStack testStack = invInput.getStackInSlot(slot).copy();
 					testStack.stackSize = 1;
