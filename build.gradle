@@ -15,7 +15,7 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.0"
+version = "1.1"
 group= "org.mcupdater.autopackager" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "autopackager"
 
@@ -24,16 +24,8 @@ minecraft {
 }
 
 dependencies {
-	compile files("lib/CoFHCore.jar")
+    compile files("lib/CoFHCore.jar")
     compile files("lib/ThermalExpansion.jar")
-}
-
-sourceSets {
-    external {
-        java {
-            srcDir 'src/external/java'
-        }
-    }
 }
 
 processResources

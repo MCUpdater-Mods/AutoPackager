@@ -2,6 +2,10 @@ package org.mcupdater.autopackager;
 
 import cofh.api.energy.TileEnergyHandler;
 import cofh.util.InventoryHelper;
+import com.dynious.refinedrelocation.api.APIUtils;
+import com.dynious.refinedrelocation.api.tileentity.ISortingMember;
+import com.dynious.refinedrelocation.api.tileentity.handlers.ISortingMemberHandler;
+import cpw.mods.fml.common.Optional;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -13,8 +17,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import org.mcupdater.shared.Position;
 
-public class TilePackager extends TileEnergyHandler
+@Optional.Interface(iface = "ISortingMember", modid = "RefinedRelocation")
+public class TilePackager extends TileEnergyHandler implements ISortingMember
 {
+	private Object sortingHandler;
 	private ForgeDirection orientation;
 	static int tickCounter = 0;
 
@@ -113,5 +119,13 @@ public class TilePackager extends TileEnergyHandler
 
 	public void setOrientation(ForgeDirection orientation) {
 		this.orientation = orientation;
+	}
+
+	@Override
+	public ISortingMemberHandler getSortingHandler() {
+		if (sortingHandler == null) {
+			sortingHandler = APIUtils.createSortingMemberHandler(this);
+		}
+		return (ISortingMemberHandler) sortingHandler;
 	}
 }
