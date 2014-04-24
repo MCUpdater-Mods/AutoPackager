@@ -2,6 +2,8 @@ package org.mcupdater.autopackager;
 
 import cofh.api.energy.TileEnergyHandler;
 import cofh.util.InventoryHelper;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
@@ -44,7 +46,12 @@ public class TilePackager extends TileEnergyHandler
 				if (invInput.getStackInSlot(slot) != null && invInput.getStackInSlot(slot).stackSize >= 4) {
 					ItemStack testStack = invInput.getStackInSlot(slot).copy();
 					testStack.stackSize = 4;
-					InventoryCrafting smallCraft = new InventoryCrafting(null, 2, 2);
+					InventoryCrafting smallCraft = new InventoryCrafting(new Container(){
+						@Override
+						public boolean canInteractWith(EntityPlayer entityPlayer) {
+							return false;
+						}
+					}, 2, 2);
 					for (int craftSlot = 0; craftSlot < 4; craftSlot++) {
 						smallCraft.setInventorySlotContents(craftSlot, testStack);
 					}
