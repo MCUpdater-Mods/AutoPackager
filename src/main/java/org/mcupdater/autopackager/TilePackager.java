@@ -121,6 +121,7 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
 		this.orientation = orientation;
 	}
 
+	@Optional.Method(modid = "RefinedRelocation")
 	@Override
 	public ISortingMemberHandler getSortingHandler() {
 		if (sortingHandler == null) {

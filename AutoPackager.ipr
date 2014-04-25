@@ -372,6 +372,13 @@
         <root url="jar://$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.paulscode/soundsystem/20120107/source/1b9f4eb11ef11fede7fd76a2e5e8203c2a8adcd/soundsystem-20120107-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Gradle: ThermalExpansion">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/lib/ThermalExpansion.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
   </component>
   <component name="masterDetails">
     <states>
