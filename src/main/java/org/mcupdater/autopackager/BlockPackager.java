@@ -7,6 +7,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
@@ -62,5 +63,25 @@ public class BlockPackager extends BlockContainer
 	@Override
 	public TileEntity createNewTileEntity(World world) {
 		return new TilePackager();
+	}
+
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int hitSide, float hitX, float hitY, float hitZ) {
+		super.onBlockActivated(world,x,y,z,player,hitSide,hitX,hitY,hitZ);
+		if (thermalexpansion.util.Utils.isHoldingUsableWrench(player, x, y, z)) {
+			if (!world.isRemote) {
+				rotateBlock(world,x,y,z,ForgeDirection.UP);
+			}
+		}
+		return true;
+	}
+
+	@Override
+	public boolean rotateBlock(World world, int x, int y, int z, ForgeDirection axis) {
+		int meta = world.getBlockMetadata(x,y,z) - 2; //convert to x/z axis
+		meta = ++meta % 4 + 2;
+		world.setBlockMetadataWithNotify(x,y,z,meta,1);
+		((TilePackager) world.getBlockTileEntity(x, y, z)).setOrientation(ForgeDirection.getOrientation(meta));
+		return true;
 	}
 }

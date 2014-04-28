@@ -22,7 +22,7 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
 {
 	private Object sortingHandler;
 	private ForgeDirection orientation;
-	static int tickCounter = 0;
+	private int tickCounter = 0;
 
 	@Override
 	public void updateEntity() {
