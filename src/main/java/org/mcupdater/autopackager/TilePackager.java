@@ -22,15 +22,31 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
 {
 	private Object sortingHandler;
 	private ForgeDirection orientation;
-	static int tickCounter = 0;
+	
+	/**
+	 * tickCounter increments every frame, every tickDelay frames it attempts to work.
+	 * We default to TICK_NORMAL but will wait for TICK_SLEEP instead if we ever fail
+	 * to pack something.
+	 * 
+	 * @TODO Move TICK_NORMAL/TICK_SLEEP and ENERGY_COST into config file.
+	 */
+	private int tickCounter = 0;
+	private static final int TICK_NORMAL = 10;	// 500ms
+	private static final int TICK_SLEEP = 200;	// 10s
+	private int tickDelay = TICK_NORMAL;
+	
+	private static final int ENERGY_COST = 1000;
 
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		if (++tickCounter % 10 == 0) {
-			if (storage.getEnergyStored() > 1000) {
+		if (++tickCounter % tickDelay == 0) {
+			if (storage.getEnergyStored() > ENERGY_COST) {
 				if (tryCraft()) {
-					storage.extractEnergy(1000, false);
+					storage.extractEnergy(ENERGY_COST, false);
+					tickDelay = TICK_NORMAL;
+				} else {
+					tickDelay = TICK_SLEEP;
 				}
 			}
 		}
