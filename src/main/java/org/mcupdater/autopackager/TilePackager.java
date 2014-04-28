@@ -25,29 +25,23 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
 
 	/**
 	 * tickCounter increments every frame, every tickDelay frames it attempts to work.
-	 * We default to TICK_NORMAL but will wait for TICK_SLEEP instead if we ever fail
+	 * We default to AutoPackager.delayCycleNormal but will wait for AutoPackager.delayCycleIdle instead if we ever fail
 	 * to pack something.
-	 *
-	 * @TODO Move TICK_NORMAL/TICK_SLEEP and ENERGY_COST into config file.
 	 */
 	private int tickCounter = 0;
-	private static final int TICK_NORMAL = 10;	// 500ms
-	private static final int TICK_SLEEP = 200;	// 10s
-	private int tickDelay = TICK_NORMAL;
-
-	private static final int ENERGY_COST = 1000;
+	private int tickDelay = AutoPackager.delayCycleNormal;
 
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
 		if (++tickCounter % tickDelay == 0) {
 			tickCounter = 0;
-			if (storage.getEnergyStored() > ENERGY_COST) {
+			if (storage.getEnergyStored() > AutoPackager.energyPerCycle) {
 				if (tryCraft()) {
-					storage.extractEnergy(ENERGY_COST, false);
-					tickDelay = TICK_NORMAL;
+					storage.extractEnergy(AutoPackager.energyPerCycle, false);
+					tickDelay = AutoPackager.delayCycleNormal;
 				} else {
-					tickDelay = TICK_SLEEP;
+					tickDelay = AutoPackager.delayCycleIdle;
 				}
 			}
 		}

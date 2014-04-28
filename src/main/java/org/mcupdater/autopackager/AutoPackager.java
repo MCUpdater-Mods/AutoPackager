@@ -20,12 +20,18 @@ import thermalexpansion.item.TEItems;
 public class AutoPackager {
 	public static Configuration config;
 	public static BlockPackager packagerBlock;
+	public static int energyPerCycle;
+	public static int delayCycleNormal;
+	public static int delayCycleIdle;
 
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent evt) {
 		config = new Configuration(evt.getSuggestedConfigurationFile());
 		config.load();
 		int packagerId = config.getBlock("packager.id",3001).getInt(3001);
+		energyPerCycle = config.get("General", "RF_per_cycle", 1000).getInt(1000);
+		delayCycleNormal = config.get("General", "cycle_delay_ticks",10).getInt(10);
+		delayCycleIdle = config.get("General", "idle_delay_ticks",200).getInt(200);
 		if (config.hasChanged()) {
 			config.save();
 		}
@@ -47,7 +53,7 @@ public class AutoPackager {
 		loadRecipes();
 	}
 
-	public void loadRecipes() {
+	private void loadRecipes() {
 		ShapedOreRecipe recipePackager = new ShapedOreRecipe(
 			new ItemStack(packagerBlock, 1),
 			"ipi",
