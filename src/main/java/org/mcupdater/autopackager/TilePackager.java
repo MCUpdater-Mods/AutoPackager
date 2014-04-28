@@ -34,7 +34,7 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		if (++tickCounter % tickDelay == 0) {
+		if (++tickCounter >= tickDelay) {
 			tickCounter = 0;
 			if (storage.getEnergyStored() > AutoPackager.energyPerCycle) {
 				if (tryCraft()) {
