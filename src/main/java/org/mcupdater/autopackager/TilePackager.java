@@ -22,15 +22,26 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
 {
 	private Object sortingHandler;
 	private ForgeDirection orientation;
-	static int tickCounter = 0;
+
+	/**
+	 * tickCounter increments every frame, every tickDelay frames it attempts to work.
+	 * We default to AutoPackager.delayCycleNormal but will wait for AutoPackager.delayCycleIdle instead if we ever fail
+	 * to pack something.
+	 */
+	private int tickCounter = 0;
+	private int tickDelay = AutoPackager.delayCycleNormal;
 
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		if (++tickCounter % 10 == 0) {
-			if (storage.getEnergyStored() > 1000) {
+		if (++tickCounter >= tickDelay) {
+			tickCounter = 0;
+			if (storage.getEnergyStored() > AutoPackager.energyPerCycle) {
 				if (tryCraft()) {
-					storage.extractEnergy(1000, false);
+					storage.extractEnergy(AutoPackager.energyPerCycle, false);
+					tickDelay = AutoPackager.delayCycleNormal;
+				} else {
+					tickDelay = AutoPackager.delayCycleIdle;
 				}
 			}
 		}
@@ -129,4 +140,5 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
 		}
 		return (ISortingMemberHandler) sortingHandler;
 	}
+
 }
