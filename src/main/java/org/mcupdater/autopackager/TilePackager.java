@@ -78,12 +78,6 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
 						testStack = InventoryHelper.simulateInsertItemStackIntoInventory(invOutput, result, 1);
 						if (testStack == null) {
 							invInput.decrStackSize(slot,4);
-							/*
-							invInput.getStackInSlot(slot).splitStack(4);
-							if (invInput.getStackInSlot(slot).stackSize == 0) {
-								invInput.setInventorySlotContents(slot, null);
-							}
-							*/
 							InventoryHelper.insertItemStackIntoInventory(invOutput, result, 1);
 							return true;
 						}
@@ -106,12 +100,6 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
 						testStack = InventoryHelper.simulateInsertItemStackIntoInventory(invOutput, result, 1);
 						if (testStack == null) {
 							invInput.decrStackSize(slot,9);
-							/*
-							invInput.getStackInSlot(slot).splitStack(9);
-							if (invInput.getStackInSlot(slot).stackSize == 0) {
-								invInput.setInventorySlotContents(slot, null);
-							}
-							*/
 							InventoryHelper.insertItemStackIntoInventory(invOutput, result, 1);
 							return true;
 						}
