@@ -17,7 +17,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import org.mcupdater.shared.Position;
 
-@Optional.Interface(iface = "ISortingMember", modid = "RefinedRelocation")
+@Optional.Interface(iface = "com.dynious.refinedrelocation.api.tileentity.ISortingMember", modid = "RefinedRelocation")
 public class TilePackager extends TileEnergyHandler implements ISortingMember
 {
 	private Object sortingHandler;
