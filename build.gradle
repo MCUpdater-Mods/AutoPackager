@@ -15,7 +15,7 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.3"
+version = "1.4"
 group= "org.mcupdater.autopackager" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "autopackager"
 

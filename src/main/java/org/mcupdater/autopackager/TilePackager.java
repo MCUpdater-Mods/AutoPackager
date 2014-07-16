@@ -10,12 +10,15 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import org.mcupdater.shared.Position;
+
+import java.util.*;
 
 @Optional.Interface(iface = "com.dynious.refinedrelocation.api.tileentity.ISortingMember", modid = "RefinedRelocation")
 public class TilePackager extends TileEnergyHandler implements ISortingMember
@@ -57,55 +60,88 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
 		outputPos.moveRight(1.0);
 		TileEntity tileInput = worldObj.getBlockTileEntity((int)inputPos.x, (int)inputPos.y, (int)inputPos.z);
 		TileEntity tileOutput = worldObj.getBlockTileEntity((int)outputPos.x, (int)outputPos.y, (int)outputPos.z);
+        Map<Item,SortedSet<Integer>> slotMap = new HashMap<Item,SortedSet<Integer>>();
 		if (tileInput instanceof IInventory && tileOutput instanceof IInventory) {
 			IInventory invInput = (IInventory) tileInput;
 			IInventory invOutput = (IInventory) tileOutput;
 			for (int slot = 0; slot < invInput.getSizeInventory(); slot++) {
-				if (invInput.getStackInSlot(slot) != null && invInput.getStackInSlot(slot).stackSize >= 4) {
-					ItemStack testStack = invInput.getStackInSlot(slot).copy();
-					testStack.stackSize = 1;
-					InventoryCrafting smallCraft = new InventoryCrafting(new Container(){
-						@Override
-						public boolean canInteractWith(EntityPlayer entityPlayer) {
-							return false;
-						}
-					}, 2, 2);
-					for (int craftSlot = 0; craftSlot < 4; craftSlot++) {
-						smallCraft.setInventorySlotContents(craftSlot, testStack);
-					}
-					ItemStack result = CraftingManager.getInstance().findMatchingRecipe(smallCraft, worldObj);
-					if (result != null) {
-						testStack = InventoryHelper.simulateInsertItemStackIntoInventory(invOutput, result, 1);
-						if (testStack == null) {
-							invInput.decrStackSize(slot,4);
-							InventoryHelper.insertItemStackIntoInventory(invOutput, result, 1);
-							return true;
-						}
-					}
-				}
-				if (invInput.getStackInSlot(slot) != null && invInput.getStackInSlot(slot).stackSize >= 9) {
-					ItemStack testStack = invInput.getStackInSlot(slot).copy();
-					testStack.stackSize = 1;
-					InventoryCrafting largeCraft = new InventoryCrafting(new Container(){
-						@Override
-						public boolean canInteractWith(EntityPlayer entityPlayer) {
-							return false;
-						}
-					}, 3, 3);
-					for (int craftSlot = 0; craftSlot < 9; craftSlot++) {
-						largeCraft.setInventorySlotContents(craftSlot, testStack);
-					}
-					ItemStack result = CraftingManager.getInstance().findMatchingRecipe(largeCraft, worldObj);
-					if (result != null) {
-						testStack = InventoryHelper.simulateInsertItemStackIntoInventory(invOutput, result, 1);
-						if (testStack == null) {
-							invInput.decrStackSize(slot,9);
-							InventoryHelper.insertItemStackIntoInventory(invOutput, result, 1);
-							return true;
-						}
-					}
-				}
+                if (invInput.getStackInSlot(slot) != null) {
+                    if (slotMap.containsKey(invInput.getStackInSlot(slot).getItem())) {
+                        slotMap.get(invInput.getStackInSlot(slot).getItem()).add(slot);
+                    } else {
+                        SortedSet<Integer> slotList = new TreeSet<Integer>();
+                        slotList.add(slot);
+                        slotMap.put(invInput.getStackInSlot(slot).getItem(), slotList);
+                    }
+                    if (invInput.getStackInSlot(slot).stackSize >= 4) {
+                        ItemStack testStack = invInput.getStackInSlot(slot).copy();
+                        testStack.stackSize = 1;
+                        InventoryCrafting smallCraft = new InventoryCrafting(new Container() {
+                            @Override
+                            public boolean canInteractWith(EntityPlayer entityPlayer) {
+                                return false;
+                            }
+                        }, 2, 2);
+                        for (int craftSlot = 0; craftSlot < 4; craftSlot++) {
+                            smallCraft.setInventorySlotContents(craftSlot, testStack);
+                        }
+                        ItemStack result = CraftingManager.getInstance().findMatchingRecipe(smallCraft, worldObj);
+                        if (result != null) {
+                            testStack = InventoryHelper.simulateInsertItemStackIntoInventory(invOutput, result, 1);
+                            if (testStack == null) {
+                                invInput.decrStackSize(slot, 4);
+                                InventoryHelper.insertItemStackIntoInventory(invOutput, result, 1);
+                                return true;
+                            }
+                        }
+                    }
+                    if (invInput.getStackInSlot(slot).stackSize >= 9) {
+                        ItemStack testStack = invInput.getStackInSlot(slot).copy();
+                        testStack.stackSize = 1;
+                        InventoryCrafting largeCraft = new InventoryCrafting(new Container() {
+                            @Override
+                            public boolean canInteractWith(EntityPlayer entityPlayer) {
+                                return false;
+                            }
+                        }, 3, 3);
+                        for (int craftSlot = 0; craftSlot < 9; craftSlot++) {
+                            largeCraft.setInventorySlotContents(craftSlot, testStack);
+                        }
+                        ItemStack result = CraftingManager.getInstance().findMatchingRecipe(largeCraft, worldObj);
+                        if (result != null) {
+                            testStack = InventoryHelper.simulateInsertItemStackIntoInventory(invOutput, result, 1);
+                            if (testStack == null) {
+                                invInput.decrStackSize(slot, 9);
+                                InventoryHelper.insertItemStackIntoInventory(invOutput, result, 1);
+                                return true;
+                            }
+                        }
+                    }
+                }
 			}
+            for (Map.Entry<Item,SortedSet<Integer>> entry : slotMap.entrySet()) {
+                 if (entry.getValue().size() > 1) {
+                     SortedSet<Integer> slots = entry.getValue();
+                     while (slots.size() > 1) {
+                         if (invInput.getStackInSlot(slots.first()) == null || !invInput.getStackInSlot(slots.first()).getItem().equals(entry.getKey()) || invInput.getStackInSlot(slots.first()).stackSize >= invInput.getStackInSlot(slots.first()).getMaxStackSize()) {
+                             slots.remove(slots.first());
+                             continue;
+                         }
+                         if (invInput.getStackInSlot(slots.last()) == null || !invInput.getStackInSlot(slots.last()).getItem().equals(entry.getKey())) {
+                             slots.remove(slots.last());
+                             continue;
+                         }
+                         if (invInput.getStackInSlot(slots.first()).stackSize + invInput.getStackInSlot(slots.last()).stackSize <= invInput.getStackInSlot(slots.first()).getMaxStackSize()) {
+                             invInput.getStackInSlot(slots.first()).stackSize += invInput.getStackInSlot(slots.last()).stackSize;
+                             invInput.setInventorySlotContents(slots.last(), null);
+                         } else {
+                             int spaceRemain = invInput.getStackInSlot(slots.first()).getMaxStackSize() - invInput.getStackInSlot(slots.first()).stackSize;
+                             invInput.getStackInSlot(slots.first()).stackSize += spaceRemain;
+                             invInput.decrStackSize(slots.last(), spaceRemain);
+                         }
+                     }
+                 }
+            }
 		}
 		return false;
 	}
