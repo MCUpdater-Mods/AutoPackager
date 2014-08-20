@@ -60,18 +60,18 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
 		outputPos.moveRight(1.0);
 		TileEntity tileInput = worldObj.getBlockTileEntity((int)inputPos.x, (int)inputPos.y, (int)inputPos.z);
 		TileEntity tileOutput = worldObj.getBlockTileEntity((int)outputPos.x, (int)outputPos.y, (int)outputPos.z);
-        Map<Item,SortedSet<Integer>> slotMap = new HashMap<Item,SortedSet<Integer>>();
+        Map<String,SortedSet<Integer>> slotMap = new HashMap<String,SortedSet<Integer>>();
 		if (tileInput instanceof IInventory && tileOutput instanceof IInventory) {
 			IInventory invInput = (IInventory) tileInput;
 			IInventory invOutput = (IInventory) tileOutput;
 			for (int slot = 0; slot < invInput.getSizeInventory(); slot++) {
                 if (invInput.getStackInSlot(slot) != null) {
-                    if (slotMap.containsKey(invInput.getStackInSlot(slot).getItem())) {
-                        slotMap.get(invInput.getStackInSlot(slot).getItem()).add(slot);
+                    if (slotMap.containsKey(invInput.getStackInSlot(slot).itemID + ":" + invInput.getStackInSlot(slot).getItemDamage())) {
+                        slotMap.get(invInput.getStackInSlot(slot).itemID + ":" + invInput.getStackInSlot(slot).getItemDamage()).add(slot);
                     } else {
                         SortedSet<Integer> slotList = new TreeSet<Integer>();
                         slotList.add(slot);
-                        slotMap.put(invInput.getStackInSlot(slot).getItem(), slotList);
+                        slotMap.put(invInput.getStackInSlot(slot).itemID + ":" + invInput.getStackInSlot(slot).getItemDamage(), slotList);
                     }
                     if (invInput.getStackInSlot(slot).stackSize >= 4) {
                         ItemStack testStack = invInput.getStackInSlot(slot).copy();
@@ -119,15 +119,15 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
                     }
                 }
 			}
-            for (Map.Entry<Item,SortedSet<Integer>> entry : slotMap.entrySet()) {
+            for (Map.Entry<String,SortedSet<Integer>> entry : slotMap.entrySet()) {
                  if (entry.getValue().size() > 1) {
                      SortedSet<Integer> slots = entry.getValue();
                      while (slots.size() > 1) {
-                         if (invInput.getStackInSlot(slots.first()) == null || !invInput.getStackInSlot(slots.first()).getItem().equals(entry.getKey()) || invInput.getStackInSlot(slots.first()).stackSize >= invInput.getStackInSlot(slots.first()).getMaxStackSize()) {
+                         if (invInput.getStackInSlot(slots.first()) == null || !(invInput.getStackInSlot(slots.first()).itemID + ":" + invInput.getStackInSlot(slots.first()).getItemDamage()).equals(entry.getKey()) || invInput.getStackInSlot(slots.first()).stackSize >= invInput.getStackInSlot(slots.first()).getMaxStackSize()) {
                              slots.remove(slots.first());
                              continue;
                          }
-                         if (invInput.getStackInSlot(slots.last()) == null || !invInput.getStackInSlot(slots.last()).getItem().equals(entry.getKey())) {
+                         if (invInput.getStackInSlot(slots.last()) == null || !(invInput.getStackInSlot(slots.last()).isItemEqual(invInput.getStackInSlot(slots.first()))) || !ItemStack.areItemStackTagsEqual(invInput.getStackInSlot(slots.first()), invInput.getStackInSlot(slots.last()))) {
                              slots.remove(slots.last());
                              continue;
                          }
