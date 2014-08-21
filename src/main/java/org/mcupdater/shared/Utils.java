@@ -1,6 +1,7 @@
 package org.mcupdater.shared;
 
-import net.minecraftforge.common.ForgeDirection;
+
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class Utils
 {

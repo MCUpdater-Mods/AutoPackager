@@ -1,6 +1,5 @@
 package com.dynious.refinedrelocation.api.tileentity.handlers;
 
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 public interface ISortingInventoryHandler extends ISortingMemberHandler
@@ -12,16 +11,8 @@ public interface ISortingInventoryHandler extends ISortingMemberHandler
     public void setInventorySlotContents(int par1, ItemStack itemStack);
 
     /**
-     * Should be called by the constructor of the Container of this tile, used to sync Inventory contents
+     * Should be called when a change is made in one of the members on the Sorting System.
      *
-     * @param player The player opening the container
      */
-    public void addCrafter(EntityPlayer player);
-
-    /**
-     * Should be called by onContainerClosed(...) of the Container of this this tile, used to stop syncing Inventory contents
-     *
-     * @param player The player closing the container
-     */
-    public void removeCrafter(EntityPlayer player);
+    public void onInventoryChange();
 }

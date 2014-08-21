@@ -1,6 +1,9 @@
 package com.dynious.refinedrelocation.api;
 
 import com.dynious.refinedrelocation.api.filter.IFilterGUI;
+import com.dynious.refinedrelocation.api.relocator.IItemRelocator;
+import com.dynious.refinedrelocation.api.relocator.IRelocatorModule;
+import com.dynious.refinedrelocation.api.tileentity.IFilterTileGUI;
 import com.dynious.refinedrelocation.api.tileentity.handlers.ISortingInventoryHandler;
 import com.dynious.refinedrelocation.api.tileentity.handlers.ISortingMemberHandler;
 import net.minecraft.entity.player.EntityPlayer;
@@ -39,9 +42,9 @@ public final class APIUtils
      *
      * @return a new instance of the standard IFilterGUI
      */
-    public static IFilterGUI createStandardFilter()
+    public static IFilterGUI createStandardFilter(IFilterTileGUI filterTile)
     {
-        return apiHandler.createStandardFilter();
+        return apiHandler.createStandardFilter(filterTile);
     }
 
     /**
@@ -64,5 +67,40 @@ public final class APIUtils
     public static ISortingInventoryHandler createSortingInventoryHandler(TileEntity owner)
     {
         return apiHandler.createSortingInventoryHandler(owner);
+    }
+
+    /**
+     * Registers a module for attachment to relocators. To correctly save the module your
+     * module MUST be registered using this.
+     *
+     * @param identifier The identifier of this module
+     * @param clazz The class of this module
+     */
+    public static void registerRelocatorModule(String identifier, Class<? extends IRelocatorModule> clazz) throws IllegalArgumentException
+    {
+        apiHandler.registerRelocatorModule(identifier, clazz);
+    }
+
+    /**
+     * Will open a GUI for the module by calling the getGUI() and getContainer() methods in your module.
+     *
+     * @param relocator The identifier of this module
+     * @param player The Player that the GUI should open for
+     * @param side The side of the module that should open a GUI
+     */
+    public static void openRelocatorModuleGUI(IItemRelocator relocator, EntityPlayer player, int side)
+    {
+        apiHandler.openRelocatorModuleGUI(relocator, player, side);
+    }
+
+    /**
+     * Will register a class of an item that will be able to inserted into the toolbox.
+     * This class can also be a parent class or interface of this item.
+     *
+     * @param clazz The class, parent class or interface of the item to be added to the toolbox
+     */
+    public static void registerToolboxClazz(Class clazz)
+    {
+        apiHandler.registerToolboxClazz(clazz);
     }
 }

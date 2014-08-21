@@ -2,10 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bdd0edb2-77ad-45b5-b86b-b6f17641e997" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/assets/autopackager/lang/en_US.lang" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/forge-1.6.4-9.11.1.964-changelog.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/CoFHCore.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/ThermalExpansion.jar" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/api/java/com/dynious/refinedrelocation/api/APIUtils.java" afterPath="$PROJECT_DIR$/src/api/java/com/dynious/refinedrelocation/api/APIUtils.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AutoPackager.iml" afterPath="$PROJECT_DIR$/AutoPackager.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AutoPackager.ipr" afterPath="$PROJECT_DIR$/AutoPackager.ipr" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AutoPackager.iws" afterPath="$PROJECT_DIR$/AutoPackager.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/mcupdater/autopackager/AutoPackager.java" afterPath="$PROJECT_DIR$/src/main/java/org/mcupdater/autopackager/AutoPackager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/mcupdater/autopackager/BlockPackager.java" afterPath="$PROJECT_DIR$/src/main/java/org/mcupdater/autopackager/BlockPackager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/api/java/com/dynious/refinedrelocation/api/IAPIHandler.java" afterPath="$PROJECT_DIR$/src/api/java/com/dynious/refinedrelocation/api/IAPIHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/api/java/com/dynious/refinedrelocation/api/filter/IFilterGUI.java" afterPath="$PROJECT_DIR$/src/api/java/com/dynious/refinedrelocation/api/filter/IFilterGUI.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/api/java/com/dynious/refinedrelocation/api/tileentity/IFilterTileGUI.java" afterPath="$PROJECT_DIR$/src/api/java/com/dynious/refinedrelocation/api/tileentity/IFilterTileGUI.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/api/java/com/dynious/refinedrelocation/api/tileentity/ISortingInventory.java" afterPath="$PROJECT_DIR$/src/api/java/com/dynious/refinedrelocation/api/tileentity/ISortingInventory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/api/java/com/dynious/refinedrelocation/api/tileentity/handlers/ISortingInventoryHandler.java" afterPath="$PROJECT_DIR$/src/api/java/com/dynious/refinedrelocation/api/tileentity/handlers/ISortingInventoryHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/api/java/com/dynious/refinedrelocation/api/tileentity/ISortingMember.java" afterPath="$PROJECT_DIR$/src/api/java/com/dynious/refinedrelocation/api/tileentity/ISortingMember.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/api/java/com/dynious/refinedrelocation/api/tileentity/handlers/ISortingMemberHandler.java" afterPath="$PROJECT_DIR$/src/api/java/com/dynious/refinedrelocation/api/tileentity/handlers/ISortingMemberHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/mcupdater/autopackager/ItemBlockPackager.java" afterPath="$PROJECT_DIR$/src/main/java/org/mcupdater/autopackager/ItemBlockPackager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/mcupdater/shared/Position.java" afterPath="$PROJECT_DIR$/src/main/java/org/mcupdater/shared/Position.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/mcupdater/autopackager/TilePackager.java" afterPath="$PROJECT_DIR$/src/main/java/org/mcupdater/autopackager/TilePackager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/mcupdater/shared/Utils.java" afterPath="$PROJECT_DIR$/src/main/java/org/mcupdater/shared/Utils.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
     </list>
     <ignored path="AutoPackager.iws" />
@@ -56,88 +73,15 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <breakpoint_rules converted="true" />
     <ui_properties converted="true" />
+    <breakpoint_rules converted="true" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="AutoPackager" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="AutoPackager.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/mcupdater/autopackager/AutoPackager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="126" max-vertical-offset="1350">
-              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BlockPackager.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/mcupdater/autopackager/BlockPackager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="594" max-vertical-offset="1908">
-              <caret line="33" column="13" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Position.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/mcupdater/shared/Position.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="558" max-vertical-offset="2520">
-              <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Utils.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/mcupdater/shared/Utils.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="504">
-              <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TilePackager.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/mcupdater/autopackager/TilePackager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1312" max-vertical-offset="2772">
-              <caret line="144" column="0" selection-start-line="144" selection-start-column="0" selection-end-line="144" selection-end-column="0" />
-              <folding>
-                <element signature="e#2398#2425#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ItemStack.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.6.4-9.11.1.964/forge-1.6.4-9.11.1.964-src.jar!/net/minecraft/item/ItemStack.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="6336" max-vertical-offset="14292">
-              <caret line="446" column="26" selection-start-line="446" selection-start-column="26" selection-end-line="446" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.gradle" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.32238805" vertical-offset="0" max-vertical-offset="1005">
-              <caret line="18" column="15" selection-start-line="18" selection-start-column="15" selection-end-line="18" selection-end-column="15" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -151,6 +95,7 @@
     <option name="tasksExpandState">
       <map>
         <entry key="" value="true" />
+        <entry key="AutoPackager/" value="true" />
       </map>
     </option>
     <option name="availableProjects">
@@ -193,8 +138,9 @@
                 <option name="name" value="eclipseProject" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="Sets up the bare minimum to build a minecraft mod. Idea for CI servers" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="doForgePatches" />
+                <option name="name" value="setupCIWorkspace" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
@@ -205,8 +151,9 @@
                 <option name="name" value="decompile" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="DevWorkspace + the deobfuscated Minecraft source linked as a source jar." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="setupCIWorkspace" />
+                <option name="name" value="setupDecompWorkspace" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
@@ -217,8 +164,9 @@
                 <option name="name" value="applyBinPatches" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="Runs the Minecraft Server" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="addFmlSources" />
+                <option name="name" value="runServer" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Compiles source set 'main:java'." />
@@ -235,22 +183,40 @@
                 <option name="name" value="sourceMainJava" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="Runs the Minecraft serevr in debug mode" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="debugServer" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
                 <option name="description" value="Cleans all Eclipse files." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="cleanEclipse" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="cleanCache" />
+                <option name="name" value="mergeJars" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="mergeJars" />
+                <option name="name" value="repackMinecraft" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Uploads all artifacts belonging to configuration ':archives'" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="uploadArchives" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="extractMinecraftSrc" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Runs the unit tests." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="test" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="processSources" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
@@ -262,8 +228,9 @@
                 <option name="name" value="check" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="CIWorkspace + natives and assets to run and test Minecraft" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="doFmlPatches" />
+                <option name="name" value="setupDevWorkspace" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Compiles source set 'api:java'." />
@@ -290,13 +257,17 @@
                 <option name="name" value="clean" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="reobf" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
                 <option name="description" value="Generates all Eclipse files." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="eclipse" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="reobf" />
+                <option name="name" value="recompMinecraft" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Assembles and tests this project." />
@@ -312,14 +283,6 @@
                 <option name="description" value="Assembles a jar archive containing the main classes." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="jar" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="setupDevWorkspace" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="setupDecompWorkspace" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
@@ -345,6 +308,11 @@
                 <option name="name" value="buildNeeded" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="Runs the Minecraft client in debug mode" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="debugClient" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="extractNatives" />
               </ExternalTaskPojo>
@@ -363,6 +331,11 @@
                 <option name="name" value="compileTestJava" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="Runs the Minecraft client" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="runClient" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
                 <option name="description" value="Processes source set 'test:resources'." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="processTestResources" />
@@ -373,7 +346,7 @@
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="copyAssets" />
+                <option name="name" value="makeStart" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
@@ -395,6 +368,11 @@
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="downloadClient" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Cleares the ForgeGradle cache. DONT RUN THIS unless you want a fresh start, or the dev tells you to." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="cleanCache" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
@@ -421,7 +399,7 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="1405493784920" />
+        <entry key="$PROJECT_DIR$" value="1408585624670" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -436,34 +414,73 @@
                       <ExternalModuleBuildClasspathPojo>
                         <option name="entries">
                           <list>
-                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/net.minecraftforge.gradle/ForgeGradle/1.0-SNAPSHOT/jar/47243d0b264d56d7faf9e0874979f3b1dc87471e/ForgeGradle-1.0-SNAPSHOT.jar" />
-                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.github.tony19/named-regexp/0.2.3/source/74e99674da3dcbd04e30fc62e164073b4d95e8b9/named-regexp-0.2.3-sources.jar" />
-                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.github.tony19/named-regexp/0.2.3/jar/370846bf3837952d981deb8f91e81da8c65b09e1/named-regexp-0.2.3.jar" />
-                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.google.code.gson/gson/2.2.4/source/a6dc5db8a12928e583bd3f23e72d3ab611ecd58f/gson-2.2.4-sources.jar" />
-                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.google.code.gson/gson/2.2.4/jar/a60a5e993c98c864010053cb901b7eab25306568/gson-2.2.4.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/net.minecraftforge.gradle/ForgeGradle/1.2-SNAPSHOT/jar/3323cda3e396543df0ef5d024d83a88ae0a240ef/ForgeGradle-1.2-SNAPSHOT.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/net.sf.jopt-simple/jopt-simple/4.6/source/9cd14a61d7aa7d554f251ef285a6f2c65caf7b65/jopt-simple-4.6-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/net.sf.jopt-simple/jopt-simple/4.6/jar/306816fb57cf94f108a43c95731b08934dcae15c/jopt-simple-4.6.jar" />
                             <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/de.oceanlabs.mcp/RetroGuard/3.6.6/jar/ffd69fcab06b928cf76144f08b7209ccf0656b6d/RetroGuard-3.6.6.jar" />
                             <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/net.sf.opencsv/opencsv/2.3/source/235993117036d44d126f76db9ea2202ee4884682/opencsv-2.3-sources.jar" />
                             <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/net.sf.opencsv/opencsv/2.3/jar/c23708cdb9e80a144db433e23344a788a1fd6599/opencsv-2.3.jar" />
                             <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.github.jponge/lzma-java/1.3/source/c0f18880fb29c7bfc088a6e114c66fe30a5e8df2/lzma-java-1.3-sources.jar" />
                             <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.github.jponge/lzma-java/1.3/jar/a25db9d4d385ccda4825ae1b47a7a61d86e595af/lzma-java-1.3.jar" />
-                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/trove/trove/1.0.2/jar/112b40581ab9a4d3de4636d49985a7f686d181c8/trove-1.0.2.jar" />
-                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.nothome/javaxdelta/2.0.1/source/c99bfecfaa91279b8a3d7d25a99cbbda107c903d/javaxdelta-2.0.1-sources.jar" />
-                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.nothome/javaxdelta/2.0.1/jar/d4f5d077f1b15c6f67595015d69572303ad3f66d/javaxdelta-2.0.1.jar" />
                             <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/net.sourceforge.argo/argo/3.4/source/2b39738e65594d8487924a946dee0eae35af87ce/argo-3.4-sources.jar" />
                             <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/net.sourceforge.argo/argo/3.4/jar/9cfa1016a55a92f7201cd43d60ff4032f9d815c4/argo-3.4.jar" />
                             <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.github.abrarsyed.jastyle/jAstyle/1.2/source/bad0011af16ee457fdfe30ab9683f278da0e8a39/jAstyle-1.2-sources.jar" />
                             <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.github.abrarsyed.jastyle/jAstyle/1.2/jar/642eada5efeb315295e21a5aea384b68dd191e5f/jAstyle-1.2.jar" />
-                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.google.guava/guava/14.0.1/source/169f11e28e3ed9a64e9fa895eaafb579e6a5aa6c/guava-14.0.1-sources.jar" />
-                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.google.guava/guava/14.0.1/bundle/69e12f4c6aeac392555f1ea86fab82b5e5e31ad4/guava-14.0.1.jar" />
-                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/net.md-5/SpecialSource/1.6.1/source/75bc2ae87bbd2ffbc227289d00aa19a381ba962c/SpecialSource-1.6.1-sources.jar" />
-                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/net.md-5/SpecialSource/1.6.1/jar/b0460612de816f4ad6c16f75a2c4ce56b5c13597/SpecialSource-1.6.1.jar" />
                             <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.jvnet.localizer/localizer/1.12/source/261a0e844fe30de1c30372135275fa0b299bdee4/localizer-1.12-sources.jar" />
                             <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.jvnet.localizer/localizer/1.12/jar/6d456886a035b2c3f758059da1f91a823eaa4a62/localizer-1.12.jar" />
                             <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/commons-io/commons-io/1.4/source/48753e43ff29409fbbeadfb36186cbe27e41b179/commons-io-1.4-sources.jar" />
                             <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/commons-io/commons-io/1.4/jar/a8762d07e76cfde2395257a5da47ba7c1dbd3dce/commons-io-1.4.jar" />
                             <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.cloudbees/diff4j/1.1/source/e01e5168c15a325a548be3a0d18af5eac6f6343f/diff4j-1.1-sources.jar" />
                             <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.cloudbees/diff4j/1.1/jar/645329c0d4ebbea5f73758929c6e63bab9e77204/diff4j-1.1.jar" />
-                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/de.oceanlabs.mcp/mcinjector/3.1/jar/372fdaa5500376165d4cfd5b91000103f9f4110b/mcinjector-3.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/trove/trove/1.0.2/jar/112b40581ab9a4d3de4636d49985a7f686d181c8/trove-1.0.2.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.github.tony19/named-regexp/0.2.3/source/74e99674da3dcbd04e30fc62e164073b4d95e8b9/named-regexp-0.2.3-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.github.tony19/named-regexp/0.2.3/jar/370846bf3837952d981deb8f91e81da8c65b09e1/named-regexp-0.2.3.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.nothome/javaxdelta/2.0.1/source/c99bfecfaa91279b8a3d7d25a99cbbda107c903d/javaxdelta-2.0.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.nothome/javaxdelta/2.0.1/jar/d4f5d077f1b15c6f67595015d69572303ad3f66d/javaxdelta-2.0.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.eclipse.jdt/org.eclipse.jdt.core/3.10.0.v20131029-1755/jar/9d27d8ac8d6be6b10dffd5101d5e9b893455f0b0/org.eclipse.jdt.core-3.10.0.v20131029-1755.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.google.guava/guava/15.0/source/36b6a585c0f0c63bd85fb04db0dcb7b217298956/guava-15.0-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.google.guava/guava/15.0/bundle/ed727a8d9f247e2050281cb083f1c77b09dcb5cd/guava-15.0.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.eclipse.equinox/common/3.6.200-v20130402-1505/source/535d61655de849617e3889dda4b77c55d3fb5343/common-3.6.200-v20130402-1505-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.eclipse.equinox/common/3.6.200-v20130402-1505/jar/f930417b1602dafb370d7b9ed7871c87e0b355b1/common-3.6.200-v20130402-1505.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.eclipse/osgi/3.10.0-v20140606-1445/source/4253b66e2ddd79a11236a6d40ad462dd7495d9cc/osgi-3.10.0-v20140606-1445-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.eclipse/osgi/3.10.0-v20140606-1445/jar/afe258a6e5d2dcd8fa4c894f53fdc78e49984e3c/osgi-3.10.0-v20140606-1445.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.eclipse.update/configurator/3.2.100-v20070615/jar/1e57b63cb6f349bd96d2d4a6e3679e5838581bdd/configurator-3.2.100-v20070615.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.eclipse.equinox/registry/3.5.400-v20140428-1507/source/b86352576585731497af4795bd4af76249c5af1f/registry-3.5.400-v20140428-1507-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.eclipse.equinox/registry/3.5.400-v20140428-1507/jar/5f933a7fbea4c96c74c50b4d453e59b3185e6aec/registry-3.5.400-v20140428-1507.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.eclipse.equinox/app/1.3.200-v20130910-1609/source/f7836fd2015ccf6417770d73320759d696096b7d/app-1.3.200-v20130910-1609-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.eclipse.equinox/app/1.3.200-v20130910-1609/jar/659921d8f404ee6161c29bd6a6798631208c3633/app-1.3.200-v20130910-1609.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.eclipse.equinox/preferences/3.5.200-v20140224-1527/source/a89834d258f6aa8a9a2aaa06b97c4fbdb0449537/preferences-3.5.200-v20140224-1527-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.eclipse.equinox/preferences/3.5.200-v20140224-1527/jar/9ea0f3c0b18d0a1e904743b19c2f7c0c7163c61e/preferences-3.5.200-v20140224-1527.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.eclipse.core/jobs/3.6.0-v20140424-0053/source/45933ced4f6afd232def76f4b5e38697e789a3f3/jobs-3.6.0-v20140424-0053-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.eclipse.core/jobs/3.6.0-v20140424-0053/jar/4f355c5efd8a39a03f7b0ff4cfcf24b33a968c12/jobs-3.6.0-v20140424-0053.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.eclipse.core/contenttype/3.4.200-v20140207-1251/source/c77cab4b696d4a2faa36a34b4272258013514f95/contenttype-3.4.200-v20140207-1251-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.eclipse.core/contenttype/3.4.200-v20140207-1251/jar/db44eacfdced003f806846810b1a62a1066bb8fd/contenttype-3.4.200-v20140207-1251.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.eclipse.core/runtime/3.10.0-v20140318-2214/source/e7538a4cfcafe4b8dbdd83a40fce0294bba09875/runtime-3.10.0-v20140318-2214-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.eclipse.core/runtime/3.10.0-v20140318-2214/jar/a537de26c1e322a68536a3a2c3cb2389d5dbcb00/runtime-3.10.0-v20140318-2214.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.eclipse.core.runtime/compatibility/3.1.200-v20070502/jar/8b371f1ce208f82314b6afe9cad768d87d53142c/compatibility-3.1.200-v20070502.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.eclipse.core/expressions/3.3.0-v20070606-0010/jar/2477cfaa48dab4512c2b1332538687ceb447eaf8/expressions-3.3.0-v20070606-0010.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.eclipse.core/filesystem/1.1.0-v20070606/jar/311d9379367bce428ae8e97ca9708cfd0026ca6d/filesystem-1.1.0-v20070606.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.eclipse.core/resources/3.2.1-R32x_v20060914/jar/af7df4abd126286417df7e36feb35f956f0908b8/resources-3.2.1-R32x_v20060914.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.eclipse.core/org.eclipse.core.commands/3.6.0/source/b2e6f6a01dfad2730c3b7f9368b57f76bf35ae2f/org.eclipse.core.commands-3.6.0-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.eclipse.core/org.eclipse.core.commands/3.6.0/jar/11c16b281bc722e9acb07a0562f0aa6e824d6215/org.eclipse.core.commands-3.6.0.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.eclipse.equinox/org.eclipse.equinox.common/3.6.0/source/5f79e3e9a454d4b7255dc5d091c93e03e0c4e488/org.eclipse.equinox.common-3.6.0-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.eclipse.equinox/org.eclipse.equinox.common/3.6.0/jar/78e5d0b8516b042495660da36ce5114650f8f156/org.eclipse.equinox.common-3.6.0.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.eclipse.text/org.eclipse.text/3.5.101/source/5ff04e5cad411110121254b80650a42758c4170e/org.eclipse.text-3.5.101-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.eclipse.text/org.eclipse.text/3.5.101/jar/54a442442c575e6809c18f7dfc848755a58ab955/org.eclipse.text-3.5.101.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.jcraft/jsch/0.1.46/source/6d5398e8f77831e191c509599042cb974adb19dd/jsch-0.1.46-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.jcraft/jsch/0.1.46/jar/f3a38fd1d65c32bd627b1389e7181eb294cc8a8/jsch-0.1.46.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.googlecode.javaewah/JavaEWAH/0.5.6/source/a8c94b75fec75e3e4f55212cea1a21773802674e/JavaEWAH-0.5.6-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.googlecode.javaewah/JavaEWAH/0.5.6/jar/1207c0fc8552d4f5f574b50f29321d923521128e/JavaEWAH-0.5.6.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.eclipse.jgit/org.eclipse.jgit/3.2.0.201312181205-r/source/566b20b4798d9fa31fe33298c493ca9601830b6f/org.eclipse.jgit-3.2.0.201312181205-r-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.eclipse.jgit/org.eclipse.jgit/3.2.0.201312181205-r/jar/4b99546e8c8a04597b7a4564003e3b554ec12b5c/org.eclipse.jgit-3.2.0.201312181205-r.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/net.minecraftforge.srg2source/Srg2Source/3.2-SNAPSHOT/source/efcd64e67370b317867d64c9dafdbcd2307648a8/Srg2Source-3.2-SNAPSHOT-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/net.minecraftforge.srg2source/Srg2Source/3.2-SNAPSHOT/jar/4d225796713213c1b03067bca63681f4d44362ae/Srg2Source-3.2-SNAPSHOT.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/commons-codec/commons-codec/1.6/source/61e9f9d11fe3e12ec62f633006e99d75fd7f19c8/commons-codec-1.6-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/commons-codec/commons-codec/1.6/jar/b7f0fc8f61ecadeb3695f0b9464755eee44374d4/commons-codec-1.6.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.apache.httpcomponents/httpmime/4.3.3/source/884b613cfc42948ad5d4cf507286ffe19592ebed/httpmime-4.3.3-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.apache.httpcomponents/httpmime/4.3.3/jar/e02368d7b56c0c376f227378a4f77de62864d020/httpmime-4.3.3.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/artifacts-26/filestore/de.oceanlabs.mcp/mcinjector/3.2-SNAPSHOT/jar/12692e2251b7392ea6eaa0d4a9c4cba601d4c056/mcinjector-3.2-SNAPSHOT.jar" />
+                            <option value="$MODULE_DIR$/unresolved dependency - net.md-5 SpecialSource 1.7-SNAPSHOT" />
                           </list>
                         </option>
                         <option name="path" value="$PROJECT_DIR$" />
@@ -530,13 +547,16 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
+        <option value="$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.6.4-9.11.1.964/forge-1.6.4-9.11.1.964-src.jar!/net/minecraft/item/ItemStack.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/mcupdater/shared/Position.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/mcupdater/shared/Utils.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/mcupdater/autopackager/BlockPackager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/mcupdater/autopackager/AutoPackager.java" />
-        <option value="$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.6.4-9.11.1.964/forge-1.6.4-9.11.1.964-src.jar!/net/minecraft/item/ItemStack.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/mcupdater/autopackager/TilePackager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/mcupdater/autopackager/ItemBlockPackager.java" />
         <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/src/main/java/org/mcupdater/autopackager/BlockPackager.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/assets/autopackager/lang/en_US.lang" />
+        <option value="$PROJECT_DIR$/src/main/java/org/mcupdater/autopackager/AutoPackager.java" />
+        <option value="$PROJECT_DIR$/src/api/java/com/dynious/refinedrelocation/api/ModObjects.java" />
       </list>
     </option>
   </component>
@@ -580,7 +600,7 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -599,15 +619,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Gradle: forge-1.6.4-9.11.1.964-mcp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="forge-1.6.4-9.11.1.964-mcp.jar" />
+              <option name="myItemId" value="AutoPackager" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -617,19 +629,19 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Gradle: forge-1.6.4-9.11.1.964-mcp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="forge-1.6.4-9.11.1.964-mcp.jar" />
+              <option name="myItemId" value="AutoPackager" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="net" />
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -639,23 +651,23 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Gradle: forge-1.6.4-9.11.1.964-mcp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="forge-1.6.4-9.11.1.964-mcp.jar" />
+              <option name="myItemId" value="AutoPackager" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="net" />
+              <option name="myItemId" value="src" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="minecraft" />
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="autopackager" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -665,23 +677,267 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Gradle: forge-1.6.4-9.11.1.964-mcp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="forge-1.6.4-9.11.1.964-mcp.jar" />
+              <option name="myItemId" value="AutoPackager" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="net" />
+              <option name="myItemId" value="src" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="minecraft" />
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="autopackager" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lang" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AutoPackager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AutoPackager" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mcupdater" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shared" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AutoPackager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AutoPackager" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mcupdater" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="autopackager" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AutoPackager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AutoPackager" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="api" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="api" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AutoPackager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AutoPackager" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="api" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="api" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tileentity" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AutoPackager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AutoPackager" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="api" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="api" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tileentity" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="handlers" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AutoPackager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AutoPackager" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="api" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="api" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tileentity" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grid" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AutoPackager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AutoPackager" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="api" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="api" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="relocator" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AutoPackager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AutoPackager" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="api" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="api" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -698,10 +954,62 @@
               <option name="myItemId" value="AutoPackager" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="api" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="api" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="filter" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AutoPackager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AutoPackager" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AutoPackager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AutoPackager" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="empty" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mods" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -766,19 +1074,6 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method />
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -804,6 +1099,19 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -939,25 +1247,25 @@
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32945737" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298077" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3291262" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32960597" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32960597" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24973376" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24973376" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24973376" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -982,59 +1290,22 @@
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/mcupdater/autopackager/AutoPackager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="126" max-vertical-offset="1350">
-          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/mcupdater/autopackager/BlockPackager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="594" max-vertical-offset="1908">
-          <caret line="33" column="13" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/mcupdater/shared/Position.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="558" max-vertical-offset="2520">
-          <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/mcupdater/shared/Utils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="504">
-          <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/mcupdater/autopackager/TilePackager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="342" max-vertical-offset="2592">
           <caret line="19" column="88" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="89" />
           <folding>
-            <element signature="e#2398#2425#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/CoFHCore.jar!/cofh/util/InventoryHelper.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="108" max-vertical-offset="720">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1042,7 +1313,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="126" max-vertical-offset="1350">
           <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#1749#1750#0" expanded="true" />
+            <element signature="e#1823#1824#0" expanded="true" />
+            <element signature="e#1895#1896#0" expanded="true" />
+            <element signature="e#1915#1916#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1050,7 +1326,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="594" max-vertical-offset="1908">
           <caret line="33" column="13" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2832#2843#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1058,7 +1337,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="558" max-vertical-offset="2520">
           <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="4" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1075,15 +1356,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="342" max-vertical-offset="2592">
           <caret line="19" column="88" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="89" />
           <folding>
-            <element signature="e#2398#2425#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/CoFHCore.jar!/cofh/util/InventoryHelper.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="108" max-vertical-offset="720">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1091,7 +1365,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1350">
           <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#1749#1750#0" expanded="true" />
+            <element signature="e#1823#1824#0" expanded="true" />
+            <element signature="e#1895#1896#0" expanded="true" />
+            <element signature="e#1915#1916#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1099,7 +1378,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="594" max-vertical-offset="1908">
           <caret line="33" column="13" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2832#2843#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1107,7 +1389,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="558" max-vertical-offset="2520">
           <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="4" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1124,15 +1408,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="342" max-vertical-offset="2592">
           <caret line="19" column="88" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="89" />
           <folding>
-            <element signature="e#2398#2425#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/CoFHCore.jar!/cofh/util/InventoryHelper.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="108" max-vertical-offset="720">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1140,7 +1417,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1350">
           <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#1749#1750#0" expanded="true" />
+            <element signature="e#1823#1824#0" expanded="true" />
+            <element signature="e#1895#1896#0" expanded="true" />
+            <element signature="e#1915#1916#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1148,7 +1430,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="594" max-vertical-offset="1908">
           <caret line="33" column="13" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2832#2843#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1156,7 +1441,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="558" max-vertical-offset="2520">
           <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="4" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1173,15 +1460,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="288" max-vertical-offset="2556">
           <caret line="16" column="47" selection-start-line="16" selection-start-column="47" selection-end-line="16" selection-end-column="47" />
           <folding>
-            <element signature="e#2398#2425#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/CoFHCore.jar!/cofh/util/InventoryHelper.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="108" max-vertical-offset="720">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1189,7 +1469,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1242">
           <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#1749#1750#0" expanded="true" />
+            <element signature="e#1823#1824#0" expanded="true" />
+            <element signature="e#1895#1896#0" expanded="true" />
+            <element signature="e#1915#1916#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1197,7 +1482,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="594" max-vertical-offset="1296">
           <caret line="33" column="13" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2832#2843#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1205,7 +1493,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="558" max-vertical-offset="2520">
           <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="4" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1222,15 +1512,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="2376">
           <caret line="20" column="76" selection-start-line="20" selection-start-column="76" selection-end-line="20" selection-end-column="76" />
           <folding>
-            <element signature="e#2398#2425#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/CoFHCore.jar!/cofh/util/InventoryHelper.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="108" max-vertical-offset="720">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1238,7 +1521,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="126" max-vertical-offset="1242">
           <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#1749#1750#0" expanded="true" />
+            <element signature="e#1823#1824#0" expanded="true" />
+            <element signature="e#1895#1896#0" expanded="true" />
+            <element signature="e#1915#1916#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1246,7 +1534,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="594" max-vertical-offset="1260">
           <caret line="33" column="13" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2832#2843#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1254,7 +1545,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="558" max-vertical-offset="2520">
           <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="4" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1271,15 +1564,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="72" max-vertical-offset="2466">
           <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding>
-            <element signature="e#2398#2425#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/CoFHCore.jar!/cofh/util/InventoryHelper.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="108" max-vertical-offset="720">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1297,34 +1583,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/mcupdater/shared/Position.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2520">
-          <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.6.4-9.11.1.964/forge-1.6.4-9.11.1.964-src.jar!/net/minecraftforge/common/ForgeDirection.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.27936822" vertical-offset="319" max-vertical-offset="1332">
           <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/mcupdater/autopackager/AutoPackager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="666">
-          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/mcupdater/autopackager/BlockPackager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="594" max-vertical-offset="1908">
-          <caret line="33" column="13" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1335,26 +1597,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/CoFHCore.jar!/cofh/util/InventoryHelper.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.111685626" vertical-offset="0" max-vertical-offset="967">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/mcupdater/shared/Utils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="504">
-          <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.6.4-9.11.1.964/forge-1.6.4-9.11.1.964-mcp.jar!/net/minecraft/item/Item.class">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2754" max-vertical-offset="7884">
           <caret line="205" column="4" selection-start-line="205" selection-start-column="4" selection-end-line="205" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1362,7 +1608,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.11020408" vertical-offset="0" max-vertical-offset="980">
           <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1370,7 +1615,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1263" max-vertical-offset="3042">
           <caret line="89" column="153" selection-start-line="89" selection-start-column="153" selection-end-line="89" selection-end-column="153" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1382,21 +1626,115 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/mcupdater/autopackager/TilePackager.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/mcupdater/shared/Position.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1312" max-vertical-offset="2772">
-          <caret line="144" column="0" selection-start-line="144" selection-start-column="0" selection-end-line="144" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.15721393" vertical-offset="22" max-vertical-offset="2304">
+          <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
           <folding>
-            <element signature="e#2398#2425#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/CoFHCore-[1.7.10]3.0.0B3-dev-26.jar!/cofh/api/block/IDismantleable.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.09307136" vertical-offset="0" max-vertical-offset="967">
+          <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/mcupdater/shared/Utils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12537314" vertical-offset="0" max-vertical-offset="1005">
+          <caret line="7" column="20" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32238805" vertical-offset="0" max-vertical-offset="1005">
-          <caret line="18" column="15" selection-start-line="18" selection-start-column="15" selection-end-line="18" selection-end-column="15" />
+        <state vertical-scroll-proportion="0.53731346" vertical-offset="54" max-vertical-offset="1080">
+          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/mcupdater/autopackager/ItemBlockPackager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.19701493" vertical-offset="0" max-vertical-offset="1005">
+          <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
+          <folding>
+            <element signature="e#324#325#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/mcupdater/autopackager/BlockPackager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.2179104" vertical-offset="0" max-vertical-offset="1908">
+          <caret line="70" column="0" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2832#2843#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/mcupdater/autopackager/AutoPackager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2358871" vertical-offset="0" max-vertical-offset="1278">
+          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding>
+            <element signature="e#1749#1750#0" expanded="true" />
+            <element signature="e#1823#1824#0" expanded="true" />
+            <element signature="e#1895#1896#0" expanded="true" />
+            <element signature="e#1915#1916#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/assets/autopackager/lang/en_US.lang">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="108">
+          <caret line="0" column="35" selection-start-line="0" selection-start-column="35" selection-end-line="0" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mcmod.info">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1005">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/java/com/dynious/refinedrelocation/api/ModObjects.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.07164179" vertical-offset="0" max-vertical-offset="1005">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/java/com/dynious/refinedrelocation/api/APIUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.21774194" vertical-offset="0" max-vertical-offset="1962">
+          <caret line="12" column="19" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/mcupdater/autopackager/TilePackager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.38104838" vertical-offset="18" max-vertical-offset="3060">
+          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
