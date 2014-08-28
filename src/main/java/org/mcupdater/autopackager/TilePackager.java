@@ -10,19 +10,35 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatMessageComponent;
 import net.minecraftforge.common.ForgeDirection;
 import org.mcupdater.shared.Position;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 @Optional.Interface(iface = "com.dynious.refinedrelocation.api.tileentity.ISortingMember", modid = "RefinedRelocation")
 public class TilePackager extends TileEnergyHandler implements ISortingMember
 {
+	private enum Mode {
+		HYBRID("2x2 then 3x3"), SMALL("2x2 only"), LARGE("3x3 only");
+
+		private String message;
+		Mode(String message) {
+			this.message = message;
+		}
+
+		public String getMessage() {
+			return message;
+		}
+	}
+
 	private Object sortingHandler;
 	private ForgeDirection orientation;
 
@@ -33,6 +49,12 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
 	 */
 	private int tickCounter = 0;
 	private int tickDelay = AutoPackager.delayCycleNormal;
+	private Mode mode;
+
+	public TilePackager() {
+		super();
+		mode = Mode.HYBRID;
+	}
 
 	@Override
 	public void updateEntity() {
@@ -73,7 +95,7 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
                         slotList.add(slot);
                         slotMap.put(invInput.getStackInSlot(slot).itemID + ":" + invInput.getStackInSlot(slot).getItemDamage(), slotList);
                     }
-                    if (invInput.getStackInSlot(slot).stackSize >= 4) {
+                    if ((mode == Mode.HYBRID || mode == Mode.SMALL) && invInput.getStackInSlot(slot).stackSize >= 4) {
                         ItemStack testStack = invInput.getStackInSlot(slot).copy();
                         testStack.stackSize = 1;
                         InventoryCrafting smallCraft = new InventoryCrafting(new Container() {
@@ -95,7 +117,7 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
                             }
                         }
                     }
-                    if (invInput.getStackInSlot(slot).stackSize >= 9) {
+                    if ((mode == Mode.HYBRID || mode == Mode.LARGE) && invInput.getStackInSlot(slot).stackSize >= 9) {
                         ItemStack testStack = invInput.getStackInSlot(slot).copy();
                         testStack.stackSize = 1;
                         InventoryCrafting largeCraft = new InventoryCrafting(new Container() {
@@ -150,12 +172,14 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
 	public void writeToNBT(NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
 		tagCompound.setInteger("orientation",orientation.ordinal());
+		tagCompound.setInteger("mode", mode.ordinal());
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
 		this.orientation = ForgeDirection.getOrientation(tagCompound.getInteger("orientation"));
+		this.mode = Mode.values()[tagCompound.getInteger("mode")];
 	}
 
 	public void setOrientation(ForgeDirection orientation) {
@@ -171,4 +195,16 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
 		return (ISortingMemberHandler) sortingHandler;
 	}
 
+	public void cycleMode(EntityPlayer player) {
+		mode = Mode.values()[(mode.ordinal()+1) % Mode.values().length];
+		if (!worldObj.isRemote) {
+			player.sendChatToPlayer(ChatMessageComponent.createFromText("Current mode: " + mode.getMessage()));
+		}
+	}
+
+	public void checkMode(EntityPlayer player) {
+		if (!worldObj.isRemote) {
+			player.sendChatToPlayer(ChatMessageComponent.createFromTranslationKey("Current mode: " + mode.getMessage()));
+		}
+	}
 }
