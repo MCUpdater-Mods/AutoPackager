@@ -70,6 +70,22 @@ public class BlockPackager extends BlockContainer implements IDismantleable
 	}
 
 	@Override
+	public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer player, int side, float par7, float par8, float par9) {
+		TilePackager tile = (TilePackager) world.getBlockTileEntity(i, j, k);
+
+		if (player.getCurrentEquippedItem() == null) {
+			if (player.isSneaking()) {
+				tile.cycleMode(player);
+			} else {
+				tile.checkMode(player);
+			}
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
 	public boolean rotateBlock(World world, int x, int y, int z, ForgeDirection axis) {
 		int meta = world.getBlockMetadata(x,y,z);
 		int newMeta = BlockHelper.getLeftSide(meta);
