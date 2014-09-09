@@ -10,13 +10,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraft.util.ChatMessageComponent;
 import org.mcupdater.shared.Position;
 
 import java.util.HashMap;
@@ -190,13 +190,13 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
 	public void cycleMode(EntityPlayer player) {
 		mode = Mode.values()[(mode.ordinal()+1) % Mode.values().length];
 		if (!worldObj.isRemote) {
-			player.sendChatToPlayer(ChatMessageComponent.createFromText("Current mode: " + mode.getMessage()));
+			player.addChatMessage(new ChatComponentText("Current mode: " + mode.getMessage()));
 		}
 	}
 
 	public void checkMode(EntityPlayer player) {
 		if (!worldObj.isRemote) {
-			player.sendChatToPlayer(ChatMessageComponent.createFromTranslationKey("Current mode: " + mode.getMessage()));
+			player.addChatMessage(new ChatComponentTranslation("Current mode: " + mode.getMessage()));
 		}
 	}
     

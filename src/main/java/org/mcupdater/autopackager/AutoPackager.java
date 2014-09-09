@@ -14,7 +14,7 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import thermalexpansion.item.TEItems;
 
-@Mod(modid = "autopackager", name="AutoPackager", version="1.2", acceptedMinecraftVersions="[1.6,1.7],", dependencies = "required-after:CoFHCore;required-after:ThermalExpansion")
+@Mod(modid = "autopackager", name="AutoPackager", version="1.5.1", acceptedMinecraftVersions="[1.7,1.8],", dependencies = "required-after:CoFHCore;required-after:ThermalExpansion")
 public class AutoPackager {
 	public static Configuration config;
 	public static BlockPackager packagerBlock;

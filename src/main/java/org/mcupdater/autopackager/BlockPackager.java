@@ -71,7 +71,7 @@ public class BlockPackager extends BlockContainer implements IDismantleable
 
 	@Override
 	public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer player, int side, float par7, float par8, float par9) {
-		TilePackager tile = (TilePackager) world.getBlockTileEntity(i, j, k);
+		TilePackager tile = (TilePackager) world.getTileEntity(i, j, k);
 
 		if (player.getCurrentEquippedItem() == null) {
 			if (player.isSneaking()) {
