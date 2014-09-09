@@ -1,7 +1,7 @@
 package org.mcupdater.autopackager;
 
 import cofh.api.block.IDismantleable;
-import cofh.util.BlockHelper;
+import cofh.lib.util.helpers.BlockHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockContainer;

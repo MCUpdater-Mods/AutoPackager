@@ -261,9 +261,9 @@
         <root url="jar://$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.paulscode/codecwav/20101023/source/71ec00b9b9c1a6a2c3a8a25f481a23ddb5b21ddb/codecwav-20101023-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: CoFHCore-[1.7.10]3.0.0B3-dev-26">
+    <library name="Gradle: CoFHCore-[1.7.10]3.0.0B6-dev-32">
       <CLASSES>
-        <root url="jar://$PROJECT_DIR$/lib/CoFHCore-[1.7.10]3.0.0B3-dev-26.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/CoFHCore-[1.7.10]3.0.0B6-dev-32.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
@@ -682,16 +682,16 @@
         <root url="jar://$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.paulscode/soundsystem/20120107/source/1b9f4eb11ef11fede7fd76a2e5e8203c2a8adcd/soundsystem-20120107-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: ThermalExpansion-[1.7.10]4.0.0B3-dev-11">
+    <library name="Gradle: ThermalExpansion-[1.7.10]4.0.0B5-dev-13">
       <CLASSES>
-        <root url="jar://$PROJECT_DIR$/lib/ThermalExpansion-[1.7.10]4.0.0B3-dev-11.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/ThermalExpansion-[1.7.10]4.0.0B5-dev-13.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
     </library>
-    <library name="Gradle: ThermalFoundation-[1.7.10]1.0.0B1-dev-6">
+    <library name="Gradle: ThermalFoundation-[1.7.10]1.0.0B3-dev-8">
       <CLASSES>
-        <root url="jar://$PROJECT_DIR$/lib/ThermalFoundation-[1.7.10]1.0.0B1-dev-6.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/ThermalFoundation-[1.7.10]1.0.0B3-dev-8.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />

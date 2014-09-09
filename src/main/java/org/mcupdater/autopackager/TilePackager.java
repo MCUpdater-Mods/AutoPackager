@@ -1,7 +1,7 @@
 package org.mcupdater.autopackager;
 
 import cofh.api.energy.TileEnergyHandler;
-import cofh.util.InventoryHelper;
+import cofh.lib.util.helpers.InventoryHelper;
 import com.dynious.refinedrelocation.api.APIUtils;
 import com.dynious.refinedrelocation.api.tileentity.ISortingMember;
 import com.dynious.refinedrelocation.api.tileentity.handlers.ISortingMemberHandler;
@@ -24,8 +24,8 @@ import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-@Optional.Interface(iface = "com.dynious.refinedrelocation.api.tileentity.ISortingMember", modid = "RefinedRelocation")
-public class TilePackager extends TileEnergyHandler implements ISortingMember
+//@Optional.Interface(iface = "com.dynious.refinedrelocation.api.tileentity.ISortingMember", modid = "RefinedRelocation")
+public class TilePackager extends TileEnergyHandler //implements ISortingMember
 {
 	private enum Mode {
 		HYBRID("2x2 then 3x3"), SMALL("2x2 only"), LARGE("3x3 only");
@@ -199,7 +199,8 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
 			player.addChatMessage(new ChatComponentTranslation("Current mode: " + mode.getMessage()));
 		}
 	}
-    
+
+    /*
     @Optional.Method(modid = "RefinedRelocation")
     @Override
     public ISortingMemberHandler getHandler() {
@@ -208,4 +209,5 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
         }
         return (ISortingMemberHandler) sortingHandler;
     }
+    */
 }
