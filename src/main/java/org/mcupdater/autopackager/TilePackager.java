@@ -9,6 +9,7 @@ import cpw.mods.fml.common.Optional;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
@@ -24,8 +25,8 @@ import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-//@Optional.Interface(iface = "com.dynious.refinedrelocation.api.tileentity.ISortingMember", modid = "RefinedRelocation")
-public class TilePackager extends TileEnergyHandler //implements ISortingMember
+@Optional.Interface(iface = "com.dynious.refinedrelocation.api.tileentity.ISortingMember", modid = "RefinedRelocation")
+public class TilePackager extends TileEnergyHandler implements ISortingMember
 {
 	private enum Mode {
 		HYBRID("2x2 then 3x3"), SMALL("2x2 only"), LARGE("3x3 only");
@@ -89,6 +90,9 @@ public class TilePackager extends TileEnergyHandler //implements ISortingMember
 			IInventory invOutput = (IInventory) tileOutput;
 			for (int slot = 0; slot < invInput.getSizeInventory(); slot++) {
                 if (invInput.getStackInSlot(slot) != null) {
+	                if (invInput instanceof ISidedInventory && !((ISidedInventory)invInput).canExtractItem(slot, null, ForgeDirection.DOWN.ordinal())) {
+		                continue;
+	                }
                     if (slotMap.containsKey(invInput.getStackInSlot(slot).getUnlocalizedName() + ":" + invInput.getStackInSlot(slot).getItemDamage())) {
                         slotMap.get(invInput.getStackInSlot(slot).getUnlocalizedName() + ":" + invInput.getStackInSlot(slot).getItemDamage()).add(slot);
                     } else {
@@ -200,7 +204,7 @@ public class TilePackager extends TileEnergyHandler //implements ISortingMember
 		}
 	}
 
-    /*
+
     @Optional.Method(modid = "RefinedRelocation")
     @Override
     public ISortingMemberHandler getHandler() {
@@ -209,5 +213,4 @@ public class TilePackager extends TileEnergyHandler //implements ISortingMember
         }
         return (ISortingMemberHandler) sortingHandler;
     }
-    */
 }
