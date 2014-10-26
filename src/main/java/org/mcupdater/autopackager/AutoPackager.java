@@ -56,9 +56,9 @@ public class AutoPackager {
     }
 
 	private void loadRecipes() {
-		Item keyItem = GameRegistry.findItem("ThermalExpansion","powerCoilGold");
+		ItemStack keyItem = GameRegistry.findItemStack("ThermalExpansion","powerCoilGold",1);
 		if (keyItem == null) {
-			keyItem = Items.redstone;
+			keyItem = new ItemStack(Items.redstone);
 		}
 		ShapedOreRecipe recipePackager = new ShapedOreRecipe(
 			new ItemStack(packagerBlock, 1),

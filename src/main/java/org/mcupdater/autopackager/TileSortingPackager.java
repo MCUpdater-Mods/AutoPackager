@@ -13,7 +13,6 @@ public class TileSortingPackager extends TilePackager implements ISortingMember
 
     public TileSortingPackager() {
 		super();
-        System.out.println("TileSortingPackager");
 	}
 
 	@Override

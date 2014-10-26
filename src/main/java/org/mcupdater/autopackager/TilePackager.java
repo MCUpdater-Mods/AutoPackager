@@ -50,7 +50,6 @@ public class TilePackager extends TileEnergyHandler
 	public TilePackager() {
 		super();
 		mode = Mode.HYBRID;
-        System.out.println("TilePackager");
 	}
 
 	@Override
