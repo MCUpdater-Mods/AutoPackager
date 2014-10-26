@@ -1,5 +1,6 @@
 package org.mcupdater.autopackager;
 
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -21,6 +22,7 @@ public class AutoPackager {
 	public static int energyPerCycle;
 	public static int delayCycleNormal;
 	public static int delayCycleIdle;
+    public static boolean canSort = false;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent evt) {
@@ -42,12 +44,16 @@ public class AutoPackager {
 	@EventHandler
 	public void init(FMLInitializationEvent evt) {
 		GameRegistry.registerTileEntity(TilePackager.class, "AutoPackager");
+        GameRegistry.registerTileEntity(TileSortingPackager.class, "SortingAutoPackager");
 	}
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent evt) {
 		loadRecipes();
-	}
+        if (Loader.isModLoaded("RefinedRelocation")) {
+            canSort = true;
+        }
+    }
 
 	private void loadRecipes() {
 		Item keyItem = GameRegistry.findItem("ThermalExpansion","powerCoilGold");

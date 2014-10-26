@@ -2,10 +2,6 @@ package org.mcupdater.autopackager;
 
 import cofh.api.energy.TileEnergyHandler;
 import cofh.lib.util.helpers.InventoryHelper;
-import com.dynious.refinedrelocation.api.APIUtils;
-import com.dynious.refinedrelocation.api.tileentity.ISortingMember;
-import com.dynious.refinedrelocation.api.tileentity.handlers.ISortingMemberHandler;
-import cpw.mods.fml.common.Optional;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -25,10 +21,9 @@ import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-@Optional.Interface(iface = "com.dynious.refinedrelocation.api.tileentity.ISortingMember", modid = "RefinedRelocation")
-public class TilePackager extends TileEnergyHandler implements ISortingMember
+public class TilePackager extends TileEnergyHandler
 {
-	private enum Mode {
+	protected enum Mode {
 		HYBRID("2x2 then 3x3"), SMALL("2x2 only"), LARGE("3x3 only");
 
 		private String message;
@@ -41,7 +36,6 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
 		}
 	}
 
-	private Object sortingHandler;
 	private ForgeDirection orientation;
 
 	/**
@@ -51,11 +45,12 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
 	 */
 	private int tickCounter = 0;
 	private int tickDelay = AutoPackager.delayCycleNormal;
-	private Mode mode;
+	protected Mode mode;
 
 	public TilePackager() {
 		super();
 		mode = Mode.HYBRID;
+        System.out.println("TilePackager");
 	}
 
 	@Override
@@ -204,13 +199,4 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
 		}
 	}
 
-
-    @Optional.Method(modid = "RefinedRelocation")
-    @Override
-    public ISortingMemberHandler getHandler() {
-        if (sortingHandler == null) {
-            sortingHandler = APIUtils.createSortingMemberHandler(this);
-        }
-        return (ISortingMemberHandler) sortingHandler;
-    }
 }

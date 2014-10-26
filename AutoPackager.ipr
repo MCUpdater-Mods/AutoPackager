@@ -205,9 +205,9 @@
       <JAVADOC />
       <SOURCES />
     </library>
-    <library name="Gradle: _home_sbarbour__gradle_caches_minecraft_net_minecraftforge_forge_1_7_10_10_13_0_1208_start">
+    <library name="Gradle: _home_sbarbour__gradle_caches_minecraft_net_minecraftforge_forge_1_7_10_10_13_2_1230_start">
       <CLASSES>
-        <root url="file://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.0.1208/start" />
+        <root url="file://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.2.1230/start" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
@@ -223,15 +223,15 @@
         <root url="jar://$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.typesafe.akka/akka-actor_2.11/2.3.3/source/9dbceb71c4fd943b4eb4607847261075a989d47f/akka-actor_2.11-2.3.3-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: asm-debug-all-4.1">
+    <library name="Gradle: asm-debug-all-5.0.3">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.ow2.asm/asm-debug-all/4.1/jar/dd6ba5c392d4102458494e29f54f70ac534ec2a2/asm-debug-all-4.1.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.ow2.asm/asm-debug-all/5.0.3/jar/f9e364ae2a66ce2a543012a4668856e84e5dab74/asm-debug-all-5.0.3.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.ow2.asm/asm-debug-all/4.1/javadoc/7fb1108a191ea7b62b03225ced300ca8832dbe7a/asm-debug-all-4.1-javadoc.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.ow2.asm/asm-debug-all/5.0.3/javadoc/c87547fa477f7dc22c5e3c5ddfc6dfac726e5b15/asm-debug-all-5.0.3-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.ow2.asm/asm-debug-all/4.1/source/1c218d5a0b8b932a1528b74069aa6973dcfcea74/asm-debug-all-4.1-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.ow2.asm/asm-debug-all/5.0.3/source/f0f24f6666c1a15c7e202e91610476bd4ce59368/asm-debug-all-5.0.3-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: authlib-1.5.16">
@@ -334,13 +334,13 @@
         <root url="jar://$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.typesafe/config/1.2.1/source/bdacf4f82ce9b29cd474bfde2e91eeb0ca623d28/config-1.2.1-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: forgeSrc-1.7.10-10.13.0.1208">
+    <library name="Gradle: forgeSrc-1.7.10-10.13.2.1230">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.0.1208/forgeSrc-1.7.10-10.13.0.1208.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.2.1230/forgeSrc-1.7.10-10.13.2.1230.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.0.1208/forgeSrc-1.7.10-10.13.0.1208-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.2.1230/forgeSrc-1.7.10-10.13.2.1230-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: gson-2.2.4">
@@ -439,6 +439,13 @@
         <root url="jar://$USER_HOME$/.gradle/caches/artifacts-26/filestore/net.sf.jopt-simple/jopt-simple/4.5/source/3cf4c3c1a6f565419bfd53a0e564d6fb128deeea/jopt-simple-4.5-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Gradle: jsr305-1.3.9">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.google.code.findbugs/jsr305/1.3.9/jar/40719ea6961c0cb6afaeb6a921eaa1f6afd4cfdf/jsr305-1.3.9.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
     <library name="Gradle: jutils-1.0.0">
       <CLASSES>
         <root url="jar://$USER_HOME$/.gradle/caches/artifacts-26/filestore/net.java.jutils/jutils/1.0.0/jar/e12fe1fda814bd348c1579329c86943d2cd3c6a6/jutils-1.0.0.jar!/" />
@@ -450,13 +457,13 @@
         <root url="jar://$USER_HOME$/.gradle/caches/artifacts-26/filestore/net.java.jutils/jutils/1.0.0/source/d18678a00b216863206a1bb6190507e02a32971b/jutils-1.0.0-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: launchwrapper-1.9">
+    <library name="Gradle: launchwrapper-1.11">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/artifacts-26/filestore/net.minecraft/launchwrapper/1.9/jar/116f2aad5b0c68353ebed66cd463517db6522f7e/launchwrapper-1.9.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/artifacts-26/filestore/net.minecraft/launchwrapper/1.11/jar/9c0592c6e1e9ea296a70948081bd4cc84dda1289/launchwrapper-1.11.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/artifacts-26/filestore/net.minecraft/launchwrapper/1.9/source/ed9a416b94de54fc9bd8f8da04739e9fd1548e2a/launchwrapper-1.9-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/artifacts-26/filestore/net.minecraft/launchwrapper/1.11/source/ea64c0bce5e9f465cd56566530133331568d2157/launchwrapper-1.11-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: libraryjavasound-20101123">
@@ -560,9 +567,9 @@
         <root url="jar://$USER_HOME$/.gradle/caches/artifacts-26/filestore/io.netty/netty-all/4.0.10.Final/source/9a214bc1e6350ead5234e4dd5eb3a2a802d1c658/netty-all-4.0.10.Final-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: realms-1.3.1">
+    <library name="Gradle: realms-1.3.5">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.mojang/realms/1.3.1/jar/f78f5a841b1cf9d50c3382acdbeb7d3078e454d6/realms-1.3.1.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.mojang/realms/1.3.5/jar/807ae355ee63583becd7ea60e76aab1532bb42e/realms-1.3.5.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
@@ -681,20 +688,6 @@
       <SOURCES>
         <root url="jar://$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.paulscode/soundsystem/20120107/source/1b9f4eb11ef11fede7fd76a2e5e8203c2a8adcd/soundsystem-20120107-sources.jar!/" />
       </SOURCES>
-    </library>
-    <library name="Gradle: ThermalExpansion-[1.7.10]4.0.0B5-dev-13">
-      <CLASSES>
-        <root url="jar://$PROJECT_DIR$/lib/ThermalExpansion-[1.7.10]4.0.0B5-dev-13.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-    </library>
-    <library name="Gradle: ThermalFoundation-[1.7.10]1.0.0B3-dev-8">
-      <CLASSES>
-        <root url="jar://$PROJECT_DIR$/lib/ThermalFoundation-[1.7.10]1.0.0B3-dev-8.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
     </library>
     <library name="Gradle: trove4j-3.0.3">
       <CLASSES>
