@@ -1,16 +1,17 @@
 package org.mcupdater.autopackager;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
 public class ItemBlockPackager extends ItemBlock
 {
-	public ItemBlockPackager(int id) {
-		super(id);
+	public ItemBlockPackager(Block block) {
+		super(block);
 	}
 
 	@Override
-	public String getItemDisplayName(ItemStack itemstack) {
-		return "AutoPackager";
+	public String getUnlocalizedName(ItemStack itemstack) {
+		return "tile.autopackager";
 	}
 }
