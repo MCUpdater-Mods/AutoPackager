@@ -24,7 +24,7 @@ import java.util.TreeSet;
 public class TilePackager extends TileEnergyHandler
 {
 	protected enum Mode {
-		HYBRID("2x2 then 3x3"), SMALL("2x2 only"), LARGE("3x3 only");
+		HYBRID("2x2 then 3x3"), SMALL("2x2 only"), LARGE("3x3 only"), HOLLOW("3x3 hollow");
 
 		private String message;
 		Mode(String message) {
@@ -138,6 +138,28 @@ public class TilePackager extends TileEnergyHandler
                             }
                         }
                     }
+	                if (mode == Mode.HOLLOW && invInput.getStackInSlot(slot).stackSize >= 8) {
+		                ItemStack testStack = invInput.getStackInSlot(slot).copy();
+		                testStack.stackSize = 1;
+		                InventoryCrafting largeCraft = new InventoryCrafting(new Container() {
+			                @Override
+			                public boolean canInteractWith(EntityPlayer entityPlayer) {
+				                return false;
+			                }
+		                }, 3, 3);
+		                for (int craftSlot = 0; craftSlot < 9; craftSlot++) {
+			                largeCraft.setInventorySlotContents(craftSlot, craftSlot == 4 ? null : testStack);
+		                }
+		                ItemStack result = CraftingManager.getInstance().findMatchingRecipe(largeCraft, worldObj);
+		                if (result != null) {
+			                testStack = InventoryHelper.simulateInsertItemStackIntoInventory(invOutput, result, 1);
+			                if (testStack == null) {
+				                invInput.decrStackSize(slot, 9);
+				                InventoryHelper.insertItemStackIntoInventory(invOutput, result, 1);
+				                return true;
+			                }
+		                }
+	                }
                 }
 			}
             for (Map.Entry<String,SortedSet<Integer>> entry : slotMap.entrySet()) {
