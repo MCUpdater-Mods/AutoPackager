@@ -9,13 +9,13 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-@Mod(modid = "autopackager", name="AutoPackager", version="1.5.2", acceptedMinecraftVersions="[1.7,1.8],", dependencies = "required-after:CoFHCore")
+@Mod(modid = "autopackager", name="AutoPackager", version="1.5.4", acceptedMinecraftVersions="[1.7,1.8],", dependencies = "required-after:CoFHCore")
+
 public class AutoPackager {
 	public static Configuration config;
 	public static BlockPackager packagerBlock;
