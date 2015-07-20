@@ -84,7 +84,7 @@ public class TilePackager extends TileEnergyHandler
 			IInventory invOutput = (IInventory) tileOutput;
 			for (int slot = 0; slot < invInput.getSizeInventory(); slot++) {
                 if (invInput.getStackInSlot(slot) != null) {
-	                if (invInput instanceof ISidedInventory && !((ISidedInventory)invInput).canExtractItem(slot, null, ForgeDirection.DOWN.ordinal())) {
+	                if (invInput instanceof ISidedInventory && !((ISidedInventory)invInput).canExtractItem(slot, invInput.getStackInSlot(slot), ForgeDirection.DOWN.ordinal())) {
 		                continue;
 	                }
                     if (slotMap.containsKey(invInput.getStackInSlot(slot).getUnlocalizedName() + ":" + invInput.getStackInSlot(slot).getItemDamage())) {
@@ -152,9 +152,11 @@ public class TilePackager extends TileEnergyHandler
 		                }
 		                ItemStack result = CraftingManager.getInstance().findMatchingRecipe(largeCraft, worldObj);
 		                if (result != null) {
+                            System.out.println("Crafting result found!");
 			                testStack = InventoryHelper.simulateInsertItemStackIntoInventory(invOutput, result, 1);
 			                if (testStack == null) {
-				                invInput.decrStackSize(slot, 9);
+                                System.out.println("Test insertion successful!");
+				                invInput.decrStackSize(slot, 8);
 				                InventoryHelper.insertItemStackIntoInventory(invOutput, result, 1);
 				                return true;
 			                }
