@@ -24,7 +24,7 @@ import java.util.TreeSet;
 public class TilePackager extends TileEnergyHandler
 {
 	protected enum Mode {
-		HYBRID("2x2 then 3x3"), SMALL("2x2 only"), LARGE("3x3 only"), HOLLOW("3x3 hollow");
+		HYBRID("2x2 then 3x3"), SMALL("2x2 only"), LARGE("3x3 only"), HOLLOW("3x3 hollow"), UNPACKAGE("1x1 only");
 
 		private String message;
 		Mode(String message) {
@@ -162,6 +162,26 @@ public class TilePackager extends TileEnergyHandler
 			                }
 		                }
 	                }
+	                if (mode == Mode.UNPACKAGE && invInput.getStackInSlot(slot).stackSize >= 1) {
+		                ItemStack testStack = invInput.getStackInSlot(slot).copy();
+		                testStack.stackSize = 1;
+		                InventoryCrafting smallCraft = new InventoryCrafting(new Container() {
+			                @Override
+			                public boolean canInteractWith(EntityPlayer entityPlayer) {
+				                return false;
+			                }
+		                }, 2, 2);
+		                smallCraft.setInventorySlotContents(0, testStack);
+		                ItemStack result = CraftingManager.getInstance().findMatchingRecipe(smallCraft, worldObj);
+		                if (result != null) {
+			                testStack = InventoryHelper.simulateInsertItemStackIntoInventory(invOutput, result, 1);
+			                if (testStack == null) {
+				                invInput.decrStackSize(slot, 1);
+				                InventoryHelper.insertItemStackIntoInventory(invOutput, result, 1);
+				                return true;
+			                }
+		                }
+	                }
                 }
 			}
             for (Map.Entry<String,SortedSet<Integer>> entry : slotMap.entrySet()) {
@@ -194,7 +214,7 @@ public class TilePackager extends TileEnergyHandler
 	@Override
 	public void writeToNBT(NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
-		tagCompound.setInteger("orientation",orientation.ordinal());
+		tagCompound.setInteger("orientation",(orientation != null ? orientation.ordinal() : 0));
 		tagCompound.setInteger("mode", mode.ordinal());
 	}
 
