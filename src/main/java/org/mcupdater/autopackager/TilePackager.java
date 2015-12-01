@@ -5,6 +5,7 @@ import cofh.lib.util.helpers.InventoryHelper;
 import com.dynious.refinedrelocation.api.APIUtils;
 import com.dynious.refinedrelocation.api.tileentity.ISortingMember;
 import com.dynious.refinedrelocation.api.tileentity.handlers.ISortingMemberHandler;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Optional;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -62,8 +63,13 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
 
 	@Override
 	public void updateEntity() {
-		if (isFirstTick) {
-			getHandler().onTileAdded();
+		if (isFirstTick && Loader.isModLoaded("RefinedRelocation")) {
+			new Runnable() {
+				@Override
+				public void run() {
+					getHandler().onTileAdded();
+				}
+			}.run();
 			isFirstTick = false;
 		}
 		super.updateEntity();
