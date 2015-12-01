@@ -66,11 +66,7 @@ public class BlockPackager extends BlockContainer implements IDismantleable
 
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
-        if (AutoPackager.canSort) {
-            return new TileSortingPackager();
-        } else {
-            return new TilePackager();
-        }
+	    return new TilePackager();
 	}
 
 	@Override
