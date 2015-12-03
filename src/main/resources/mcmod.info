@@ -5,12 +5,14 @@
   "description": "Autocraft recipes made of a single item type",
   "version": "@version@",
   "mcversion": "@mcversion@",
-  "url": "",
+  "url": "http://minecraft.curseforge.com/projects/autopackager",
   "updateUrl": "",
   "authorList": ["smbarbour"],
   "credits": "JadedCat, for making Agrarian Skies, for which the need for this arose.",
   "logoFile": "",
   "screenshots": [],
-  "dependencies": []
+  "requiredMods": ["CoFHAPI", "CoFHLib"],
+  "dependencies": ["CoFHAPI", "CoFHLib"],
+  "useDependencyInformation": true
 }
 ]
