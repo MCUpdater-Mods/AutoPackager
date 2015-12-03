@@ -1,11 +1,16 @@
 package org.mcupdater.autopackager;
 
+import com.google.common.collect.Sets;
+import cpw.mods.fml.common.MissingModsException;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.versioning.ArtifactVersion;
+import cpw.mods.fml.common.versioning.DefaultArtifactVersion;
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -13,17 +18,37 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-@Mod(modid = "autopackager", name="AutoPackager", version="1.5.4", acceptedMinecraftVersions="[1.7,1.8],", dependencies = "required-after:CoFHCore")
+import java.util.Set;
 
+@Mod(useMetadata = true, modid = "autopackager")
 public class AutoPackager {
 	public static Configuration config;
-	public static BlockPackager packagerBlock;
+	public static Block packagerBlock;
 	public static int energyPerCycle;
 	public static int delayCycleNormal;
 	public static int delayCycleIdle;
+	public static boolean testsPassed;
+
+	static {
+		//Test for CoFHLib classes
+		try {
+			Class.forName("cofh.api.energy.TileEnergyHandler");
+			Class.forName("cofh.lib.util.helpers.InventoryHelper");
+			Class.forName("cofh.api.block.IDismantleable");
+			Class.forName("cofh.lib.util.helpers.BlockHelper");
+			testsPassed = true;
+		} catch (final ClassNotFoundException e) {
+			testsPassed = false;
+		}
+	}
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent evt) {
+		if (!testsPassed) {
+			Set<ArtifactVersion> missing = Sets.newHashSet();
+			missing.add(new DefaultArtifactVersion("CoFHLib",true));
+			throw new MissingModsException(missing);
+		}
 		config = new Configuration(evt.getSuggestedConfigurationFile());
 		config.load();
 		energyPerCycle = config.get("General", "RF_per_cycle", 1000).getInt(1000);
@@ -33,9 +58,14 @@ public class AutoPackager {
 			config.save();
 		}
 
-		packagerBlock = new BlockPackager();
-		GameRegistry.registerBlock(packagerBlock, ItemBlockPackager.class, packagerBlock.getUnlocalizedName().replace("tile.",""));
-
+		new Runnable()
+		{
+			@Override
+			public void run() {
+				packagerBlock=new BlockPackager();
+				GameRegistry.registerBlock(packagerBlock,ItemBlockPackager.class,packagerBlock.getUnlocalizedName().replace("tile.",""));
+			}
+		}.run();
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 
