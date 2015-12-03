@@ -4,6 +4,7 @@ import com.google.common.collect.Sets;
 import cpw.mods.fml.common.MissingModsException;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.ModAPIManager;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -27,24 +28,10 @@ public class AutoPackager {
 	public static int energyPerCycle;
 	public static int delayCycleNormal;
 	public static int delayCycleIdle;
-	public static boolean testsPassed;
-
-	static {
-		//Test for CoFHLib classes
-		try {
-			Class.forName("cofh.api.energy.TileEnergyHandler");
-			Class.forName("cofh.lib.util.helpers.InventoryHelper");
-			Class.forName("cofh.api.block.IDismantleable");
-			Class.forName("cofh.lib.util.helpers.BlockHelper");
-			testsPassed = true;
-		} catch (final ClassNotFoundException e) {
-			testsPassed = false;
-		}
-	}
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent evt) {
-		if (!testsPassed) {
+		if (!ModAPIManager.INSTANCE.hasAPI("CoFHAPI") || !ModAPIManager.INSTANCE.hasAPI("CoFHLib")) {
 			Set<ArtifactVersion> missing = Sets.newHashSet();
 			missing.add(new DefaultArtifactVersion("CoFHLib",true));
 			throw new MissingModsException(missing);
