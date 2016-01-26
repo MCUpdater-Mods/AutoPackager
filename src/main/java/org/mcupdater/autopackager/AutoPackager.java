@@ -5,6 +5,7 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -14,6 +15,9 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Mod(useMetadata = true, modid = "autopackager")
 public class AutoPackager {
 	public static Configuration config;
@@ -21,6 +25,11 @@ public class AutoPackager {
 	public static int energyPerCycle;
 	public static int delayCycleNormal;
 	public static int delayCycleIdle;
+
+	public static Map<ItemStack,ItemStack> large = new HashMap<ItemStack, ItemStack>();
+	public static Map<ItemStack,ItemStack> small = new HashMap<ItemStack, ItemStack>();
+	public static Map<ItemStack,ItemStack> hollow = new HashMap<ItemStack, ItemStack>();
+	public static Map<ItemStack,ItemStack> single = new HashMap<ItemStack, ItemStack>();
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent evt) {
@@ -46,6 +55,11 @@ public class AutoPackager {
 	public void postInit(FMLPostInitializationEvent evt) {
 		loadRecipes();
     }
+
+	@EventHandler
+	public void serverStarting(FMLServerStartingEvent evt) {
+		evt.registerServerCommand(new ClearRecipeCacheCommand());
+	}
 
 	private void loadRecipes() {
 		ItemStack keyItem = GameRegistry.findItemStack("ThermalExpansion","powerCoilGold",1);

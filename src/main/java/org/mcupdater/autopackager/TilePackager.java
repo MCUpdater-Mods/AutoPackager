@@ -112,19 +112,26 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
                         slotList.add(slot);
                         slotMap.put(invInput.getStackInSlot(slot).getUnlocalizedName() + ":" + invInput.getStackInSlot(slot).getItemDamage(), slotList);
                     }
+	                ItemStack result;
                     if ((mode == Mode.HYBRID || mode == Mode.SMALL) && invInput.getStackInSlot(slot).stackSize >= 4) {
-                        ItemStack testStack = invInput.getStackInSlot(slot).copy();
-                        testStack.stackSize = 1;
-                        InventoryCrafting smallCraft = new InventoryCrafting(new Container() {
-                            @Override
-                            public boolean canInteractWith(EntityPlayer entityPlayer) {
-                                return false;
-                            }
-                        }, 2, 2);
-                        for (int craftSlot = 0; craftSlot < 4; craftSlot++) {
-                            smallCraft.setInventorySlotContents(craftSlot, testStack);
-                        }
-                        ItemStack result = CraftingManager.getInstance().findMatchingRecipe(smallCraft, worldObj);
+	                    ItemStack testStack = invInput.getStackInSlot(slot).copy();
+	                    testStack.stackSize = 1;
+	                    if (!AutoPackager.small.containsKey(testStack)) {
+		                    InventoryCrafting smallCraft = new InventoryCrafting(new Container()
+		                    {
+			                    @Override
+			                    public boolean canInteractWith(EntityPlayer entityPlayer) {
+				                    return false;
+			                    }
+		                    }, 2, 2);
+		                    for (int craftSlot = 0; craftSlot < 4; craftSlot++) {
+			                    smallCraft.setInventorySlotContents(craftSlot, testStack);
+		                    }
+		                    result = CraftingManager.getInstance().findMatchingRecipe(smallCraft, worldObj);
+		                    AutoPackager.small.put(testStack, result);
+	                    } else {
+		                    result = AutoPackager.small.get(testStack);
+	                    }
                         if (result != null) {
                             testStack = InventoryHelper.simulateInsertItemStackIntoInventory(invOutput, result, 1);
                             if (testStack == null) {
@@ -137,16 +144,22 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
                     if ((mode == Mode.HYBRID || mode == Mode.LARGE) && invInput.getStackInSlot(slot).stackSize >= 9) {
                         ItemStack testStack = invInput.getStackInSlot(slot).copy();
                         testStack.stackSize = 1;
-                        InventoryCrafting largeCraft = new InventoryCrafting(new Container() {
-                            @Override
-                            public boolean canInteractWith(EntityPlayer entityPlayer) {
-                                return false;
-                            }
-                        }, 3, 3);
-                        for (int craftSlot = 0; craftSlot < 9; craftSlot++) {
-                            largeCraft.setInventorySlotContents(craftSlot, testStack);
-                        }
-                        ItemStack result = CraftingManager.getInstance().findMatchingRecipe(largeCraft, worldObj);
+	                    if (!AutoPackager.large.containsKey(testStack)) {
+		                    InventoryCrafting largeCraft = new InventoryCrafting(new Container()
+		                    {
+			                    @Override
+			                    public boolean canInteractWith(EntityPlayer entityPlayer) {
+				                    return false;
+			                    }
+		                    }, 3, 3);
+		                    for (int craftSlot = 0; craftSlot < 9; craftSlot++) {
+			                    largeCraft.setInventorySlotContents(craftSlot, testStack);
+		                    }
+		                    result = CraftingManager.getInstance().findMatchingRecipe(largeCraft, worldObj);
+		                    AutoPackager.large.put(testStack, result);
+	                    } else {
+		                    result = AutoPackager.large.get(testStack);
+	                    }
                         if (result != null) {
                             testStack = InventoryHelper.simulateInsertItemStackIntoInventory(invOutput, result, 1);
                             if (testStack == null) {
@@ -159,16 +172,22 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
 	                if (mode == Mode.HOLLOW && invInput.getStackInSlot(slot).stackSize >= 8) {
 		                ItemStack testStack = invInput.getStackInSlot(slot).copy();
 		                testStack.stackSize = 1;
-		                InventoryCrafting largeCraft = new InventoryCrafting(new Container() {
-			                @Override
-			                public boolean canInteractWith(EntityPlayer entityPlayer) {
-				                return false;
+		                if (!AutoPackager.hollow.containsKey(testStack)) {
+			                InventoryCrafting largeCraft = new InventoryCrafting(new Container()
+			                {
+				                @Override
+				                public boolean canInteractWith(EntityPlayer entityPlayer) {
+					                return false;
+				                }
+			                }, 3, 3);
+			                for (int craftSlot = 0; craftSlot < 9; craftSlot++) {
+				                largeCraft.setInventorySlotContents(craftSlot, craftSlot == 4 ? null : testStack);
 			                }
-		                }, 3, 3);
-		                for (int craftSlot = 0; craftSlot < 9; craftSlot++) {
-			                largeCraft.setInventorySlotContents(craftSlot, craftSlot == 4 ? null : testStack);
+			                result = CraftingManager.getInstance().findMatchingRecipe(largeCraft, worldObj);
+			                AutoPackager.hollow.put(testStack, result);
+		                } else {
+			                result = AutoPackager.hollow.get(testStack);
 		                }
-		                ItemStack result = CraftingManager.getInstance().findMatchingRecipe(largeCraft, worldObj);
 		                if (result != null) {
                             System.out.println("Crafting result found!");
 			                testStack = InventoryHelper.simulateInsertItemStackIntoInventory(invOutput, result, 1);
@@ -183,14 +202,20 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
 	                if (mode == Mode.UNPACKAGE && invInput.getStackInSlot(slot).stackSize >= 1) {
 		                ItemStack testStack = invInput.getStackInSlot(slot).copy();
 		                testStack.stackSize = 1;
-		                InventoryCrafting smallCraft = new InventoryCrafting(new Container() {
-			                @Override
-			                public boolean canInteractWith(EntityPlayer entityPlayer) {
-				                return false;
-			                }
-		                }, 2, 2);
-		                smallCraft.setInventorySlotContents(0, testStack);
-		                ItemStack result = CraftingManager.getInstance().findMatchingRecipe(smallCraft, worldObj);
+		                if (!AutoPackager.single.containsKey(testStack)) {
+			                InventoryCrafting smallCraft = new InventoryCrafting(new Container()
+			                {
+				                @Override
+				                public boolean canInteractWith(EntityPlayer entityPlayer) {
+					                return false;
+				                }
+			                }, 2, 2);
+			                smallCraft.setInventorySlotContents(0, testStack);
+			                result = CraftingManager.getInstance().findMatchingRecipe(smallCraft, worldObj);
+			                AutoPackager.single.put(testStack, result);
+		                } else {
+			                result = AutoPackager.single.get(testStack);
+		                }
 		                if (result != null) {
 			                testStack = InventoryHelper.simulateInsertItemStackIntoInventory(invOutput, result, 1);
 			                if (testStack == null) {
