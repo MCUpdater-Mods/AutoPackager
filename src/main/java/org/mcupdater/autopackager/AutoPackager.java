@@ -1,11 +1,9 @@
 package org.mcupdater.autopackager;
 
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -49,6 +47,9 @@ public class AutoPackager {
 	@EventHandler
 	public void init(FMLInitializationEvent evt) {
 		GameRegistry.registerTileEntity(TilePackager.class, "AutoPackager");
+		if (Loader.isModLoaded("Waila")) {
+			FMLInterModComms.sendMessage("Waila", "register", "org.mcupdater.autopackager.compat.WailaRegistry.initWaila");
+		}
 	}
 
 	@EventHandler
