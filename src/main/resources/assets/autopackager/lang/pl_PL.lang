@@ -1,1 +1,8 @@
 tile.autopackager.name=AutoPakowacz
+
+autopackager.mode.current=Aktualny Tryb:
+autopackager.mode.hybrid=2x2 następnie 3x3
+autopackager.mode.small=2x2 tylko
+autopackager.mode.large=3x3 tylko
+autopackager.mode.hollow=3x3 wydrążony
+autopackager.mode.unpackage=1x1 tylko

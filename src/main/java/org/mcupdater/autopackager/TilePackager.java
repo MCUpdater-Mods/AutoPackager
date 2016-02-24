@@ -7,6 +7,8 @@ import com.dynious.refinedrelocation.api.tileentity.ISortingMember;
 import com.dynious.refinedrelocation.api.tileentity.handlers.ISortingMemberHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -18,19 +20,17 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.ForgeDirection;
 import org.mcupdater.shared.Position;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 
 @Optional.Interface(iface = "com.dynious.refinedrelocation.api.tileentity.ISortingMember", modid = "RefinedRelocation")
 public class TilePackager extends TileEnergyHandler implements ISortingMember
 {
 	protected enum Mode {
-		HYBRID("2x2 then 3x3"), SMALL("2x2 only"), LARGE("3x3 only"), HOLLOW("3x3 hollow"), UNPACKAGE("1x1 only");
+		HYBRID("autopackager.mode.hybrid"), SMALL("autopackager.mode.small"), LARGE("autopackager.mode.large"), HOLLOW("autopackager.mode.hollow"), UNPACKAGE("autopackager.mode.unpackage");
 
 		private String message;
 		Mode(String message) {
@@ -189,10 +189,8 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
 			                result = AutoPackager.hollow.get(testStack);
 		                }
 		                if (result != null) {
-                            System.out.println("Crafting result found!");
 			                testStack = InventoryHelper.simulateInsertItemStackIntoInventory(invOutput, result, 1);
 			                if (testStack == null) {
-                                System.out.println("Test insertion successful!");
 				                invInput.decrStackSize(slot, 8);
 				                InventoryHelper.insertItemStackIntoInventory(invOutput, result, 1);
 				                return true;
@@ -275,13 +273,13 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
 	public void cycleMode(EntityPlayer player) {
 		mode = Mode.values()[(mode.ordinal()+1) % Mode.values().length];
 		if (!worldObj.isRemote) {
-			player.addChatMessage(new ChatComponentText("Current mode: " + mode.getMessage()));
+			player.addChatMessage(new ChatComponentTranslation(StatCollector.translateToLocal("autopackager.mode.current") + " " + StatCollector.translateToLocal(mode.getMessage())));
 		}
 	}
 
 	public void checkMode(EntityPlayer player) {
 		if (!worldObj.isRemote) {
-			player.addChatMessage(new ChatComponentTranslation("Current mode: " + mode.getMessage()));
+			player.addChatMessage(new ChatComponentTranslation(StatCollector.translateToLocal("autopackager.mode.current") + " " + StatCollector.translateToLocal(mode.getMessage())));
 		}
 	}
 
@@ -294,4 +292,9 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
 		return (ISortingMemberHandler) sortingHandler;
 	}
 
+	@SideOnly(Side.CLIENT)
+	@SuppressWarnings("unchecked")
+	public void addWailaInformation(List information) {
+		information.add(StatCollector.translateToLocal("autopackager.mode.current") + " " + StatCollector.translateToLocal(mode.getMessage()));
+	}
 }

@@ -1,1 +1,8 @@
 tile.autopackager.name=Compactador Automático
+
+autopackager.mode.current=Modo atual:
+autopackager.mode.hybrid=2x2 depois 3x3
+autopackager.mode.small=2x2 só
+autopackager.mode.large=3x3 só
+autopackager.mode.hollow=3x3 vazio
+autopackager.mode.unpackage=1x1 só
