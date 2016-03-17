@@ -30,7 +30,7 @@ repositories {
 
 apply plugin: 'forge'
 
-version = "1.5.9"
+version = "1.5.9a"
 group= "org.mcupdater.autopackager" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "autopackager"
 

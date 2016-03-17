@@ -17,8 +17,10 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -280,6 +282,21 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
 	public void checkMode(EntityPlayer player) {
 		if (!worldObj.isRemote) {
 			player.addChatMessage(new ChatComponentTranslation(StatCollector.translateToLocal("autopackager.mode.current") + " " + StatCollector.translateToLocal(mode.getMessage())));
+		}
+	}
+
+	@Override
+	public Packet getDescriptionPacket() {
+		NBTTagCompound nbt = new NBTTagCompound();
+		writeToNBT(nbt);
+		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, this.blockMetadata, nbt);
+	}
+
+	@Override
+	public void onDataPacket(NetworkManager netman, S35PacketUpdateTileEntity packet) {
+		readFromNBT(packet.func_148857_g());
+		if (worldObj.isRemote) {
+			this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 		}
 	}
 
