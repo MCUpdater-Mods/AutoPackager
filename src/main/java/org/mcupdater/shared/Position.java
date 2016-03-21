@@ -2,6 +2,7 @@ package org.mcupdater.shared;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class Position
@@ -10,11 +11,11 @@ public class Position
 	public double x, y, z;
 	public ForgeDirection orientation;
 
-	public Position(double ci, double cj, double ck) {
-		x = ci;
-		y = cj;
-		z = ck;
-		orientation = ForgeDirection.UNKNOWN;
+	public Position(BlockPos pos) {
+		x = pos.getX();
+		y = pos.getY();
+		z = pos.getZ();
+		orientation = null;
 	}
 
 	public Position(double ci, double cj, double ck, ForgeDirection corientation) {

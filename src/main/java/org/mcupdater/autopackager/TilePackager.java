@@ -5,10 +5,6 @@ import cofh.lib.util.helpers.InventoryHelper;
 import com.dynious.refinedrelocation.api.APIUtils;
 import com.dynious.refinedrelocation.api.tileentity.ISortingMember;
 import com.dynious.refinedrelocation.api.tileentity.handlers.ISortingMemberHandler;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -22,14 +18,19 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.mcupdater.shared.Position;
 
 import java.util.*;
 
 @Optional.Interface(iface = "com.dynious.refinedrelocation.api.tileentity.ISortingMember", modid = "RefinedRelocation")
-public class TilePackager extends TileEnergyHandler implements ISortingMember
+public class TilePackager extends TileEnergyHandler implements ITickable, ISortingMember
 {
 	protected enum Mode {
 		HYBRID("autopackager.mode.hybrid"), SMALL("autopackager.mode.small"), LARGE("autopackager.mode.large"), HOLLOW("autopackager.mode.hollow"), UNPACKAGE("autopackager.mode.unpackage");
@@ -64,7 +65,7 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		if (isFirstTick && Loader.isModLoaded("RefinedRelocation")) {
 			new Runnable() {
 				@Override
@@ -74,7 +75,6 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
 			}.run();
 			isFirstTick = false;
 		}
-		super.updateEntity();
 		if (++tickCounter >= tickDelay) {
 			tickCounter = 0;
 			if (storage.getEnergyStored() > AutoPackager.energyPerCycle) {
@@ -92,8 +92,8 @@ public class TilePackager extends TileEnergyHandler implements ISortingMember
 		if (orientation == null) {
 			return false;
 		}
-		Position inputPos = new Position(xCoord, yCoord, zCoord, orientation);
-		Position outputPos = new Position(xCoord, yCoord, zCoord, orientation);
+		Position inputPos = new Position(this.getPos(), orientation);
+		Position outputPos = new Position(this.getPos(), orientation);
 		inputPos.moveLeft(1.0);
 		outputPos.moveRight(1.0);
 		TileEntity tileInput = worldObj.getTileEntity((int)inputPos.x, (int)inputPos.y, (int)inputPos.z);

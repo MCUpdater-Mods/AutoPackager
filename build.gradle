@@ -2,18 +2,14 @@ import org.apache.tools.ant.filters.ReplaceTokens
 
 buildscript {
     repositories {
-        mavenCentral()
+        jcenter()
         maven {
             name = "forge"
             url = "http://files.minecraftforge.net/maven"
         }
-        maven {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots/"
-        }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
     }
 }
 
@@ -28,22 +24,24 @@ repositories {
     }
 }
 
-apply plugin: 'forge'
+apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "1.5.9a"
+version = "1.6.0"
 group= "org.mcupdater.autopackager" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "autopackager"
 
 minecraft {
-	version = "1.7.10-10.13.4.1566-1.7.10"
+	version = "1.8.9-11.15.1.1783"
+    runDir = "run"
+    mappings = "stable_20"
 }
 
 dependencies {
-    compile files("lib/CoFHLib-[1.7.10]1.0.3-175-dev.jar")
-    compile "codechicken:CodeChickenLib:1.7.10-1.1.3.136:dev"
-    compile "codechicken:CodeChickenCore:1.7.10-1.0.6.43:dev"
-    compile "codechicken:NotEnoughItems:1.7.10-1.0.4.105:dev"
-    compile "mcp.mobius.waila:Waila:1.5.10_1.7.10:dev"
+    //compile files("lib/CoFHLib-[1.7.10]1.0.3-175-dev.jar")
+    //compile "codechicken:CodeChickenLib:1.7.10-1.1.3.136:dev"
+    //compile "codechicken:CodeChickenCore:1.7.10-1.0.6.43:dev"
+    //compile "codechicken:NotEnoughItems:1.7.10-1.0.4.105:dev"
+    compile "mcp.mobius.waila:Waila:1.6.0-B3_1.8.8:dev"
 }
 
 processResources

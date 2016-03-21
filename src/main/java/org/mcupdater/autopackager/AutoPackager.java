@@ -1,16 +1,15 @@
 package org.mcupdater.autopackager;
 
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.event.*;
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import java.util.HashMap;
@@ -29,7 +28,7 @@ public class AutoPackager {
 	public static Map<ItemStack,ItemStack> hollow = new HashMap<ItemStack, ItemStack>();
 	public static Map<ItemStack,ItemStack> single = new HashMap<ItemStack, ItemStack>();
 
-	@EventHandler
+	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent evt) {
 		config = new Configuration(evt.getSuggestedConfigurationFile());
 		config.load();
@@ -44,7 +43,7 @@ public class AutoPackager {
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 
-	@EventHandler
+	@Mod.EventHandler
 	public void init(FMLInitializationEvent evt) {
 		GameRegistry.registerTileEntity(TilePackager.class, "AutoPackager");
 		if (Loader.isModLoaded("Waila")) {
@@ -52,18 +51,18 @@ public class AutoPackager {
 		}
 	}
 
-	@EventHandler
+	@Mod.EventHandler
 	public void postInit(FMLPostInitializationEvent evt) {
 		loadRecipes();
     }
 
-	@EventHandler
+	@Mod.EventHandler
 	public void serverStarting(FMLServerStartingEvent evt) {
 		evt.registerServerCommand(new ClearRecipeCacheCommand());
 	}
 
 	private void loadRecipes() {
-		ItemStack keyItem = GameRegistry.findItemStack("ThermalExpansion","powerCoilGold",1);
+		ItemStack keyItem = new ItemStack(GameRegistry.findItem("ThermalExpansion","powerCoilGold"),1);
 		if (keyItem == null) {
 			keyItem = new ItemStack(Items.redstone);
 		}
