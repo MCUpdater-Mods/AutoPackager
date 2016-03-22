@@ -86,12 +86,9 @@ public class TilePackager extends TileEnergyHandler implements ITickable, ISorti
 	}
 
 	private boolean tryCraft() {
-		/*
-		Position inputPos = new Position(this.getPos(), orientation);
-		Position outputPos = new Position(this.getPos(), orientation);
-		inputPos.moveLeft(1.0);
-		outputPos.moveRight(1.0);
-		*/
+		if (orientation == null) {
+			return false;
+		}
 		BlockPos inputPos = getInputSide();
 		BlockPos outputPos = getOutputSide();
 		TileEntity tileInput = worldObj.getTileEntity(inputPos);
