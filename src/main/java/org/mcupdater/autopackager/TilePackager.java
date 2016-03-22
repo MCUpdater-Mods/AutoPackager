@@ -45,7 +45,7 @@ public class TilePackager extends TileEnergyHandler implements ITickable, ISorti
 	private boolean isFirstTick = true;
 	private Object sortingHandler;
 
-	private EnumFacing orientation;
+	private EnumFacing orientation = EnumFacing.DOWN;
 
 	/**
 	 * tickCounter increments every frame, every tickDelay frames it attempts to work.
@@ -277,12 +277,14 @@ public class TilePackager extends TileEnergyHandler implements ITickable, ISorti
 	public void writeToNBT(NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
 		tagCompound.setInteger("mode", mode.ordinal());
+		tagCompound.setString("orientation", orientation.getName());
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
 		this.mode = Mode.values()[tagCompound.getInteger("mode")];
+		this.orientation = EnumFacing.byName(tagCompound.getString("orientation"));
 	}
 
 	public void setOrientation(EnumFacing orientation) {
