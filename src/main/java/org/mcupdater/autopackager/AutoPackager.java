@@ -78,6 +78,7 @@ public class AutoPackager {
 		if (keyItem.getItem() == null) {
 			keyItem = new ItemStack(Items.redstone);
 		}
+		System.out.println("Key item: " + keyItem.getDisplayName());
 		ShapedOreRecipe recipePackager = new ShapedOreRecipe(
 			new ItemStack(packagerBlock, 1),
 			"ipi",
@@ -89,9 +90,5 @@ public class AutoPackager {
 			'c', keyItem
 		);
 		GameRegistry.addRecipe(recipePackager);
-		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-		for ( Object x : recipePackager.getInput() ) {
-			System.out.println(x.toString());
-		}
 	}
 }

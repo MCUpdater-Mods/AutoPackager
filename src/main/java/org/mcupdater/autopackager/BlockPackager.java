@@ -2,7 +2,6 @@ package org.mcupdater.autopackager;
 
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -14,8 +13,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-
-import java.util.Collection;
 
 public class BlockPackager extends BlockContainer
 {
@@ -41,7 +38,7 @@ public class BlockPackager extends BlockContainer
 		world.setBlockState(pos, blockState.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
 		TileEntity tile = world.getTileEntity(pos);
 		if (tile instanceof TilePackager) {
-			((TilePackager) tile).setOrientation(blockState.getValue(FACING));
+			((TilePackager) tile).setOrientation(world.getBlockState(pos).getValue(FACING));
 		}
 	}
 

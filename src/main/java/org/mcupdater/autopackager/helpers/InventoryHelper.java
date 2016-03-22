@@ -10,7 +10,7 @@ public class InventoryHelper
 			return false;
 		}
 		ItemStack remainingItems = toInsert.copy();
-		for (int slot = 0; slot < target.getSlots() && remainingItems.stackSize > 0; slot++ ) {
+		for (int slot = 0; slot < target.getSlots() && (remainingItems != null && remainingItems.stackSize > 0); slot++ ) {
 			remainingItems = target.insertItem(slot, remainingItems, true);
 		}
 		return (remainingItems == null || remainingItems.stackSize == 0);
@@ -20,7 +20,7 @@ public class InventoryHelper
 		if (target.inv == null || toInsert == null) {
 			return toInsert;
 		}
-		for (int slot = 0; slot < target.getSlots() && toInsert.stackSize > 0; slot++ ) {
+		for (int slot = 0; slot < target.getSlots() && (toInsert != null && toInsert.stackSize > 0); slot++ ) {
 			toInsert = target.insertItem(slot, toInsert, false);
 		}
 		return toInsert;
