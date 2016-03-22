@@ -1,67 +1,48 @@
 package org.mcupdater.autopackager;
 
-import cofh.api.block.IDismantleable;
-import cofh.lib.util.helpers.BlockHelper;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
-import org.mcupdater.shared.Position;
-import org.mcupdater.shared.Utils;
 
-import java.util.ArrayList;
+import java.util.Collection;
 
-public class BlockPackager extends BlockContainer implements IDismantleable
+public class BlockPackager extends BlockContainer
 {
-	IIcon textureFront;
-	IIcon textureSide;
+	public static final PropertyDirection FACING;
+
+	static {
+		FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
+	}
 
 	protected BlockPackager() {
 		super(Material.rock);
+		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		setHardness(10F);
 		setResistance(10F);
 		setStepSound(soundTypeStone);
-		setBlockName("packagerBlock");
+		setUnlocalizedName("packagerBlock");
 		setCreativeTab(CreativeTabs.tabRedstone);
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, int i, int j, int k, EntityLivingBase entityliving, ItemStack stack) {
-		super.onBlockPlacedBy(world, i, j, k, entityliving, stack);
-		ForgeDirection orientation = Utils.get2dOrientation(new Position(entityliving.posX, entityliving.posY, entityliving.posZ), new Position(i, j, k));
-
-		world.setBlockMetadataWithNotify(i, j, k, orientation.getOpposite().ordinal(), 1);
-		((TilePackager) world.getTileEntity(i, j, k)).setOrientation(orientation);
-	}
-
-	@Override
-	public IIcon getIcon(int i, int j) {
-		// If no metadata is set, then this is an icon.
-		if (j == 0 && i == 3)
-			return textureFront;
-
-		if (i == j && i>1) // Front can't be top or bottom.
-			return textureFront;
-
-		return textureSide;
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister iconRegistry)
-	{
-		textureFront = iconRegistry.registerIcon("autopackager:packager_front");
-		textureSide = iconRegistry.registerIcon("autopackager:packager_side");
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState blockState, EntityLivingBase placer, ItemStack stack) {
+		super.onBlockPlacedBy(world, pos, blockState, placer, stack);
+		world.setBlockState(pos, blockState.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
+		TileEntity tile = world.getTileEntity(pos);
+		if (tile instanceof TilePackager) {
+			((TilePackager) tile).setOrientation(blockState.getValue(FACING));
+		}
 	}
 
 	@Override
@@ -70,8 +51,8 @@ public class BlockPackager extends BlockContainer implements IDismantleable
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer player, int side, float par7, float par8, float par9) {
-		TilePackager tile = (TilePackager) world.getTileEntity(i, j, k);
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ) {
+		TilePackager tile = (TilePackager) world.getTileEntity(pos);
 
 		if (player.getCurrentEquippedItem() == null) {
 			if (player.isSneaking()) {
@@ -86,35 +67,27 @@ public class BlockPackager extends BlockContainer implements IDismantleable
 	}
 
 	@Override
-	public boolean rotateBlock(World world, int x, int y, int z, ForgeDirection axis) {
-		int meta = world.getBlockMetadata(x,y,z);
-		int newMeta = BlockHelper.getLeftSide(meta);
-		world.setBlockMetadataWithNotify(x,y,z,newMeta,3);
-		((TilePackager) world.getTileEntity(x, y, z)).setOrientation(ForgeDirection.getOrientation(newMeta).getOpposite());
-		return true;
+	public IBlockState getStateFromMeta(int meta) {
+		EnumFacing enumfacing = EnumFacing.getFront(meta);
+		if(enumfacing.getAxis() == EnumFacing.Axis.Y) {
+			enumfacing = EnumFacing.NORTH;
+		}
+
+		return this.getDefaultState().withProperty(FACING, enumfacing);
 	}
 
 	@Override
-	public ArrayList<ItemStack> dismantleBlock(EntityPlayer entityPlayer, World world, int x, int y, int z, boolean placeInInventory) {
-		ArrayList<ItemStack> dropped = new ArrayList<ItemStack>();
-        dropped.add(new ItemStack(AutoPackager.packagerBlock));
-		world.setBlockToAir(x,y,z);
-
-		//Spawn in world
-		float multiplier = 0.3F;
-		double deltaX = world.rand.nextFloat() * multiplier + (1.0F - multiplier) * 0.5D;
-		double deltaY = world.rand.nextFloat() * multiplier + (1.0F - multiplier) * 0.5D;
-		double deltaZ = world.rand.nextFloat() * multiplier + (1.0F - multiplier) * 0.5D;
-		EntityItem spawnedItem = new EntityItem(world, x+deltaX, y+deltaY, z+ deltaZ, dropped.get(0));
-		spawnedItem.delayBeforeCanPickup = 10;
-		world.spawnEntityInWorld(spawnedItem);
-
-		return dropped;
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(FACING).getIndex();
 	}
 
 	@Override
-	public boolean canDismantle(EntityPlayer entityPlayer, World world, int i, int i2, int i3) {
-		return true;
+	protected BlockState createBlockState() {
+		return new BlockState(this, FACING);
 	}
 
+	@Override
+	public int getRenderType() {
+		return 3;
+	}
 }

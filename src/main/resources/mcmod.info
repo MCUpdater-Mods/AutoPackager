@@ -11,8 +11,8 @@
   "credits": "JadedCat, for making Agrarian Skies, for which the need for this arose.",
   "logoFile": "",
   "screenshots": [],
-  "requiredMods": ["CoFHAPI", "CoFHLib"],
-  "dependencies": ["CoFHAPI", "CoFHLib"],
+  "requiredMods": [],
+  "dependencies": [],
   "useDependencyInformation": true
 }
 ]
