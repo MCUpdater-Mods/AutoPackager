@@ -1,15 +1,13 @@
 package com.dynious.refinedrelocation.api.relocator;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
 
 import java.util.List;
 
@@ -41,12 +39,6 @@ public interface IRelocatorModule
     public void writeToNBT(IItemRelocator relocator, int side, NBTTagCompound  compound);
 
     public List<ItemStack> getDrops(IItemRelocator relocator, int side);
-
-    @SideOnly(Side.CLIENT)
-    public IIcon getIcon(IItemRelocator relocator, int side);
-
-    @SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister register);
 
     public String getDisplayName();
 

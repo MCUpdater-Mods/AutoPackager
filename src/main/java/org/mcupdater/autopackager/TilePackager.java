@@ -1,7 +1,6 @@
 package org.mcupdater.autopackager;
 
 import cofh.api.energy.TileEnergyHandler;
-import cofh.lib.util.helpers.InventoryHelper;
 import com.dynious.refinedrelocation.api.APIUtils;
 import com.dynious.refinedrelocation.api.tileentity.ISortingMember;
 import com.dynious.refinedrelocation.api.tileentity.handlers.ISortingMemberHandler;
@@ -16,16 +15,14 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.mcupdater.shared.Position;
 
 import java.util.*;
 
@@ -48,7 +45,7 @@ public class TilePackager extends TileEnergyHandler implements ITickable, ISorti
 	private boolean isFirstTick = true;
 	private Object sortingHandler;
 
-	private ForgeDirection orientation;
+	private EnumFacing orientation;
 
 	/**
 	 * tickCounter increments every frame, every tickDelay frames it attempts to work.
@@ -89,6 +86,7 @@ public class TilePackager extends TileEnergyHandler implements ITickable, ISorti
 	}
 
 	private boolean tryCraft() {
+/*
 		if (orientation == null) {
 			return false;
 		}
@@ -251,24 +249,23 @@ public class TilePackager extends TileEnergyHandler implements ITickable, ISorti
                  }
             }
 		}
+		*/
 		return false;
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
-		tagCompound.setInteger("orientation",(orientation != null ? orientation.ordinal() : 0));
 		tagCompound.setInteger("mode", mode.ordinal());
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
-		this.orientation = ForgeDirection.getOrientation(tagCompound.getInteger("orientation"));
 		this.mode = Mode.values()[tagCompound.getInteger("mode")];
 	}
 
-	public void setOrientation(ForgeDirection orientation) {
+	public void setOrientation(EnumFacing orientation) {
 		this.orientation = orientation;
 	}
 
@@ -289,14 +286,14 @@ public class TilePackager extends TileEnergyHandler implements ITickable, ISorti
 	public Packet getDescriptionPacket() {
 		NBTTagCompound nbt = new NBTTagCompound();
 		writeToNBT(nbt);
-		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, this.blockMetadata, nbt);
+		return new S35PacketUpdateTileEntity(this.getPos(), getBlockMetadata(), nbt);
 	}
 
 	@Override
 	public void onDataPacket(NetworkManager netman, S35PacketUpdateTileEntity packet) {
-		readFromNBT(packet.func_148857_g());
+		readFromNBT(packet.getNbtCompound());
 		if (worldObj.isRemote) {
-			this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+			this.worldObj.markBlockForUpdate(this.getPos());
 		}
 	}
 

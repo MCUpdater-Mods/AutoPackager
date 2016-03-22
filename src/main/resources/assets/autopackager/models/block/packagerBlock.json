@@ -1,0 +1,8 @@
+{
+  "parent": "block/orientable",
+  "textures": {
+    "top": "autopackager:blocks/packager_side",
+    "front": "autopackager:blocks/packager_front",
+    "side": "autopackager:blocks/packager_side"
+  }
+}

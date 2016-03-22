@@ -1,22 +1,31 @@
 package org.mcupdater.autopackager;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import org.mcupdater.autopackager.proxy.CommonProxy;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Mod(useMetadata = true, modid = "autopackager")
 public class AutoPackager {
+
+	@SidedProxy(clientSide = "org.mcupdater.autopackager.proxy.ClientProxy", serverSide = "org.mcupdater.autopackager.proxy.CommonProxy")
+	public static CommonProxy proxy;
+
 	public static Configuration config;
 	public static Block packagerBlock;
 	public static int energyPerCycle;
@@ -54,6 +63,9 @@ public class AutoPackager {
 	@Mod.EventHandler
 	public void postInit(FMLPostInitializationEvent evt) {
 		loadRecipes();
+		if (proxy.isClient()) {
+			Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(packagerBlock), 0, new ModelResourceLocation("autopackager:packagerBlock", "inventory"));
+		}
     }
 
 	@Mod.EventHandler
