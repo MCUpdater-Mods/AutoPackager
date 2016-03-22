@@ -42,7 +42,6 @@ dependencies {
     //compile "codechicken:CodeChickenCore:1.7.10-1.0.6.43:dev"
     //compile "codechicken:NotEnoughItems:1.7.10-1.0.4.105:dev"
     compile "mcp.mobius.waila:Waila:1.6.0-B3_1.8.8:dev"
-    runtime ""
 }
 
 processResources

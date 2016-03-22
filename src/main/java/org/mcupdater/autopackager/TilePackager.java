@@ -15,14 +15,14 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
-import net.minecraft.util.StatCollector;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.*;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.wrapper.InvWrapper;
+import org.mcupdater.autopackager.helpers.InventoryHelper;
 
 import java.util.*;
 
@@ -86,23 +86,23 @@ public class TilePackager extends TileEnergyHandler implements ITickable, ISorti
 	}
 
 	private boolean tryCraft() {
-/*
-		if (orientation == null) {
-			return false;
-		}
+		/*
 		Position inputPos = new Position(this.getPos(), orientation);
 		Position outputPos = new Position(this.getPos(), orientation);
 		inputPos.moveLeft(1.0);
 		outputPos.moveRight(1.0);
-		TileEntity tileInput = worldObj.getTileEntity((int)inputPos.x, (int)inputPos.y, (int)inputPos.z);
-		TileEntity tileOutput = worldObj.getTileEntity((int)outputPos.x, (int)outputPos.y, (int)outputPos.z);
+		*/
+		BlockPos inputPos = getInputSide();
+		BlockPos outputPos = getOutputSide();
+		TileEntity tileInput = worldObj.getTileEntity(inputPos);
+		TileEntity tileOutput = worldObj.getTileEntity(outputPos);
         Map<String,SortedSet<Integer>> slotMap = new HashMap<String,SortedSet<Integer>>();
 		if (tileInput instanceof IInventory && tileOutput instanceof IInventory) {
-			IInventory invInput = (IInventory) tileInput;
-			IInventory invOutput = (IInventory) tileOutput;
-			for (int slot = 0; slot < invInput.getSizeInventory(); slot++) {
+			InvWrapper invInput = new InvWrapper((IInventory) tileInput);
+			InvWrapper invOutput = new InvWrapper((IInventory) tileOutput);
+			for (int slot = 0; slot < invInput.getSlots(); slot++) {
                 if (invInput.getStackInSlot(slot) != null) {
-	                if (invInput instanceof ISidedInventory && !((ISidedInventory)invInput).canExtractItem(slot, invInput.getStackInSlot(slot), ForgeDirection.DOWN.ordinal())) {
+	                if (invInput instanceof ISidedInventory && !((ISidedInventory)invInput).canExtractItem(slot, invInput.getStackInSlot(slot), EnumFacing.DOWN)) {
 		                continue;
 	                }
                     if (slotMap.containsKey(invInput.getStackInSlot(slot).getUnlocalizedName() + ":" + invInput.getStackInSlot(slot).getItemDamage())) {
@@ -133,10 +133,9 @@ public class TilePackager extends TileEnergyHandler implements ITickable, ISorti
 		                    result = AutoPackager.small.get(testStack);
 	                    }
                         if (result != null) {
-                            testStack = InventoryHelper.simulateInsertItemStackIntoInventory(invOutput, result, 1);
-                            if (testStack == null) {
-                                invInput.decrStackSize(slot, 4);
-                                InventoryHelper.insertItemStackIntoInventory(invOutput, result, 1);
+                            if (InventoryHelper.canStackFitInInventory(invOutput, result)) {
+                                invInput.extractItem(slot, 4, false);
+                                InventoryHelper.insertItemStackIntoInventory(invOutput, result);
                                 return true;
                             }
                         }
@@ -161,10 +160,9 @@ public class TilePackager extends TileEnergyHandler implements ITickable, ISorti
 		                    result = AutoPackager.large.get(testStack);
 	                    }
                         if (result != null) {
-                            testStack = InventoryHelper.simulateInsertItemStackIntoInventory(invOutput, result, 1);
-                            if (testStack == null) {
-                                invInput.decrStackSize(slot, 9);
-                                InventoryHelper.insertItemStackIntoInventory(invOutput, result, 1);
+                            if (InventoryHelper.canStackFitInInventory(invOutput, result)) {
+                                invInput.extractItem(slot, 9, false);
+                                InventoryHelper.insertItemStackIntoInventory(invOutput, result);
                                 return true;
                             }
                         }
@@ -189,10 +187,9 @@ public class TilePackager extends TileEnergyHandler implements ITickable, ISorti
 			                result = AutoPackager.hollow.get(testStack);
 		                }
 		                if (result != null) {
-			                testStack = InventoryHelper.simulateInsertItemStackIntoInventory(invOutput, result, 1);
-			                if (testStack == null) {
-				                invInput.decrStackSize(slot, 8);
-				                InventoryHelper.insertItemStackIntoInventory(invOutput, result, 1);
+			                if (InventoryHelper.canStackFitInInventory(invOutput, result)) {
+				                invInput.extractItem(slot, 8, false);
+				                InventoryHelper.insertItemStackIntoInventory(invOutput, result);
 				                return true;
 			                }
 		                }
@@ -215,10 +212,9 @@ public class TilePackager extends TileEnergyHandler implements ITickable, ISorti
 			                result = AutoPackager.single.get(testStack);
 		                }
 		                if (result != null) {
-			                testStack = InventoryHelper.simulateInsertItemStackIntoInventory(invOutput, result, 1);
-			                if (testStack == null) {
-				                invInput.decrStackSize(slot, 1);
-				                InventoryHelper.insertItemStackIntoInventory(invOutput, result, 1);
+			                if (InventoryHelper.canStackFitInInventory(invOutput, result)) {
+				                invInput.extractItem(slot, 1, false);
+				                InventoryHelper.insertItemStackIntoInventory(invOutput, result);
 				                return true;
 			                }
 		                }
@@ -239,18 +235,45 @@ public class TilePackager extends TileEnergyHandler implements ITickable, ISorti
                          }
                          if (invInput.getStackInSlot(slots.first()).stackSize + invInput.getStackInSlot(slots.last()).stackSize <= invInput.getStackInSlot(slots.first()).getMaxStackSize()) {
                              invInput.getStackInSlot(slots.first()).stackSize += invInput.getStackInSlot(slots.last()).stackSize;
-                             invInput.setInventorySlotContents(slots.last(), null);
+                             invInput.setStackInSlot(slots.last(), null);
                          } else {
                              int spaceRemain = invInput.getStackInSlot(slots.first()).getMaxStackSize() - invInput.getStackInSlot(slots.first()).stackSize;
                              invInput.getStackInSlot(slots.first()).stackSize += spaceRemain;
-                             invInput.decrStackSize(slots.last(), spaceRemain);
+                             invInput.getStackInSlot(slots.last()).stackSize -= spaceRemain;
                          }
                      }
                  }
             }
 		}
-		*/
 		return false;
+	}
+
+	private BlockPos getInputSide() {
+		switch (this.orientation) {
+			case NORTH:
+				return this.pos.east();
+			case EAST:
+				return this.pos.south();
+			case SOUTH:
+				return this.pos.west();
+			case WEST:
+				return this.pos.north();
+		}
+		return this.pos.north();
+	}
+
+	private BlockPos getOutputSide() {
+		switch (this.orientation) {
+			case NORTH:
+				return this.pos.west();
+			case EAST:
+				return this.pos.north();
+			case SOUTH:
+				return this.pos.east();
+			case WEST:
+				return this.pos.south();
+		}
+		return this.pos.south();
 	}
 
 	@Override
