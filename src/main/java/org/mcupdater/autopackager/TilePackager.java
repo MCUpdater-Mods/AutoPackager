@@ -109,113 +109,27 @@ public class TilePackager extends TileEnergyHandler implements ITickable, ISorti
                         slotList.add(slot);
                         slotMap.put(invInput.getStackInSlot(slot).getUnlocalizedName() + ":" + invInput.getStackInSlot(slot).getItemDamage(), slotList);
                     }
-	                ItemStack result;
-                    if ((mode == Mode.HYBRID || mode == Mode.SMALL) && invInput.getStackInSlot(slot).stackSize >= 4) {
-	                    ItemStack testStack = invInput.getStackInSlot(slot).copy();
-	                    testStack.stackSize = 1;
-	                    if (!AutoPackager.small.containsKey(testStack)) {
-		                    InventoryCrafting smallCraft = new InventoryCrafting(new Container()
-		                    {
-			                    @Override
-			                    public boolean canInteractWith(EntityPlayer entityPlayer) {
-				                    return false;
-			                    }
-		                    }, 2, 2);
-		                    for (int craftSlot = 0; craftSlot < 4; craftSlot++) {
-			                    smallCraft.setInventorySlotContents(craftSlot, testStack);
-		                    }
-		                    result = CraftingManager.getInstance().findMatchingRecipe(smallCraft, worldObj);
-		                    AutoPackager.small.put(testStack, result);
-	                    } else {
-		                    result = AutoPackager.small.get(testStack);
-	                    }
-                        if (result != null) {
-                            if (InventoryHelper.canStackFitInInventory(invOutput, result)) {
-                                invInput.extractItem(slot, 4, false);
-                                InventoryHelper.insertItemStackIntoInventory(invOutput, result);
-                                return true;
-                            }
-                        }
-                    }
-                    if ((mode == Mode.HYBRID || mode == Mode.LARGE) && invInput.getStackInSlot(slot).stackSize >= 9) {
-                        ItemStack testStack = invInput.getStackInSlot(slot).copy();
-                        testStack.stackSize = 1;
-	                    if (!AutoPackager.large.containsKey(testStack)) {
-		                    InventoryCrafting largeCraft = new InventoryCrafting(new Container()
-		                    {
-			                    @Override
-			                    public boolean canInteractWith(EntityPlayer entityPlayer) {
-				                    return false;
-			                    }
-		                    }, 3, 3);
-		                    for (int craftSlot = 0; craftSlot < 9; craftSlot++) {
-			                    largeCraft.setInventorySlotContents(craftSlot, testStack);
-		                    }
-		                    result = CraftingManager.getInstance().findMatchingRecipe(largeCraft, worldObj);
-		                    AutoPackager.large.put(testStack, result);
-	                    } else {
-		                    result = AutoPackager.large.get(testStack);
-	                    }
-                        if (result != null) {
-                            if (InventoryHelper.canStackFitInInventory(invOutput, result)) {
-                                invInput.extractItem(slot, 9, false);
-                                InventoryHelper.insertItemStackIntoInventory(invOutput, result);
-                                return true;
-                            }
-                        }
-                    }
-	                if (mode == Mode.HOLLOW && invInput.getStackInSlot(slot).stackSize >= 8) {
-		                ItemStack testStack = invInput.getStackInSlot(slot).copy();
-		                testStack.stackSize = 1;
-		                if (!AutoPackager.hollow.containsKey(testStack)) {
-			                InventoryCrafting largeCraft = new InventoryCrafting(new Container()
-			                {
-				                @Override
-				                public boolean canInteractWith(EntityPlayer entityPlayer) {
-					                return false;
-				                }
-			                }, 3, 3);
-			                for (int craftSlot = 0; craftSlot < 9; craftSlot++) {
-				                largeCraft.setInventorySlotContents(craftSlot, craftSlot == 4 ? null : testStack);
-			                }
-			                result = CraftingManager.getInstance().findMatchingRecipe(largeCraft, worldObj);
-			                AutoPackager.hollow.put(testStack, result);
-		                } else {
-			                result = AutoPackager.hollow.get(testStack);
-		                }
-		                if (result != null) {
-			                if (InventoryHelper.canStackFitInInventory(invOutput, result)) {
-				                invInput.extractItem(slot, 8, false);
-				                InventoryHelper.insertItemStackIntoInventory(invOutput, result);
-				                return true;
-			                }
-		                }
+	                boolean result;
+	                switch (mode) {
+		                case HYBRID:
+			                result = (craftSmall(invInput, invOutput, slot) || craftLarge(invInput, invOutput, slot));
+			                break;
+		                case SMALL:
+		                    result = craftSmall(invInput, invOutput, slot);
+			                break;
+		                case LARGE:
+			                result = craftLarge(invInput, invOutput, slot);
+			                break;
+		                case HOLLOW:
+			                result = craftHollow(invInput, invOutput, slot);
+			                break;
+		                case UNPACKAGE:
+		                    result = craftTiny(invInput, invOutput, slot);
+			                break;
+		                default:
+			                result = false;
 	                }
-	                if (mode == Mode.UNPACKAGE && invInput.getStackInSlot(slot).stackSize >= 1) {
-		                ItemStack testStack = invInput.getStackInSlot(slot).copy();
-		                testStack.stackSize = 1;
-		                if (!AutoPackager.single.containsKey(testStack)) {
-			                InventoryCrafting smallCraft = new InventoryCrafting(new Container()
-			                {
-				                @Override
-				                public boolean canInteractWith(EntityPlayer entityPlayer) {
-					                return false;
-				                }
-			                }, 2, 2);
-			                smallCraft.setInventorySlotContents(0, testStack);
-			                result = CraftingManager.getInstance().findMatchingRecipe(smallCraft, worldObj);
-			                AutoPackager.single.put(testStack, result);
-		                } else {
-			                result = AutoPackager.single.get(testStack);
-		                }
-		                if (result != null) {
-			                if (InventoryHelper.canStackFitInInventory(invOutput, result)) {
-				                invInput.extractItem(slot, 1, false);
-				                InventoryHelper.insertItemStackIntoInventory(invOutput, result);
-				                return true;
-			                }
-		                }
-	                }
+	                if (result) return true;
                 }
 			}
             for (Map.Entry<String,SortedSet<Integer>> entry : slotMap.entrySet()) {
@@ -241,6 +155,131 @@ public class TilePackager extends TileEnergyHandler implements ITickable, ISorti
                      }
                  }
             }
+		}
+		return false;
+	}
+
+	private boolean craftTiny(InvWrapper invInput, InvWrapper invOutput, int slot) {
+		ItemStack result;
+		if (invInput.getStackInSlot(slot).stackSize >= 1) {
+			ItemStack testStack = invInput.getStackInSlot(slot).copy();
+			testStack.stackSize = 1;
+			if (!AutoPackager.single.containsKey(testStack)) {
+				InventoryCrafting smallCraft = new InventoryCrafting(new Container() {
+					@Override
+					public boolean canInteractWith(EntityPlayer entityPlayer) {
+						return false;
+					}
+				}, 2, 2);
+				smallCraft.setInventorySlotContents(0, testStack);
+				result = CraftingManager.getInstance().findMatchingRecipe(smallCraft, worldObj);
+				AutoPackager.single.put(testStack, result);
+			} else {
+				result = AutoPackager.single.get(testStack);
+			}
+			if (result != null) {
+				if (InventoryHelper.canStackFitInInventory(invOutput, result)) {
+					invInput.extractItem(slot, 1, false);
+					InventoryHelper.insertItemStackIntoInventory(invOutput, result);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	private boolean craftHollow(InvWrapper invInput, InvWrapper invOutput, int slot) {
+		ItemStack result;
+		if (invInput.getStackInSlot(slot).stackSize >= 8) {
+			ItemStack testStack = invInput.getStackInSlot(slot).copy();
+			testStack.stackSize = 1;
+			if (!AutoPackager.hollow.containsKey(testStack)) {
+				InventoryCrafting largeCraft = new InventoryCrafting(new Container()
+				{
+					@Override
+					public boolean canInteractWith(EntityPlayer entityPlayer) {
+						return false;
+					}
+				}, 3, 3);
+				for (int craftSlot = 0; craftSlot < 9; craftSlot++) {
+					largeCraft.setInventorySlotContents(craftSlot, craftSlot == 4 ? null : testStack);
+				}
+				result = CraftingManager.getInstance().findMatchingRecipe(largeCraft, worldObj);
+				AutoPackager.hollow.put(testStack, result);
+			} else {
+				result = AutoPackager.hollow.get(testStack);
+			}
+			if (result != null) {
+				if (InventoryHelper.canStackFitInInventory(invOutput, result)) {
+					invInput.extractItem(slot, 8, false);
+					InventoryHelper.insertItemStackIntoInventory(invOutput, result);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	private boolean craftLarge(InvWrapper invInput, InvWrapper invOutput, int slot) {
+		ItemStack result;
+		if (invInput.getStackInSlot(slot).stackSize >= 9) {
+	        ItemStack testStack = invInput.getStackInSlot(slot).copy();
+	        testStack.stackSize = 1;
+		    if (!AutoPackager.large.containsKey(testStack)) {
+			    InventoryCrafting largeCraft = new InventoryCrafting(new Container()
+			    {
+				    @Override
+				    public boolean canInteractWith(EntityPlayer entityPlayer) {
+					    return false;
+				    }
+			    }, 3, 3);
+			    for (int craftSlot = 0; craftSlot < 9; craftSlot++) {
+				    largeCraft.setInventorySlotContents(craftSlot, testStack);
+			    }
+			    result = CraftingManager.getInstance().findMatchingRecipe(largeCraft, worldObj);
+			    AutoPackager.large.put(testStack, result);
+		    } else {
+			    result = AutoPackager.large.get(testStack);
+		    }
+	        if (result != null) {
+	            if (InventoryHelper.canStackFitInInventory(invOutput, result)) {
+	                invInput.extractItem(slot, 9, false);
+	                InventoryHelper.insertItemStackIntoInventory(invOutput, result);
+		            return true;
+	            }
+	        }
+	    }
+		return false;
+	}
+
+	private boolean craftSmall(InvWrapper invInput, InvWrapper invOutput, int slot) {
+		ItemStack result;
+		if (invInput.getStackInSlot(slot).stackSize >= 4) {
+			ItemStack testStack = invInput.getStackInSlot(slot).copy();
+			testStack.stackSize = 1;
+			if (!AutoPackager.small.containsKey(testStack)) {
+				InventoryCrafting smallCraft = new InventoryCrafting(new Container()
+				{
+					@Override
+					public boolean canInteractWith(EntityPlayer entityPlayer) {
+						return false;
+					}
+				}, 2, 2);
+				for (int craftSlot = 0; craftSlot < 4; craftSlot++) {
+					smallCraft.setInventorySlotContents(craftSlot, testStack);
+				}
+				result = CraftingManager.getInstance().findMatchingRecipe(smallCraft, worldObj);
+				AutoPackager.small.put(testStack, result);
+			} else {
+				result = AutoPackager.small.get(testStack);
+			}
+		    if (result != null) {
+		        if (InventoryHelper.canStackFitInInventory(invOutput, result)) {
+		            invInput.extractItem(slot, 4, false);
+		            InventoryHelper.insertItemStackIntoInventory(invOutput, result);
+			        return true;
+		        }
+		    }
 		}
 		return false;
 	}
