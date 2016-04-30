@@ -4,6 +4,7 @@ import cofh.api.energy.TileEnergyHandler;
 import com.dynious.refinedrelocation.api.APIUtils;
 import com.dynious.refinedrelocation.api.tileentity.ISortingMember;
 import com.dynious.refinedrelocation.api.tileentity.handlers.ISortingMemberHandler;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -14,9 +15,12 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
@@ -333,13 +337,13 @@ public class TilePackager extends TileEnergyHandler implements ITickable, ISorti
 	public void cycleMode(EntityPlayer player) {
 		mode = Mode.values()[(mode.ordinal()+1) % Mode.values().length];
 		if (!worldObj.isRemote) {
-			player.addChatMessage(new ChatComponentTranslation(StatCollector.translateToLocal("autopackager.mode.current") + " " + StatCollector.translateToLocal(mode.getMessage())));
+			player.addChatMessage(new TextComponentTranslation(I18n.translateToLocal("autopackager.mode.current") + " " + I18n.translateToLocal(mode.getMessage())));
 		}
 	}
 
 	public void checkMode(EntityPlayer player) {
 		if (!worldObj.isRemote) {
-			player.addChatMessage(new ChatComponentTranslation(StatCollector.translateToLocal("autopackager.mode.current") + " " + StatCollector.translateToLocal(mode.getMessage())));
+			player.addChatMessage(new TextComponentTranslation(I18n.translateToLocal("autopackager.mode.current") + " " + I18n.translateToLocal(mode.getMessage())));
 		}
 	}
 
@@ -347,14 +351,15 @@ public class TilePackager extends TileEnergyHandler implements ITickable, ISorti
 	public Packet getDescriptionPacket() {
 		NBTTagCompound nbt = new NBTTagCompound();
 		writeToNBT(nbt);
-		return new S35PacketUpdateTileEntity(this.getPos(), getBlockMetadata(), nbt);
+		return new SPacketUpdateTileEntity(this.getPos(), getBlockMetadata(), nbt);
 	}
 
 	@Override
-	public void onDataPacket(NetworkManager netman, S35PacketUpdateTileEntity packet) {
+	public void onDataPacket(NetworkManager netman, SPacketUpdateTileEntity packet) {
 		readFromNBT(packet.getNbtCompound());
 		if (worldObj.isRemote) {
-			this.worldObj.markBlockForUpdate(this.getPos());
+			IBlockState state = this.worldObj.getBlockState(this.getPos());
+			this.worldObj.notifyBlockUpdate(this.getPos(), state, state, 3);
 		}
 	}
 
@@ -370,6 +375,6 @@ public class TilePackager extends TileEnergyHandler implements ITickable, ISorti
 	@SideOnly(Side.CLIENT)
 	@SuppressWarnings("unchecked")
 	public void addWailaInformation(List information) {
-		information.add(StatCollector.translateToLocal("autopackager.mode.current") + " " + StatCollector.translateToLocal(mode.getMessage()));
+		information.add(I18n.translateToLocal("autopackager.mode.current") + " " + I18n.translateToLocal(mode.getMessage()));
 	}
 }

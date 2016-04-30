@@ -6,7 +6,7 @@ import net.minecraftforge.items.wrapper.InvWrapper;
 public class InventoryHelper
 {
 	public static boolean canStackFitInInventory(InvWrapper target, ItemStack toInsert) {
-		if (target.inv == null || toInsert == null) {
+		if (target.getInv() == null || toInsert == null) {
 			return false;
 		}
 		ItemStack remainingItems = toInsert.copy();
@@ -17,7 +17,7 @@ public class InventoryHelper
 	}
 
 	public static ItemStack insertItemStackIntoInventory(InvWrapper target, ItemStack toInsert) {
-		if (target.inv == null || toInsert == null) {
+		if (target.getInv() == null || toInsert == null) {
 			return toInsert;
 		}
 		for (int slot = 0; slot < target.getSlots() && (toInsert != null && toInsert.stackSize > 0); slot++ ) {

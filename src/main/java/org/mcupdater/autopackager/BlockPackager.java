@@ -1,17 +1,20 @@
 package org.mcupdater.autopackager;
 
 import net.minecraft.block.BlockContainer;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class BlockPackager extends BlockContainer
@@ -27,7 +30,7 @@ public class BlockPackager extends BlockContainer
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		setHardness(10F);
 		setResistance(10F);
-		setStepSound(soundTypeStone);
+		setStepSound(SoundType.STONE);
 		setUnlocalizedName("packagerBlock");
 		setCreativeTab(CreativeTabs.tabRedstone);
 	}
@@ -48,10 +51,10 @@ public class BlockPackager extends BlockContainer
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
 		TilePackager tile = (TilePackager) world.getTileEntity(pos);
 
-		if (player.getCurrentEquippedItem() == null) {
+		if (heldItem == null) {
 			if (player.isSneaking()) {
 				tile.cycleMode(player);
 			} else {
@@ -79,12 +82,12 @@ public class BlockPackager extends BlockContainer
 	}
 
 	@Override
-	protected BlockState createBlockState() {
-		return new BlockState(this, FACING);
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, FACING);
 	}
 
 	@Override
-	public int getRenderType() {
-		return 3;
+	public EnumBlockRenderType getRenderType(IBlockState state) {
+		return EnumBlockRenderType.MODEL;
 	}
 }

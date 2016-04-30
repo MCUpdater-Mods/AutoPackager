@@ -13,6 +13,8 @@ buildscript {
     }
 }
 
+apply plugin: 'net.minecraftforge.gradle.forge'
+
 repositories {
     maven {
         name = "chickenbones"
@@ -24,16 +26,15 @@ repositories {
     }
 }
 
-apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "1.6.0"
+version = "1.6.1"
 group= "org.mcupdater.autopackager" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "autopackager"
 
 minecraft {
-	version = "1.8.9-11.15.1.1783"
+	version = "1.9-12.16.0.1868-1.9"
     runDir = "run"
-    mappings = "stable_20"
+    mappings = "snapshot_20160312"
 }
 
 dependencies {
@@ -41,7 +42,7 @@ dependencies {
     //compile "codechicken:CodeChickenLib:1.7.10-1.1.3.136:dev"
     //compile "codechicken:CodeChickenCore:1.7.10-1.0.6.43:dev"
     //compile "codechicken:NotEnoughItems:1.7.10-1.0.4.105:dev"
-    compile "mcp.mobius.waila:Waila:1.6.0-B3_1.8.8:dev"
+    compile "mcp.mobius.waila:Waila:1.7.0-B2_1.9:dev"
 }
 
 processResources
