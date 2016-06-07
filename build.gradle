@@ -32,7 +32,7 @@ group= "org.mcupdater.autopackager" // http://maven.apache.org/guides/mini/guide
 archivesBaseName = "autopackager"
 
 minecraft {
-	version = "1.9.4-12.17.0.1909-1.9.4"
+	version = "1.9.4-12.17.0.1954"
     runDir = "run"
     mappings = "snapshot_20160518"
 }

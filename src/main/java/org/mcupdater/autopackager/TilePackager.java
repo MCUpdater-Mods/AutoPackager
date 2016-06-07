@@ -16,10 +16,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
@@ -348,10 +348,13 @@ public class TilePackager extends TileEnergyHandler implements ITickable, ISorti
 	}
 
 	@Override
+	public NBTTagCompound getUpdateTag() {
+		return writeToNBT(super.getUpdateTag());
+	}
+
+	@Override
 	public SPacketUpdateTileEntity getUpdatePacket() {
-		NBTTagCompound nbt = new NBTTagCompound();
-		writeToNBT(nbt);
-		return new SPacketUpdateTileEntity(this.getPos(), getBlockMetadata(), nbt);
+		return new SPacketUpdateTileEntity(this.getPos(), getBlockMetadata(), getUpdateTag());
 	}
 
 	@Override
