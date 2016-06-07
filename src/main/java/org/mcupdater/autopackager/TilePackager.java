@@ -14,7 +14,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
@@ -317,10 +316,11 @@ public class TilePackager extends TileEnergyHandler implements ITickable, ISorti
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound tagCompound) {
+	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
 		tagCompound.setInteger("mode", mode.ordinal());
 		tagCompound.setString("orientation", orientation.getName());
+		return tagCompound;
 	}
 
 	@Override
@@ -337,18 +337,18 @@ public class TilePackager extends TileEnergyHandler implements ITickable, ISorti
 	public void cycleMode(EntityPlayer player) {
 		mode = Mode.values()[(mode.ordinal()+1) % Mode.values().length];
 		if (!worldObj.isRemote) {
-			player.addChatMessage(new TextComponentTranslation(I18n.translateToLocal("autopackager.mode.current") + " " + I18n.translateToLocal(mode.getMessage())));
+			player.addChatMessage(new TextComponentTranslation(new TextComponentTranslation("autopackager.mode.current").getUnformattedComponentText() + " " + new TextComponentTranslation(mode.getMessage()).getUnformattedComponentText()));
 		}
 	}
 
 	public void checkMode(EntityPlayer player) {
 		if (!worldObj.isRemote) {
-			player.addChatMessage(new TextComponentTranslation(I18n.translateToLocal("autopackager.mode.current") + " " + I18n.translateToLocal(mode.getMessage())));
+			player.addChatMessage(new TextComponentTranslation(new TextComponentTranslation("autopackager.mode.current").getUnformattedComponentText() + " " + new TextComponentTranslation(mode.getMessage()).getUnformattedComponentText()));
 		}
 	}
 
 	@Override
-	public Packet getDescriptionPacket() {
+	public SPacketUpdateTileEntity getUpdatePacket() {
 		NBTTagCompound nbt = new NBTTagCompound();
 		writeToNBT(nbt);
 		return new SPacketUpdateTileEntity(this.getPos(), getBlockMetadata(), nbt);
@@ -375,6 +375,6 @@ public class TilePackager extends TileEnergyHandler implements ITickable, ISorti
 	@SideOnly(Side.CLIENT)
 	@SuppressWarnings("unchecked")
 	public void addWailaInformation(List information) {
-		information.add(I18n.translateToLocal("autopackager.mode.current") + " " + I18n.translateToLocal(mode.getMessage()));
+		information.add(new TextComponentTranslation("autopackager.mode.current").getUnformattedComponentText() + " " + new TextComponentTranslation(mode.getMessage()).getUnformattedComponentText());
 	}
 }

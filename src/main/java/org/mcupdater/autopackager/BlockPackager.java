@@ -26,13 +26,13 @@ public class BlockPackager extends BlockContainer
 	}
 
 	protected BlockPackager() {
-		super(Material.rock);
+		super(Material.ROCK);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		setHardness(10F);
 		setResistance(10F);
-		setStepSound(SoundType.STONE);
+		setSoundType(SoundType.STONE);
 		setUnlocalizedName("packagerBlock");
-		setCreativeTab(CreativeTabs.tabRedstone);
+		setCreativeTab(CreativeTabs.REDSTONE);
 	}
 
 	@Override

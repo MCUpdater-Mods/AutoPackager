@@ -9,7 +9,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
     }
 }
 
@@ -27,14 +27,14 @@ repositories {
 }
 
 
-version = "1.6.1"
+version = "1.6.2"
 group= "org.mcupdater.autopackager" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "autopackager"
 
 minecraft {
-	version = "1.9-12.16.0.1868-1.9"
+	version = "1.9.4-12.17.0.1909-1.9.4"
     runDir = "run"
-    mappings = "snapshot_20160312"
+    mappings = "snapshot_20160518"
 }
 
 dependencies {
@@ -42,7 +42,7 @@ dependencies {
     //compile "codechicken:CodeChickenLib:1.7.10-1.1.3.136:dev"
     //compile "codechicken:CodeChickenCore:1.7.10-1.0.6.43:dev"
     //compile "codechicken:NotEnoughItems:1.7.10-1.0.4.105:dev"
-    compile "mcp.mobius.waila:Waila:1.7.0-B2_1.9:dev"
+    compile "mcp.mobius.waila:Waila:1.7.0-B3_1.9.4:dev"
 }
 
 processResources

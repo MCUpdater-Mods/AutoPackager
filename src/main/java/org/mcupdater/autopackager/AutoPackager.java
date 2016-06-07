@@ -76,7 +76,7 @@ public class AutoPackager {
 	private void loadRecipes() {
 		ItemStack keyItem = new ItemStack(GameRegistry.findItem("ThermalExpansion","powerCoilGold"),1);
 		if (keyItem.getItem() == null) {
-			keyItem = new ItemStack(Items.redstone);
+			keyItem = new ItemStack(Items.REDSTONE);
 		}
 		System.out.println("Key item: " + keyItem.getDisplayName());
 		ShapedOreRecipe recipePackager = new ShapedOreRecipe(
@@ -84,9 +84,9 @@ public class AutoPackager {
 			"ipi",
 			"ptp",
 			"ici",
-			'i', Items.iron_ingot,
-			'p', Blocks.piston,
-			't', Blocks.crafting_table,
+			'i', Items.IRON_INGOT,
+			'p', Blocks.PISTON,
+			't', Blocks.CRAFTING_TABLE,
 			'c', keyItem
 		);
 		GameRegistry.addRecipe(recipePackager);

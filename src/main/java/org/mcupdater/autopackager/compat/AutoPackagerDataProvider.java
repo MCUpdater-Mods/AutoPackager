@@ -18,6 +18,7 @@ import java.util.List;
 /**
  * Created by sbarbour on 2/21/16.
  */
+
 public class AutoPackagerDataProvider implements IWailaDataProvider {
 	@Override
 	public ItemStack getWailaStack(IWailaDataAccessor iWailaDataAccessor, IWailaConfigHandler iWailaConfigHandler) {
