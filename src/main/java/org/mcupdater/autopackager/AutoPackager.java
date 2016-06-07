@@ -1,11 +1,8 @@
 package org.mcupdater.autopackager;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
@@ -64,7 +61,7 @@ public class AutoPackager {
 	public void postInit(FMLPostInitializationEvent evt) {
 		loadRecipes();
 		if (proxy.isClient()) {
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(packagerBlock), 0, new ModelResourceLocation("autopackager:packagerBlock", "inventory"));
+			proxy.doClientRegistrations();
 		}
     }
 

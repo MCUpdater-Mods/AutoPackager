@@ -10,4 +10,8 @@ public class CommonProxy {
 	public boolean isClient() {
 		return client;
 	}
+
+	public void doClientRegistrations() {
+
+	}
 }
