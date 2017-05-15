@@ -1,9 +1,5 @@
 package org.mcupdater.autopackager;
 
-import cofh.api.energy.TileEnergyHandler;
-import com.dynious.refinedrelocation.api.APIUtils;
-import com.dynious.refinedrelocation.api.tileentity.ISortingMember;
-import com.dynious.refinedrelocation.api.tileentity.handlers.ISortingMemberHandler;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -20,17 +16,21 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import org.mcupdater.autopackager.helpers.InventoryHelper;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.*;
 
 @Optional.Interface(iface = "com.dynious.refinedrelocation.api.tileentity.ISortingMember", modid = "RefinedRelocation")
-public class TilePackager extends TileEnergyHandler implements ITickable, ISortingMember
+public class TilePackager extends TileEntity implements ITickable
 {
 	protected enum Mode {
 		HYBRID("autopackager.mode.hybrid"), SMALL("autopackager.mode.small"), LARGE("autopackager.mode.large"), HOLLOW("autopackager.mode.hollow"), UNPACKAGE("autopackager.mode.unpackage");
@@ -45,8 +45,7 @@ public class TilePackager extends TileEnergyHandler implements ITickable, ISorti
 		}
 	}
 
-	private boolean isFirstTick = true;
-	private Object sortingHandler;
+	private EnergyStorage storage = new EnergyStorage(AutoPackager.energyPerCycle * 100);
 
 	private EnumFacing orientation = EnumFacing.DOWN;
 
@@ -66,15 +65,6 @@ public class TilePackager extends TileEnergyHandler implements ITickable, ISorti
 
 	@Override
 	public void update() {
-		if (isFirstTick && Loader.isModLoaded("RefinedRelocation")) {
-			new Runnable() {
-				@Override
-				public void run() {
-					getHandler().onTileAdded();
-				}
-			}.run();
-			isFirstTick = false;
-		}
 		if (++tickCounter >= tickDelay) {
 			tickCounter = 0;
 			if (storage.getEnergyStored() > AutoPackager.energyPerCycle) {
@@ -320,6 +310,7 @@ public class TilePackager extends TileEnergyHandler implements ITickable, ISorti
 		super.writeToNBT(tagCompound);
 		tagCompound.setInteger("mode", mode.ordinal());
 		tagCompound.setString("orientation", orientation.getName());
+		tagCompound.setInteger("energy", storage.getEnergyStored());
 		return tagCompound;
 	}
 
@@ -328,6 +319,9 @@ public class TilePackager extends TileEnergyHandler implements ITickable, ISorti
 		super.readFromNBT(tagCompound);
 		this.mode = Mode.values()[tagCompound.getInteger("mode")];
 		this.orientation = EnumFacing.byName(tagCompound.getString("orientation"));
+		if (tagCompound.hasKey("energy")) {
+			storage.receiveEnergy(tagCompound.getInteger("energy"),false);
+		}
 	}
 
 	public void setOrientation(EnumFacing orientation) {
@@ -366,18 +360,23 @@ public class TilePackager extends TileEnergyHandler implements ITickable, ISorti
 		}
 	}
 
-	@Optional.Method(modid = "RefinedRelocation")
-	@Override
-	public ISortingMemberHandler getHandler() {
-		if (sortingHandler == null) {
-			sortingHandler = APIUtils.createSortingMemberHandler(this);
-		}
-		return (ISortingMemberHandler) sortingHandler;
-	}
-
 	@SideOnly(Side.CLIENT)
 	@SuppressWarnings("unchecked")
 	public void addWailaInformation(List information) {
 		information.add(new TextComponentTranslation("autopackager.mode.current").getUnformattedComponentText() + " " + new TextComponentTranslation(mode.getMessage()).getUnformattedComponentText());
+	}
+
+	@Override
+	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
+		if (capability == CapabilityEnergy.ENERGY) {
+			return CapabilityEnergy.ENERGY.cast(storage);
+		}
+
+		return super.getCapability(capability, facing);
+	}
+
+	@Override
+	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
+		return capability == CapabilityEnergy.ENERGY || super.hasCapability(capability, facing);
 	}
 }

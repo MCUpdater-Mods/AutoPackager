@@ -27,14 +27,14 @@ repositories {
 }
 
 
-version = "1.6.3"
+version = "1.6.4"
 group= "org.mcupdater.autopackager" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "autopackager"
 
 minecraft {
-	version = "1.9.4-12.17.0.1954"
+	version = "1.10.2-12.18.3.2254"
     runDir = "run"
-    mappings = "snapshot_20160518"
+    mappings = "snapshot_20161111"
 }
 
 dependencies {
@@ -42,7 +42,7 @@ dependencies {
     //compile "codechicken:CodeChickenLib:1.7.10-1.1.3.136:dev"
     //compile "codechicken:CodeChickenCore:1.7.10-1.0.6.43:dev"
     //compile "codechicken:NotEnoughItems:1.7.10-1.0.4.105:dev"
-    compile "mcp.mobius.waila:Waila:1.7.0-B3_1.9.4:dev"
+    //compile "mcp.mobius.waila:Waila:1.7.0-B3_1.9.4:dev"
 }
 
 processResources

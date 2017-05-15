@@ -8,6 +8,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.ModMetadata;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -24,7 +25,7 @@ public class AutoPackager {
 	public static CommonProxy proxy;
 
 	public static Configuration config;
-	public static Block packagerBlock;
+	public static BlockPackager packagerBlock;
 	public static int energyPerCycle;
 	public static int delayCycleNormal;
 	public static int delayCycleIdle;
@@ -33,9 +34,11 @@ public class AutoPackager {
 	public static Map<ItemStack,ItemStack> small = new HashMap<ItemStack, ItemStack>();
 	public static Map<ItemStack,ItemStack> hollow = new HashMap<ItemStack, ItemStack>();
 	public static Map<ItemStack,ItemStack> single = new HashMap<ItemStack, ItemStack>();
+	public static ModMetadata metadata;
 
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent evt) {
+		metadata = evt.getModMetadata();
 		config = new Configuration(evt.getSuggestedConfigurationFile());
 		config.load();
 		energyPerCycle = config.get("General", "RF_per_cycle", 1000).getInt(1000);
@@ -45,7 +48,8 @@ public class AutoPackager {
 			config.save();
 		}
 		packagerBlock=new BlockPackager();
-		GameRegistry.registerBlock(packagerBlock,ItemBlockPackager.class,packagerBlock.getUnlocalizedName().replace("tile.",""));
+		GameRegistry.register(packagerBlock);
+		GameRegistry.register(packagerBlock.getItemBlock());
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 
