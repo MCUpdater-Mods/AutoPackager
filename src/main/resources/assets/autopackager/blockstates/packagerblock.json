@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "autopackager:packagerblock" },
+    "facing=south": { "model": "autopackager:packagerblock", "y": 180 },
+    "facing=west":  { "model": "autopackager:packagerblock", "y": 270 },
+    "facing=east":  { "model": "autopackager:packagerblock", "y": 90 }
+  }
+}

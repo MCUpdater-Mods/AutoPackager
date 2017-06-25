@@ -7,12 +7,12 @@ import net.minecraft.server.MinecraftServer;
 public class ClearRecipeCacheCommand extends CommandBase
 {
 	@Override
-	public String getCommandName() {
+	public String getName() {
 		return "ap_clearcache";
 	}
 
 	@Override
-	public String getCommandUsage(ICommandSender sender) {
+	public String getUsage(ICommandSender sender) {
 		return "";
 	}
 

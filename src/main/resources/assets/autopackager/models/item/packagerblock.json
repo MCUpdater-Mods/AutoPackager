@@ -1,5 +1,5 @@
 {
-  "parent": "autopackager:block/packagerBlock",
+  "parent": "autopackager:block/packagerblock",
   "display": {
     "thirdperson": {
       "rotation": [ 10, -45, 170 ],

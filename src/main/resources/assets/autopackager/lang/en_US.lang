@@ -2,6 +2,7 @@ tile.autopackager.name=AutoPackager
 
 autopackager.mode.current=Current Mode:
 autopackager.mode.hybrid=2x2 then 3x3
+autopackager.mode.hybrid2=3x3 then 2x2
 autopackager.mode.small=2x2 only
 autopackager.mode.large=3x3 only
 autopackager.mode.hollow=3x3 hollow

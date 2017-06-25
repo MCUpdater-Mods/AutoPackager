@@ -13,6 +13,6 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void doClientRegistrations() {
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(AutoPackager.packagerBlock), 0, new ModelResourceLocation("autopackager:packagerBlock", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(AutoPackager.packagerBlock), 0, new ModelResourceLocation("autopackager:packagerblock", "inventory"));
 	}
 }

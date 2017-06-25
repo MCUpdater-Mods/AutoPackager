@@ -19,7 +19,6 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.EnergyStorage;
-import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.wrapper.InvWrapper;
@@ -29,11 +28,10 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 
-@Optional.Interface(iface = "com.dynious.refinedrelocation.api.tileentity.ISortingMember", modid = "RefinedRelocation")
 public class TilePackager extends TileEntity implements ITickable
 {
 	protected enum Mode {
-		HYBRID("autopackager.mode.hybrid"), SMALL("autopackager.mode.small"), LARGE("autopackager.mode.large"), HOLLOW("autopackager.mode.hollow"), UNPACKAGE("autopackager.mode.unpackage");
+		HYBRID("autopackager.mode.hybrid"), SMALL("autopackager.mode.small"), LARGE("autopackager.mode.large"), HOLLOW("autopackager.mode.hollow"), UNPACKAGE("autopackager.mode.unpackage"), HYBRID2("autopackager.mode.hybrid2");
 
 		private String message;
 		Mode(String message) {
@@ -68,6 +66,23 @@ public class TilePackager extends TileEntity implements ITickable
 		if (++tickCounter >= tickDelay) {
 			tickCounter = 0;
 			if (storage.getEnergyStored() > AutoPackager.energyPerCycle) {
+				if (AutoPackager.ludicrousMode) {
+					boolean idle = true;
+					while (storage.getEnergyStored() > AutoPackager.energyPerCycle && tryCraft()) {
+						idle = false;
+						if (!AutoPackager.unbalanced) {
+							storage.extractEnergy(AutoPackager.energyPerCycle, false);
+						}
+					}
+					if (idle) {
+						tickDelay = AutoPackager.delayCycleIdle;
+					} else {
+						if (AutoPackager.unbalanced) {
+							storage.extractEnergy(AutoPackager.energyPerCycle, false);
+						}
+						tickDelay = AutoPackager.delayCycleNormal;
+					}
+				}
 				if (tryCraft()) {
 					storage.extractEnergy(AutoPackager.energyPerCycle, false);
 					tickDelay = AutoPackager.delayCycleNormal;
@@ -84,14 +99,14 @@ public class TilePackager extends TileEntity implements ITickable
 		}
 		BlockPos inputPos = getInputSide();
 		BlockPos outputPos = getOutputSide();
-		TileEntity tileInput = worldObj.getTileEntity(inputPos);
-		TileEntity tileOutput = worldObj.getTileEntity(outputPos);
+		TileEntity tileInput = this.getWorld().getTileEntity(inputPos);
+		TileEntity tileOutput = this.getWorld().getTileEntity(outputPos);
         Map<String,SortedSet<Integer>> slotMap = new HashMap<String,SortedSet<Integer>>();
 		if (tileInput instanceof IInventory && tileOutput instanceof IInventory) {
 			InvWrapper invInput = new InvWrapper((IInventory) tileInput);
 			InvWrapper invOutput = new InvWrapper((IInventory) tileOutput);
 			for (int slot = 0; slot < invInput.getSlots(); slot++) {
-                if (invInput.getStackInSlot(slot) != null) {
+                if (!invInput.getStackInSlot(slot).equals(ItemStack.EMPTY)) {
 	                if (invInput instanceof ISidedInventory && !((ISidedInventory)invInput).canExtractItem(slot, invInput.getStackInSlot(slot), EnumFacing.DOWN)) {
 		                continue;
 	                }
@@ -116,6 +131,9 @@ public class TilePackager extends TileEntity implements ITickable
 		                case HOLLOW:
 			                result = craftHollow(invInput, invOutput, slot);
 			                break;
+		                case HYBRID2:
+		                	result = (craftLarge(invInput, invOutput, slot) || craftSmall(invInput, invOutput, slot));
+		                	break;
 		                case UNPACKAGE:
 		                    result = craftTiny(invInput, invOutput, slot);
 			                break;
@@ -129,21 +147,21 @@ public class TilePackager extends TileEntity implements ITickable
                  if (entry.getValue().size() > 1) {
                      SortedSet<Integer> slots = entry.getValue();
                      while (slots.size() > 1) {
-                         if (invInput.getStackInSlot(slots.first()) == null || !(invInput.getStackInSlot(slots.first()).getUnlocalizedName() + ":" + invInput.getStackInSlot(slots.first()).getItemDamage()).equals(entry.getKey()) || invInput.getStackInSlot(slots.first()).stackSize >= invInput.getStackInSlot(slots.first()).getMaxStackSize()) {
+                         if (invInput.getStackInSlot(slots.first()).equals(ItemStack.EMPTY) || !(invInput.getStackInSlot(slots.first()).getUnlocalizedName() + ":" + invInput.getStackInSlot(slots.first()).getItemDamage()).equals(entry.getKey()) || invInput.getStackInSlot(slots.first()).getCount() >= invInput.getStackInSlot(slots.first()).getMaxStackSize()) {
                              slots.remove(slots.first());
                              continue;
                          }
-                         if (invInput.getStackInSlot(slots.last()) == null || !(invInput.getStackInSlot(slots.last()).isItemEqual(invInput.getStackInSlot(slots.first()))) || !ItemStack.areItemStackTagsEqual(invInput.getStackInSlot(slots.first()), invInput.getStackInSlot(slots.last()))) {
+                         if (invInput.getStackInSlot(slots.last()).equals(ItemStack.EMPTY) || !(invInput.getStackInSlot(slots.last()).isItemEqual(invInput.getStackInSlot(slots.first()))) || !ItemStack.areItemStackTagsEqual(invInput.getStackInSlot(slots.first()), invInput.getStackInSlot(slots.last()))) {
                              slots.remove(slots.last());
                              continue;
                          }
-                         if (invInput.getStackInSlot(slots.first()).stackSize + invInput.getStackInSlot(slots.last()).stackSize <= invInput.getStackInSlot(slots.first()).getMaxStackSize()) {
-                             invInput.getStackInSlot(slots.first()).stackSize += invInput.getStackInSlot(slots.last()).stackSize;
-                             invInput.setStackInSlot(slots.last(), null);
+                         if (invInput.getStackInSlot(slots.first()).getCount() + invInput.getStackInSlot(slots.last()).getCount() <= invInput.getStackInSlot(slots.first()).getMaxStackSize()) {
+                             invInput.getStackInSlot(slots.first()).setCount(invInput.getStackInSlot(slots.first()).getCount() + invInput.getStackInSlot(slots.last()).getCount());
+                             invInput.setStackInSlot(slots.last(), ItemStack.EMPTY);
                          } else {
-                             int spaceRemain = invInput.getStackInSlot(slots.first()).getMaxStackSize() - invInput.getStackInSlot(slots.first()).stackSize;
-                             invInput.getStackInSlot(slots.first()).stackSize += spaceRemain;
-                             invInput.getStackInSlot(slots.last()).stackSize -= spaceRemain;
+                             int spaceRemain = invInput.getStackInSlot(slots.first()).getMaxStackSize() - invInput.getStackInSlot(slots.first()).getCount();
+                             invInput.getStackInSlot(slots.first()).setCount(invInput.getStackInSlot(slots.first()).getCount() + spaceRemain);
+                             invInput.getStackInSlot(slots.last()).setCount(invInput.getStackInSlot(slots.last()).getCount() - spaceRemain);
                          }
                      }
                  }
@@ -154,9 +172,9 @@ public class TilePackager extends TileEntity implements ITickable
 
 	private boolean craftTiny(InvWrapper invInput, InvWrapper invOutput, int slot) {
 		ItemStack result;
-		if (invInput.getStackInSlot(slot).stackSize >= 1) {
+		if (invInput.getStackInSlot(slot).getCount() >= 1) {
 			ItemStack testStack = invInput.getStackInSlot(slot).copy();
-			testStack.stackSize = 1;
+			testStack.setCount(1);
 			if (!AutoPackager.single.containsKey(testStack)) {
 				InventoryCrafting smallCraft = new InventoryCrafting(new Container() {
 					@Override
@@ -165,12 +183,12 @@ public class TilePackager extends TileEntity implements ITickable
 					}
 				}, 2, 2);
 				smallCraft.setInventorySlotContents(0, testStack);
-				result = CraftingManager.getInstance().findMatchingRecipe(smallCraft, worldObj);
+				result = CraftingManager.getInstance().findMatchingRecipe(smallCraft, this.getWorld());
 				AutoPackager.single.put(testStack, result);
 			} else {
 				result = AutoPackager.single.get(testStack);
 			}
-			if (result != null) {
+			if (!result.equals(ItemStack.EMPTY)) {
 				if (InventoryHelper.canStackFitInInventory(invOutput, result)) {
 					invInput.extractItem(slot, 1, false);
 					InventoryHelper.insertItemStackIntoInventory(invOutput, result);
@@ -183,9 +201,9 @@ public class TilePackager extends TileEntity implements ITickable
 
 	private boolean craftHollow(InvWrapper invInput, InvWrapper invOutput, int slot) {
 		ItemStack result;
-		if (invInput.getStackInSlot(slot).stackSize >= 8) {
+		if (invInput.getStackInSlot(slot).getCount() >= 8) {
 			ItemStack testStack = invInput.getStackInSlot(slot).copy();
-			testStack.stackSize = 1;
+			testStack.setCount(1);
 			if (!AutoPackager.hollow.containsKey(testStack)) {
 				InventoryCrafting largeCraft = new InventoryCrafting(new Container()
 				{
@@ -195,14 +213,14 @@ public class TilePackager extends TileEntity implements ITickable
 					}
 				}, 3, 3);
 				for (int craftSlot = 0; craftSlot < 9; craftSlot++) {
-					largeCraft.setInventorySlotContents(craftSlot, craftSlot == 4 ? null : testStack);
+					largeCraft.setInventorySlotContents(craftSlot, craftSlot == 4 ? ItemStack.EMPTY : testStack);
 				}
-				result = CraftingManager.getInstance().findMatchingRecipe(largeCraft, worldObj);
+				result = CraftingManager.getInstance().findMatchingRecipe(largeCraft, this.getWorld());
 				AutoPackager.hollow.put(testStack, result);
 			} else {
 				result = AutoPackager.hollow.get(testStack);
 			}
-			if (result != null) {
+			if (!result.equals(ItemStack.EMPTY)) {
 				if (InventoryHelper.canStackFitInInventory(invOutput, result)) {
 					invInput.extractItem(slot, 8, false);
 					InventoryHelper.insertItemStackIntoInventory(invOutput, result);
@@ -215,9 +233,9 @@ public class TilePackager extends TileEntity implements ITickable
 
 	private boolean craftLarge(InvWrapper invInput, InvWrapper invOutput, int slot) {
 		ItemStack result;
-		if (invInput.getStackInSlot(slot).stackSize >= 9) {
+		if (invInput.getStackInSlot(slot).getCount() >= 9) {
 	        ItemStack testStack = invInput.getStackInSlot(slot).copy();
-	        testStack.stackSize = 1;
+	        testStack.setCount(1);
 		    if (!AutoPackager.large.containsKey(testStack)) {
 			    InventoryCrafting largeCraft = new InventoryCrafting(new Container()
 			    {
@@ -229,12 +247,12 @@ public class TilePackager extends TileEntity implements ITickable
 			    for (int craftSlot = 0; craftSlot < 9; craftSlot++) {
 				    largeCraft.setInventorySlotContents(craftSlot, testStack);
 			    }
-			    result = CraftingManager.getInstance().findMatchingRecipe(largeCraft, worldObj);
+			    result = CraftingManager.getInstance().findMatchingRecipe(largeCraft, this.getWorld());
 			    AutoPackager.large.put(testStack, result);
 		    } else {
 			    result = AutoPackager.large.get(testStack);
 		    }
-	        if (result != null) {
+	        if (!result.equals(ItemStack.EMPTY)) {
 	            if (InventoryHelper.canStackFitInInventory(invOutput, result)) {
 	                invInput.extractItem(slot, 9, false);
 	                InventoryHelper.insertItemStackIntoInventory(invOutput, result);
@@ -247,9 +265,9 @@ public class TilePackager extends TileEntity implements ITickable
 
 	private boolean craftSmall(InvWrapper invInput, InvWrapper invOutput, int slot) {
 		ItemStack result;
-		if (invInput.getStackInSlot(slot).stackSize >= 4) {
+		if (invInput.getStackInSlot(slot).getCount() >= 4) {
 			ItemStack testStack = invInput.getStackInSlot(slot).copy();
-			testStack.stackSize = 1;
+			testStack.setCount(1);
 			if (!AutoPackager.small.containsKey(testStack)) {
 				InventoryCrafting smallCraft = new InventoryCrafting(new Container()
 				{
@@ -261,12 +279,12 @@ public class TilePackager extends TileEntity implements ITickable
 				for (int craftSlot = 0; craftSlot < 4; craftSlot++) {
 					smallCraft.setInventorySlotContents(craftSlot, testStack);
 				}
-				result = CraftingManager.getInstance().findMatchingRecipe(smallCraft, worldObj);
+				result = CraftingManager.getInstance().findMatchingRecipe(smallCraft, this.getWorld());
 				AutoPackager.small.put(testStack, result);
 			} else {
 				result = AutoPackager.small.get(testStack);
 			}
-		    if (result != null) {
+		    if (!result.equals(ItemStack.EMPTY)) {
 		        if (InventoryHelper.canStackFitInInventory(invOutput, result)) {
 		            invInput.extractItem(slot, 4, false);
 		            InventoryHelper.insertItemStackIntoInventory(invOutput, result);
@@ -330,14 +348,14 @@ public class TilePackager extends TileEntity implements ITickable
 
 	public void cycleMode(EntityPlayer player) {
 		mode = Mode.values()[(mode.ordinal()+1) % Mode.values().length];
-		if (!worldObj.isRemote) {
-			player.addChatMessage(new TextComponentTranslation(new TextComponentTranslation("autopackager.mode.current").getUnformattedComponentText() + " " + new TextComponentTranslation(mode.getMessage()).getUnformattedComponentText()));
+		if (!this.getWorld().isRemote) {
+			player.sendMessage(new TextComponentTranslation(new TextComponentTranslation("autopackager.mode.current").getUnformattedComponentText() + " " + new TextComponentTranslation(mode.getMessage()).getUnformattedComponentText()));
 		}
 	}
 
 	public void checkMode(EntityPlayer player) {
-		if (!worldObj.isRemote) {
-			player.addChatMessage(new TextComponentTranslation(new TextComponentTranslation("autopackager.mode.current").getUnformattedComponentText() + " " + new TextComponentTranslation(mode.getMessage()).getUnformattedComponentText()));
+		if (!this.getWorld().isRemote) {
+			player.sendMessage(new TextComponentTranslation(new TextComponentTranslation("autopackager.mode.current").getUnformattedComponentText() + " " + new TextComponentTranslation(mode.getMessage()).getUnformattedComponentText()));
 		}
 	}
 
@@ -354,9 +372,9 @@ public class TilePackager extends TileEntity implements ITickable
 	@Override
 	public void onDataPacket(NetworkManager netman, SPacketUpdateTileEntity packet) {
 		readFromNBT(packet.getNbtCompound());
-		if (worldObj.isRemote) {
-			IBlockState state = this.worldObj.getBlockState(this.getPos());
-			this.worldObj.notifyBlockUpdate(this.getPos(), state, state, 3);
+		if (this.getWorld().isRemote) {
+			IBlockState state = this.getWorld().getBlockState(this.getPos());
+			this.getWorld().notifyBlockUpdate(this.getPos(), state, state, 3);
 		}
 	}
 

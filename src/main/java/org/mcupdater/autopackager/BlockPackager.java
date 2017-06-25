@@ -32,8 +32,8 @@ public class BlockPackager extends BlockContainer
 
 	protected BlockPackager() {
 		super(Material.ROCK);
-		setUnlocalizedName("packagerBlock");
-		setRegistryName(AutoPackager.metadata.modId, "packagerBlock");
+		setUnlocalizedName("packagerblock");
+		setRegistryName(AutoPackager.metadata.modId, "packagerblock");
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		setHardness(10F);
 		setResistance(10F);
@@ -68,10 +68,10 @@ public class BlockPackager extends BlockContainer
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		TilePackager tile = (TilePackager) world.getTileEntity(pos);
 
-		if (heldItem == null) {
+		if (player.getHeldItemMainhand().equals(ItemStack.EMPTY)) {
 			if (player.isSneaking()) {
 				tile.cycleMode(player);
 			} else {
@@ -112,8 +112,8 @@ public class BlockPackager extends BlockContainer
 
 		public ItemBlockPackager(Block block) {
 			super(block);
-			setUnlocalizedName("reconstructorBlock");
-			setRegistryName(AutoPackager.metadata.modId, "packagerBlock");
+			setUnlocalizedName("reconstructorblock");
+			setRegistryName(AutoPackager.metadata.modId, "packagerblock");
 		}
 	}
 }

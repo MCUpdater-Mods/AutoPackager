@@ -27,14 +27,17 @@ repositories {
 }
 
 
-version = "1.6.4"
+version = "1.7"
 group= "org.mcupdater.autopackager" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "autopackager"
 
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
 minecraft {
-	version = "1.10.2-12.18.3.2254"
+	version = "1.11.2-13.20.0.2315"
     runDir = "run"
-    mappings = "snapshot_20161111"
+    mappings = "snapshot_20161220"
 }
 
 dependencies {
