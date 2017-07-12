@@ -1,4 +1,4 @@
-tile.autopackager.name=Compactador Automático
+tile.packagerBlock.name=Compactador Automático
 
 autopackager.mode.current=Modo atual:
 autopackager.mode.hybrid=2x2 depois 3x3

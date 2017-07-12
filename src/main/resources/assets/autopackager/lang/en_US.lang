@@ -1,4 +1,4 @@
-tile.autopackager.name=AutoPackager
+tile.packagerBlock.name=AutoPackager
 
 autopackager.mode.current=Current Mode:
 autopackager.mode.hybrid=2x2 then 3x3
