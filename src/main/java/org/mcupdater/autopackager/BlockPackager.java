@@ -112,7 +112,7 @@ public class BlockPackager extends BlockContainer
 
 		public ItemBlockPackager(Block block) {
 			super(block);
-			setUnlocalizedName("reconstructorblock");
+			setUnlocalizedName("packagerblock");
 			setRegistryName(AutoPackager.metadata.modId, "packagerblock");
 		}
 	}
