@@ -187,9 +187,10 @@ public class TilePackager extends TileEntity implements ITickable
 				result = AutoPackager.single.get(testStack);
 			}
 			if (result != null) {
-				if (InventoryHelper.canStackFitInInventory(invOutput, result.getRecipeOutput())) {
+				ItemStack recipeOutput = result.getRecipeOutput().copy();
+				if (InventoryHelper.canStackFitInInventory(invOutput, recipeOutput)) {
 					invInput.extractItem(slot, 1, false);
-					InventoryHelper.insertItemStackIntoInventory(invOutput, result.getRecipeOutput());
+					InventoryHelper.insertItemStackIntoInventory(invOutput, recipeOutput);
 					return true;
 				}
 			}
@@ -219,9 +220,10 @@ public class TilePackager extends TileEntity implements ITickable
 				result = AutoPackager.hollow.get(testStack);
 			}
 			if (result != null) {
-				if (InventoryHelper.canStackFitInInventory(invOutput, result.getRecipeOutput())) {
+				ItemStack recipeOutput = result.getRecipeOutput().copy();
+				if (InventoryHelper.canStackFitInInventory(invOutput, recipeOutput)) {
 					invInput.extractItem(slot, 8, false);
-					InventoryHelper.insertItemStackIntoInventory(invOutput, result.getRecipeOutput());
+					InventoryHelper.insertItemStackIntoInventory(invOutput, recipeOutput);
 					return true;
 				}
 			}
@@ -251,9 +253,10 @@ public class TilePackager extends TileEntity implements ITickable
 			    result = AutoPackager.large.get(testStack);
 		    }
 	        if (result != null) {
-	            if (InventoryHelper.canStackFitInInventory(invOutput, result.getRecipeOutput())) {
+		        ItemStack recipeOutput = result.getRecipeOutput().copy();
+	            if (InventoryHelper.canStackFitInInventory(invOutput, recipeOutput)) {
 	                invInput.extractItem(slot, 9, false);
-	                InventoryHelper.insertItemStackIntoInventory(invOutput, result.getRecipeOutput());
+	                InventoryHelper.insertItemStackIntoInventory(invOutput, recipeOutput);
 		            return true;
 	            }
 	        }
@@ -283,9 +286,10 @@ public class TilePackager extends TileEntity implements ITickable
 				result = AutoPackager.small.get(testStack);
 			}
 		    if (result != null) {
-		        if (InventoryHelper.canStackFitInInventory(invOutput, result.getRecipeOutput())) {
+			    ItemStack recipeOutput = result.getRecipeOutput().copy();
+		        if (InventoryHelper.canStackFitInInventory(invOutput, recipeOutput)) {
 		            invInput.extractItem(slot, 4, false);
-		            InventoryHelper.insertItemStackIntoInventory(invOutput, result.getRecipeOutput());
+		            InventoryHelper.insertItemStackIntoInventory(invOutput, recipeOutput);
 			        return true;
 		        }
 		    }
