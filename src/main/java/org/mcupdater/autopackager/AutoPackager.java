@@ -5,6 +5,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
@@ -23,11 +24,10 @@ import java.util.Map;
 @Mod(useMetadata = true, modid = "autopackager", guiFactory = "org.mcupdater.autopackager.gui.GuiFactory")
 public class AutoPackager {
 
-	@SidedProxy(clientSide = "org.mcupdater.autopackager.proxy.ClientProxy", serverSide = "org.mcupdater.autopackager.proxy.CommonProxy")
+	@SidedProxy(clientSide = "org.mcupdater.autopackager.proxy.ClientProxy", serverSide = "org.mcupdater.autopackager.proxy.ServerProxy")
 	public static CommonProxy proxy;
 
 	public static Configuration config;
-	public static BlockPackager packagerBlock;
 	public static int energyPerCycle;
 	public static int delayCycleNormal;
 	public static int delayCycleIdle;
@@ -35,10 +35,10 @@ public class AutoPackager {
 	public static boolean ludicrousMode;
 	public static boolean unbalanced;
 
-	public static Map<ItemStack,ItemStack> large = new HashMap<ItemStack, ItemStack>();
-	public static Map<ItemStack,ItemStack> small = new HashMap<ItemStack, ItemStack>();
-	public static Map<ItemStack,ItemStack> hollow = new HashMap<ItemStack, ItemStack>();
-	public static Map<ItemStack,ItemStack> single = new HashMap<ItemStack, ItemStack>();
+	public static Map<ItemStack,IRecipe> large = new HashMap<ItemStack, IRecipe>();
+	public static Map<ItemStack,IRecipe> small = new HashMap<ItemStack, IRecipe>();
+	public static Map<ItemStack,IRecipe> hollow = new HashMap<ItemStack, IRecipe>();
+	public static Map<ItemStack,IRecipe> single = new HashMap<ItemStack, IRecipe>();
 	public static ModMetadata metadata;
 
 	@Mod.EventHandler
@@ -56,9 +56,7 @@ public class AutoPackager {
 		if (config.hasChanged()) {
 			config.save();
 		}
-		packagerBlock=new BlockPackager();
-		GameRegistry.register(packagerBlock);
-		GameRegistry.register(packagerBlock.getItemBlock());
+
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 
@@ -72,30 +70,12 @@ public class AutoPackager {
 
 	@Mod.EventHandler
 	public void postInit(FMLPostInitializationEvent evt) {
-		loadRecipes();
-		if (proxy.isClient()) {
-			proxy.doClientRegistrations();
-		}
+
     }
 
 	@Mod.EventHandler
 	public void serverStarting(FMLServerStartingEvent evt) {
 		evt.registerServerCommand(new ClearRecipeCacheCommand());
-	}
-
-	private void loadRecipes() {
-		System.out.println("Key item: " + keyItemString);
-		ShapedOreRecipe recipePackager = new ShapedOreRecipe(
-			new ItemStack(packagerBlock, 1),
-			"ipi",
-			"ptp",
-			"ici",
-			'i', Items.IRON_INGOT,
-			'p', Blocks.PISTON,
-			't', Blocks.CRAFTING_TABLE,
-			'c', keyItemString.contains(":") ? Item.REGISTRY.getObject(new ResourceLocation(keyItemString)) : keyItemString
-		);
-		GameRegistry.addRecipe(recipePackager);
 	}
 
 	@SubscribeEvent

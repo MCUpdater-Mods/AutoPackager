@@ -9,8 +9,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.mcupdater.autopackager.AutoPackager;
 import org.mcupdater.autopackager.BlockPackager;
+import org.mcupdater.autopackager.ModBlocks;
 import org.mcupdater.autopackager.TilePackager;
 
 import java.util.List;
@@ -19,11 +22,12 @@ import java.util.List;
  * Created by sbarbour on 2/21/16.
  */
 
+@SideOnly(Side.CLIENT)
 public class AutoPackagerDataProvider implements IWailaDataProvider {
 	@Override
 	public ItemStack getWailaStack(IWailaDataAccessor iWailaDataAccessor, IWailaConfigHandler iWailaConfigHandler) {
 		if (iWailaDataAccessor.getBlock() instanceof BlockPackager) {
-			return new ItemStack(AutoPackager.packagerBlock, 1, 0);
+			return new ItemStack(ModBlocks.packager, 1, 0);
 		}
 		else {
 			return null;

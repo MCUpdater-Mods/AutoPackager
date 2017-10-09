@@ -1,17 +1,24 @@
 package org.mcupdater.autopackager.proxy;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.mcupdater.autopackager.BlockPackager;
+import org.mcupdater.autopackager.ModBlocks;
+
+@Mod.EventBusSubscriber
 public class CommonProxy {
-	protected boolean client;
 
-	public CommonProxy() {
-		client = false;
+	@SubscribeEvent
+	public static void registerBlocks(RegistryEvent.Register<Block> event) {
+		event.getRegistry().register(new BlockPackager());
 	}
 
-	public boolean isClient() {
-		return client;
+	@SubscribeEvent
+	public static void registerItems(RegistryEvent.Register<Item> event) {
+		event.getRegistry().register(ModBlocks.packager.getItemBlock());
 	}
 
-	public void doClientRegistrations() {
-
-	}
 }

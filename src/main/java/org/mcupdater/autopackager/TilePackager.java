@@ -1,6 +1,5 @@
 package org.mcupdater.autopackager;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -8,9 +7,8 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
@@ -171,7 +169,7 @@ public class TilePackager extends TileEntity implements ITickable
 	}
 
 	private boolean craftTiny(InvWrapper invInput, InvWrapper invOutput, int slot) {
-		ItemStack result;
+		IRecipe result;
 		if (invInput.getStackInSlot(slot).getCount() >= 1) {
 			ItemStack testStack = invInput.getStackInSlot(slot).copy();
 			testStack.setCount(1);
@@ -183,15 +181,15 @@ public class TilePackager extends TileEntity implements ITickable
 					}
 				}, 2, 2);
 				smallCraft.setInventorySlotContents(0, testStack);
-				result = CraftingManager.getInstance().findMatchingRecipe(smallCraft, this.getWorld());
+				result = CraftingManager.findMatchingRecipe(smallCraft, this.getWorld());
 				AutoPackager.single.put(testStack, result);
 			} else {
 				result = AutoPackager.single.get(testStack);
 			}
-			if (!result.equals(ItemStack.EMPTY)) {
-				if (InventoryHelper.canStackFitInInventory(invOutput, result)) {
+			if (result != null) {
+				if (InventoryHelper.canStackFitInInventory(invOutput, result.getRecipeOutput())) {
 					invInput.extractItem(slot, 1, false);
-					InventoryHelper.insertItemStackIntoInventory(invOutput, result);
+					InventoryHelper.insertItemStackIntoInventory(invOutput, result.getRecipeOutput());
 					return true;
 				}
 			}
@@ -200,7 +198,7 @@ public class TilePackager extends TileEntity implements ITickable
 	}
 
 	private boolean craftHollow(InvWrapper invInput, InvWrapper invOutput, int slot) {
-		ItemStack result;
+		IRecipe result;
 		if (invInput.getStackInSlot(slot).getCount() >= 8) {
 			ItemStack testStack = invInput.getStackInSlot(slot).copy();
 			testStack.setCount(1);
@@ -215,15 +213,15 @@ public class TilePackager extends TileEntity implements ITickable
 				for (int craftSlot = 0; craftSlot < 9; craftSlot++) {
 					largeCraft.setInventorySlotContents(craftSlot, craftSlot == 4 ? ItemStack.EMPTY : testStack);
 				}
-				result = CraftingManager.getInstance().findMatchingRecipe(largeCraft, this.getWorld());
+				result = CraftingManager.findMatchingRecipe(largeCraft, this.getWorld());
 				AutoPackager.hollow.put(testStack, result);
 			} else {
 				result = AutoPackager.hollow.get(testStack);
 			}
-			if (!result.equals(ItemStack.EMPTY)) {
-				if (InventoryHelper.canStackFitInInventory(invOutput, result)) {
+			if (result != null) {
+				if (InventoryHelper.canStackFitInInventory(invOutput, result.getRecipeOutput())) {
 					invInput.extractItem(slot, 8, false);
-					InventoryHelper.insertItemStackIntoInventory(invOutput, result);
+					InventoryHelper.insertItemStackIntoInventory(invOutput, result.getRecipeOutput());
 					return true;
 				}
 			}
@@ -232,7 +230,7 @@ public class TilePackager extends TileEntity implements ITickable
 	}
 
 	private boolean craftLarge(InvWrapper invInput, InvWrapper invOutput, int slot) {
-		ItemStack result;
+		IRecipe result;
 		if (invInput.getStackInSlot(slot).getCount() >= 9) {
 	        ItemStack testStack = invInput.getStackInSlot(slot).copy();
 	        testStack.setCount(1);
@@ -247,15 +245,15 @@ public class TilePackager extends TileEntity implements ITickable
 			    for (int craftSlot = 0; craftSlot < 9; craftSlot++) {
 				    largeCraft.setInventorySlotContents(craftSlot, testStack);
 			    }
-			    result = CraftingManager.getInstance().findMatchingRecipe(largeCraft, this.getWorld());
+			    result = CraftingManager.findMatchingRecipe(largeCraft, this.getWorld());
 			    AutoPackager.large.put(testStack, result);
 		    } else {
 			    result = AutoPackager.large.get(testStack);
 		    }
-	        if (!result.equals(ItemStack.EMPTY)) {
-	            if (InventoryHelper.canStackFitInInventory(invOutput, result)) {
+	        if (result != null) {
+	            if (InventoryHelper.canStackFitInInventory(invOutput, result.getRecipeOutput())) {
 	                invInput.extractItem(slot, 9, false);
-	                InventoryHelper.insertItemStackIntoInventory(invOutput, result);
+	                InventoryHelper.insertItemStackIntoInventory(invOutput, result.getRecipeOutput());
 		            return true;
 	            }
 	        }
@@ -264,7 +262,7 @@ public class TilePackager extends TileEntity implements ITickable
 	}
 
 	private boolean craftSmall(InvWrapper invInput, InvWrapper invOutput, int slot) {
-		ItemStack result;
+		IRecipe result;
 		if (invInput.getStackInSlot(slot).getCount() >= 4) {
 			ItemStack testStack = invInput.getStackInSlot(slot).copy();
 			testStack.setCount(1);
@@ -279,15 +277,15 @@ public class TilePackager extends TileEntity implements ITickable
 				for (int craftSlot = 0; craftSlot < 4; craftSlot++) {
 					smallCraft.setInventorySlotContents(craftSlot, testStack);
 				}
-				result = CraftingManager.getInstance().findMatchingRecipe(smallCraft, this.getWorld());
+				result = CraftingManager.findMatchingRecipe(smallCraft, this.getWorld());
 				AutoPackager.small.put(testStack, result);
 			} else {
 				result = AutoPackager.small.get(testStack);
 			}
-		    if (!result.equals(ItemStack.EMPTY)) {
-		        if (InventoryHelper.canStackFitInInventory(invOutput, result)) {
+		    if (result != null) {
+		        if (InventoryHelper.canStackFitInInventory(invOutput, result.getRecipeOutput())) {
 		            invInput.extractItem(slot, 4, false);
-		            InventoryHelper.insertItemStackIntoInventory(invOutput, result);
+		            InventoryHelper.insertItemStackIntoInventory(invOutput, result.getRecipeOutput());
 			        return true;
 		        }
 		    }
@@ -359,7 +357,7 @@ public class TilePackager extends TileEntity implements ITickable
 		}
 	}
 
-	@Override
+/*	@Override
 	public NBTTagCompound getUpdateTag() {
 		return writeToNBT(super.getUpdateTag());
 	}
@@ -376,7 +374,7 @@ public class TilePackager extends TileEntity implements ITickable
 			IBlockState state = this.getWorld().getBlockState(this.getPos());
 			this.getWorld().notifyBlockUpdate(this.getPos(), state, state, 3);
 		}
-	}
+	}*/
 
 	@SideOnly(Side.CLIENT)
 	@SuppressWarnings("unchecked")
