@@ -74,8 +74,7 @@ public class BlockPackager extends BlockContainer
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		TilePackager tile = (TilePackager) world.getTileEntity(pos);
-
-		if (player.getHeldItemMainhand().equals(ItemStack.EMPTY)) {
+		if (hand.equals(EnumHand.MAIN_HAND) && player.getHeldItemMainhand().equals(ItemStack.EMPTY)) {
 			if (player.isSneaking()) {
 				tile.cycleMode(player);
 			} else {

@@ -349,7 +349,7 @@ public class TilePackager extends TileEntity implements ITickable
 	}
 
 	public void cycleMode(EntityPlayer player) {
-		mode = Mode.values()[(mode.ordinal()+1) % Mode.values().length];
+		mode = Mode.values()[(mode.ordinal() + 1) % Mode.values().length];
 		if (!this.getWorld().isRemote) {
 			player.sendMessage(new TextComponentTranslation(new TextComponentTranslation("autopackager.mode.current").getUnformattedComponentText() + " " + new TextComponentTranslation(mode.getMessage()).getUnformattedComponentText()));
 		}
