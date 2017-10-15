@@ -27,7 +27,7 @@ repositories {
 }
 
 
-version = "1.8"
+version = "1.8a"
 group= "org.mcupdater.autopackager" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "autopackager"
 
