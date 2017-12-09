@@ -1,5 +1,8 @@
 package org.mcupdater.autopackager;
 
+import mcjty.theoneprobe.api.IProbeHitData;
+import mcjty.theoneprobe.api.IProbeInfo;
+import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.SoundType;
@@ -19,12 +22,14 @@ import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.mcupdater.autopackager.compat.TOPInfoProvider;
 
-public class BlockPackager extends BlockContainer
+public class BlockPackager extends BlockContainer implements TOPInfoProvider
 {
 	public static final PropertyDirection FACING;
 
@@ -109,6 +114,15 @@ public class BlockPackager extends BlockContainer
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state) {
 		return EnumBlockRenderType.MODEL;
+	}
+
+	@Override
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data) {
+		TileEntity te = world.getTileEntity(data.getPos());
+		if (te instanceof TilePackager) {
+			TilePackager tile = (TilePackager) te;
+			probeInfo.horizontal().text(new TextComponentTranslation("autopackager.mode.current").getUnformattedComponentText() + " " + new TextComponentTranslation(tile.getMode().getMessage()).getUnformattedComponentText());
+		}
 	}
 
 	private class ItemBlockPackager extends ItemBlock {

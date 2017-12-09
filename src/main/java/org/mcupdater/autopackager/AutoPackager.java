@@ -5,13 +5,11 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.ModMetadata;
-import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import org.mcupdater.autopackager.compat.TOPCompatibility;
 import org.mcupdater.autopackager.proxy.CommonProxy;
 
 import java.util.HashMap;
@@ -59,8 +57,12 @@ public class AutoPackager {
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent evt) {
 		GameRegistry.registerTileEntity(TilePackager.class, "AutoPackager");
-		if (Loader.isModLoaded("Waila")) {
-			FMLInterModComms.sendMessage("Waila", "register", "org.mcupdater.autopackager.compat.WailaRegistry.initWaila");
+		if (Loader.isModLoaded("waila")) {
+			FMLLog.log.info("Waila support enabled");
+			FMLInterModComms.sendMessage("waila", "register", "org.mcupdater.autopackager.compat.WailaRegistry.initWaila");
+		}
+		if (Loader.isModLoaded("theoneprobe")) {
+			TOPCompatibility.register();
 		}
 	}
 

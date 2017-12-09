@@ -1,5 +1,6 @@
 package org.mcupdater.autopackager;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -9,11 +10,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.EnergyStorage;
@@ -337,10 +342,12 @@ public class TilePackager extends TileEntity implements ITickable
 	@Override
 	public void readFromNBT(NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
+		System.out.println("readFromNBT");
 		this.mode = Mode.values()[tagCompound.getInteger("mode")];
 		this.orientation = EnumFacing.byName(tagCompound.getString("orientation"));
 		if (tagCompound.hasKey("energy")) {
-			storage.receiveEnergy(tagCompound.getInteger("energy"),false);
+			storage = new EnergyStorage(AutoPackager.energyPerCycle * 100,AutoPackager.energyPerCycle * 100,AutoPackager.energyPerCycle * 100,tagCompound.getInteger("energy"));
+			//storage.receiveEnergy(tagCompound.getInteger("energy"),false);
 		}
 	}
 
@@ -361,29 +368,29 @@ public class TilePackager extends TileEntity implements ITickable
 		}
 	}
 
-/*	@Override
+	@Override
 	public NBTTagCompound getUpdateTag() {
 		return writeToNBT(super.getUpdateTag());
 	}
 
 	@Override
+	@Nullable
 	public SPacketUpdateTileEntity getUpdatePacket() {
-		return new SPacketUpdateTileEntity(this.getPos(), getBlockMetadata(), getUpdateTag());
+		return new SPacketUpdateTileEntity(this.getPos(), 0, this.getUpdateTag());
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void onDataPacket(NetworkManager netman, SPacketUpdateTileEntity packet) {
-		readFromNBT(packet.getNbtCompound());
-		if (this.getWorld().isRemote) {
-			IBlockState state = this.getWorld().getBlockState(this.getPos());
-			this.getWorld().notifyBlockUpdate(this.getPos(), state, state, 3);
-		}
-	}*/
+		super.onDataPacket(netman, packet);
+		handleUpdateTag(packet.getNbtCompound());
+	}
 
-	@SideOnly(Side.CLIENT)
 	@SuppressWarnings("unchecked")
 	public void addWailaInformation(List information) {
+		this.markDirty();
 		information.add(new TextComponentTranslation("autopackager.mode.current").getUnformattedComponentText() + " " + new TextComponentTranslation(mode.getMessage()).getUnformattedComponentText());
+		information.add(TextFormatting.GRAY + "Power: " + Integer.toString(storage.getEnergyStored()) + "/" + Integer.toString(storage.getMaxEnergyStored()));
 	}
 
 	@Override
@@ -398,5 +405,9 @@ public class TilePackager extends TileEntity implements ITickable
 	@Override
 	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
 		return capability == CapabilityEnergy.ENERGY || super.hasCapability(capability, facing);
+	}
+
+	public Mode getMode() {
+		return this.mode;
 	}
 }

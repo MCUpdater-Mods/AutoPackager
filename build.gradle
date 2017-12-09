@@ -24,6 +24,14 @@ repositories {
         name = "Mobius Repo"
         url = "http://mobiusstrip.eu/maven"
     }
+    maven {
+        name = "tterrag maven"
+		url = "http://maven.tterrag.com/"
+    }
+	maven {
+		name = "CoFH Maven"
+		url = "http://maven.covers1624.net"
+	}
 }
 
 
@@ -48,6 +56,7 @@ dependencies {
     //compile "codechicken:CodeChickenCore:1.7.10-1.0.6.43:dev"
     //compile "codechicken:NotEnoughItems:1.7.10-1.0.4.105:dev"
     //compile "mcp.mobius.waila:Waila:1.7.0-B3_1.9.4:dev"
+    compile "mcjty.theoneprobe:TheOneProbe-1.12:1.12-1.4.19-11"
 }
 
 processResources
