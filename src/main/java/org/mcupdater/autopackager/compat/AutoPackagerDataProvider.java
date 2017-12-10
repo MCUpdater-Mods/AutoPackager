@@ -26,7 +26,7 @@ public class AutoPackagerDataProvider implements IWailaDataProvider {
 			return new ItemStack(ModBlocks.packager, 1, 0);
 		}
 		else {
-			return null;
+			return ItemStack.EMPTY;
 		}
 	}
 
@@ -39,7 +39,8 @@ public class AutoPackagerDataProvider implements IWailaDataProvider {
 	public List<String> getWailaBody(ItemStack itemStack, List<String> list, IWailaDataAccessor iWailaDataAccessor, IWailaConfigHandler iWailaConfigHandler) {
 		TileEntity tile = iWailaDataAccessor.getTileEntity();
 		if (tile != null && tile instanceof TilePackager) {
-			((TilePackager) tile).addWailaInformation(list);
+			((TilePackager) tile).addWailaInformation(list, ((TilePackager) tile).getMode());
+			System.out.println(iWailaDataAccessor.getNBTData().toString());
 		}
 		return list;
 	}

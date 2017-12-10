@@ -360,6 +360,7 @@ public class TilePackager extends TileEntity implements ITickable
 		if (!this.getWorld().isRemote) {
 			player.sendMessage(new TextComponentTranslation(new TextComponentTranslation("autopackager.mode.current").getUnformattedComponentText() + " " + new TextComponentTranslation(mode.getMessage()).getUnformattedComponentText()));
 		}
+		this.markDirty();
 	}
 
 	public void checkMode(EntityPlayer player) {
@@ -387,15 +388,14 @@ public class TilePackager extends TileEntity implements ITickable
 	}
 
 	@SuppressWarnings("unchecked")
-	public void addWailaInformation(List information) {
-		this.markDirty();
-		information.add(new TextComponentTranslation("autopackager.mode.current").getUnformattedComponentText() + " " + new TextComponentTranslation(mode.getMessage()).getUnformattedComponentText());
-		information.add(TextFormatting.GRAY + "Power: " + Integer.toString(storage.getEnergyStored()) + "/" + Integer.toString(storage.getMaxEnergyStored()));
+	public void addWailaInformation(List information, Mode currentMode) {
+		information.add(new TextComponentTranslation("autopackager.mode.current").getUnformattedComponentText() + " " + new TextComponentTranslation(currentMode.getMessage()).getUnformattedComponentText());
 	}
 
 	@Override
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
 		if (capability == CapabilityEnergy.ENERGY) {
+			this.markDirty();
 			return CapabilityEnergy.ENERGY.cast(storage);
 		}
 
