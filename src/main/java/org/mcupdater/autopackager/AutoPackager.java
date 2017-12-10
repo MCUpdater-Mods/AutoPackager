@@ -25,7 +25,6 @@ public class AutoPackager {
 	public static int energyPerCycle;
 	public static int delayCycleNormal;
 	public static int delayCycleIdle;
-	public static String keyItemString;
 	public static boolean ludicrousMode;
 	public static boolean unbalanced;
 
@@ -40,12 +39,11 @@ public class AutoPackager {
 		metadata = evt.getModMetadata();
 		config = new Configuration(evt.getSuggestedConfigurationFile());
 		config.load();
-		energyPerCycle = config.get("General", "energy_cost", 1000, "Forge Energy cost per operation").getInt(1000);
-		delayCycleNormal = config.get("General", "cycle_delay",10, "Number of ticks between cycles when work is successful").getInt(10);
-		delayCycleIdle = config.get("General", "idle_delay",200, "Number of ticks between cycles when no work has been done").getInt(200);
-		keyItemString = config.get("General", "key_item", "minecraft:redstone", "Key item for recipe (bottom-center)").getString();
-		ludicrousMode = config.get("Insanity", "turbocharged", false,"Do everything possible every cycle").getBoolean();
-		unbalanced = config.get("Insanity", "turbo_cheap", false, "Energy cost applies only once per cycle").getBoolean();
+		energyPerCycle = config.get("General", "energy_cost", 1000, "Forge Energy cost per operation").setLanguageKey("autopackager.config.energy_cost").getInt(1000);
+		delayCycleNormal = config.get("General", "cycle_delay",10, "Number of ticks between cycles when work is successful").setLanguageKey("autopackager.config.cycle_delay").getInt(10);
+		delayCycleIdle = config.get("General", "idle_delay",200, "Number of ticks between cycles when no work has been done").setLanguageKey("autopackager.config.idle_delay").getInt(200);
+		ludicrousMode = config.get("Insanity", "turbocharged", false,"Do everything possible every cycle").setLanguageKey("autopackager.config.turbocharged").getBoolean();
+		unbalanced = config.get("Insanity", "turbo_cheap", false, "Energy cost applies only once per cycle").setLanguageKey("autopackager.config.turbo_cheap").getBoolean();
 
 		if (config.hasChanged()) {
 			config.save();
@@ -57,7 +55,6 @@ public class AutoPackager {
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent evt) {
 		GameRegistry.registerTileEntity(TilePackager.class, "AutoPackager");
-
 		if (Loader.isModLoaded("theoneprobe")) {
 			TOPCompatibility.register();
 		}
