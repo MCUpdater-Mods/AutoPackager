@@ -57,10 +57,7 @@ public class AutoPackager {
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent evt) {
 		GameRegistry.registerTileEntity(TilePackager.class, "AutoPackager");
-		if (Loader.isModLoaded("waila")) {
-			FMLLog.log.info("Waila support enabled");
-			FMLInterModComms.sendMessage("waila", "register", "org.mcupdater.autopackager.compat.WailaRegistry.initWaila");
-		}
+
 		if (Loader.isModLoaded("theoneprobe")) {
 			TOPCompatibility.register();
 		}

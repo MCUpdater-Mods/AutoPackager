@@ -33,7 +33,7 @@ import java.util.*;
 
 public class TilePackager extends TileEntity implements ITickable
 {
-	protected enum Mode {
+	public enum Mode {
 		HYBRID("autopackager.mode.hybrid"), SMALL("autopackager.mode.small"), LARGE("autopackager.mode.large"), HOLLOW("autopackager.mode.hollow"), UNPACKAGE("autopackager.mode.unpackage"), HYBRID2("autopackager.mode.hybrid2");
 
 		private String message;
@@ -44,6 +44,8 @@ public class TilePackager extends TileEntity implements ITickable
 		public String getMessage() {
 			return message;
 		}
+
+
 	}
 
 	private EnergyStorage storage = new EnergyStorage(AutoPackager.energyPerCycle * 100);
@@ -367,29 +369,6 @@ public class TilePackager extends TileEntity implements ITickable
 		if (!this.getWorld().isRemote) {
 			player.sendMessage(new TextComponentTranslation(new TextComponentTranslation("autopackager.mode.current").getUnformattedComponentText() + " " + new TextComponentTranslation(mode.getMessage()).getUnformattedComponentText()));
 		}
-	}
-
-	@Override
-	public NBTTagCompound getUpdateTag() {
-		return writeToNBT(super.getUpdateTag());
-	}
-
-	@Override
-	@Nullable
-	public SPacketUpdateTileEntity getUpdatePacket() {
-		return new SPacketUpdateTileEntity(this.getPos(), 0, this.getUpdateTag());
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void onDataPacket(NetworkManager netman, SPacketUpdateTileEntity packet) {
-		super.onDataPacket(netman, packet);
-		handleUpdateTag(packet.getNbtCompound());
-	}
-
-	@SuppressWarnings("unchecked")
-	public void addWailaInformation(List information, Mode currentMode) {
-		information.add(new TextComponentTranslation("autopackager.mode.current").getUnformattedComponentText() + " " + new TextComponentTranslation(currentMode.getMessage()).getUnformattedComponentText());
 	}
 
 	@Override
