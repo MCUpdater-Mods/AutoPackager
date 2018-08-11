@@ -24,6 +24,8 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import org.mcupdater.autopackager.helpers.InventoryHelper;
 
@@ -106,10 +108,12 @@ public class TilePackager extends TileEntity implements ITickable
 		BlockPos outputPos = getOutputSide();
 		TileEntity tileInput = this.getWorld().getTileEntity(inputPos);
 		TileEntity tileOutput = this.getWorld().getTileEntity(outputPos);
+		boolean inputValid = tileInput != null && (tileInput.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.DOWN ) || tileInput instanceof ISidedInventory || tileInput instanceof IInventory);
+		boolean outputValid = tileOutput != null && (tileOutput.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.DOWN ) || tileOutput instanceof ISidedInventory || tileOutput instanceof IInventory);
         Map<String,SortedSet<Integer>> slotMap = new HashMap<String,SortedSet<Integer>>();
-		if (tileInput instanceof IInventory && tileOutput instanceof IInventory) {
-			InvWrapper invInput = new InvWrapper((IInventory) tileInput);
-			InvWrapper invOutput = new InvWrapper((IInventory) tileOutput);
+		if (inputValid && outputValid) {
+			IItemHandler invInput = InventoryHelper.getWrapper(tileInput);
+			IItemHandler invOutput = InventoryHelper.getWrapper(tileOutput);
 			for (int slot = 0; slot < invInput.getSlots(); slot++) {
                 if (!invInput.getStackInSlot(slot).equals(ItemStack.EMPTY)) {
 	                if (invInput instanceof ISidedInventory && !((ISidedInventory)invInput).canExtractItem(slot, invInput.getStackInSlot(slot), EnumFacing.DOWN)) {
@@ -152,21 +156,23 @@ public class TilePackager extends TileEntity implements ITickable
                  if (entry.getValue().size() > 1) {
                      SortedSet<Integer> slots = entry.getValue();
                      while (slots.size() > 1) {
-                         if (invInput.getStackInSlot(slots.first()).equals(ItemStack.EMPTY) || !(invInput.getStackInSlot(slots.first()).getUnlocalizedName() + ":" + invInput.getStackInSlot(slots.first()).getItemDamage()).equals(entry.getKey()) || invInput.getStackInSlot(slots.first()).getCount() >= invInput.getStackInSlot(slots.first()).getMaxStackSize()) {
+                         if (invInput.getStackInSlot(slots.first()).equals(ItemStack.EMPTY) ||
+		                         !(invInput.getStackInSlot(slots.first()).getUnlocalizedName() + ":" + invInput.getStackInSlot(slots.first()).getItemDamage()).equals(entry.getKey()) ||
+		                         invInput.getStackInSlot(slots.first()).getCount() >= invInput.getStackInSlot(slots.first()).getMaxStackSize()) {
                              slots.remove(slots.first());
                              continue;
                          }
-                         if (invInput.getStackInSlot(slots.last()).equals(ItemStack.EMPTY) || !(invInput.getStackInSlot(slots.last()).isItemEqual(invInput.getStackInSlot(slots.first()))) || !ItemStack.areItemStackTagsEqual(invInput.getStackInSlot(slots.first()), invInput.getStackInSlot(slots.last()))) {
+                         if (invInput.getStackInSlot(slots.last()).equals(ItemStack.EMPTY) ||
+		                         !(invInput.getStackInSlot(slots.last()).isItemEqual(invInput.getStackInSlot(slots.first()))) ||
+		                         !ItemStack.areItemStackTagsEqual(invInput.getStackInSlot(slots.first()), invInput.getStackInSlot(slots.last()))) {
                              slots.remove(slots.last());
                              continue;
                          }
                          if (invInput.getStackInSlot(slots.first()).getCount() + invInput.getStackInSlot(slots.last()).getCount() <= invInput.getStackInSlot(slots.first()).getMaxStackSize()) {
-                             invInput.getStackInSlot(slots.first()).setCount(invInput.getStackInSlot(slots.first()).getCount() + invInput.getStackInSlot(slots.last()).getCount());
-                             invInput.setStackInSlot(slots.last(), ItemStack.EMPTY);
+                         	 invInput.insertItem(slots.first(), invInput.extractItem(slots.last(),invInput.getStackInSlot(slots.last()).getCount(),false),false);
                          } else {
                              int spaceRemain = invInput.getStackInSlot(slots.first()).getMaxStackSize() - invInput.getStackInSlot(slots.first()).getCount();
-                             invInput.getStackInSlot(slots.first()).setCount(invInput.getStackInSlot(slots.first()).getCount() + spaceRemain);
-                             invInput.getStackInSlot(slots.last()).setCount(invInput.getStackInSlot(slots.last()).getCount() - spaceRemain);
+	                         invInput.insertItem(slots.first(), invInput.extractItem(slots.last(), spaceRemain, false), false);
                          }
                      }
                  }
@@ -175,7 +181,7 @@ public class TilePackager extends TileEntity implements ITickable
 		return false;
 	}
 
-	private boolean craftTiny(InvWrapper invInput, InvWrapper invOutput, int slot) {
+	private boolean craftTiny(IItemHandler invInput, IItemHandler invOutput, int slot) {
 		IRecipe result;
 		if (invInput.getStackInSlot(slot).getCount() >= 1) {
 			ItemStack testStack = invInput.getStackInSlot(slot).copy();
@@ -205,7 +211,7 @@ public class TilePackager extends TileEntity implements ITickable
 		return false;
 	}
 
-	private boolean craftHollow(InvWrapper invInput, InvWrapper invOutput, int slot) {
+	private boolean craftHollow(IItemHandler invInput, IItemHandler invOutput, int slot) {
 		IRecipe result;
 		if (invInput.getStackInSlot(slot).getCount() >= 8) {
 			ItemStack testStack = invInput.getStackInSlot(slot).copy();
@@ -238,7 +244,7 @@ public class TilePackager extends TileEntity implements ITickable
 		return false;
 	}
 
-	private boolean craftLarge(InvWrapper invInput, InvWrapper invOutput, int slot) {
+	private boolean craftLarge(IItemHandler invInput, IItemHandler invOutput, int slot) {
 		IRecipe result;
 		if (invInput.getStackInSlot(slot).getCount() >= 9) {
 	        ItemStack testStack = invInput.getStackInSlot(slot).copy();
@@ -271,7 +277,7 @@ public class TilePackager extends TileEntity implements ITickable
 		return false;
 	}
 
-	private boolean craftSmall(InvWrapper invInput, InvWrapper invOutput, int slot) {
+	private boolean craftSmall(IItemHandler invInput, IItemHandler invOutput, int slot) {
 		IRecipe result;
 		if (invInput.getStackInSlot(slot).getCount() >= 4) {
 			ItemStack testStack = invInput.getStackInSlot(slot).copy();
