@@ -35,11 +35,11 @@ public class InventoryHelper
 		return toInsert;
 	}
 
-	public static IItemHandler getWrapper(TileEntity tileEntity) {
-		if (tileEntity.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.DOWN)) {
-			return tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.DOWN);
+	public static IItemHandler getWrapper(TileEntity tileEntity, EnumFacing side) {
+		if (tileEntity.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side)) {
+			return tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side);
 		} else if (tileEntity instanceof ISidedInventory) {
-			return new SidedInvWrapper((ISidedInventory) tileEntity, EnumFacing.DOWN);
+			return new SidedInvWrapper((ISidedInventory) tileEntity, side);
 		} else if (tileEntity instanceof IInventory) {
 			return new InvWrapper((IInventory) tileEntity);
 		}

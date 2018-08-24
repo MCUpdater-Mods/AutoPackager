@@ -104,19 +104,23 @@ public class TilePackager extends TileEntity implements ITickable
 		if (orientation == null) {
 			return false;
 		}
-		BlockPos inputPos = getInputSide();
-		BlockPos outputPos = getOutputSide();
+		// EnumFacing variables perform double-duty reflecting the face of the block in context
+		// (i.e. the input and output sides of the AutoPackager as well as the output side of the input inventory and input side of the output inventory)
+		EnumFacing inputSide = getInputSide();
+		EnumFacing outputSide = getOutputSide();
+		BlockPos inputPos = pos.offset(inputSide);
+		BlockPos outputPos = pos.offset(outputSide);
 		TileEntity tileInput = this.getWorld().getTileEntity(inputPos);
 		TileEntity tileOutput = this.getWorld().getTileEntity(outputPos);
-		boolean inputValid = tileInput != null && (tileInput.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.DOWN ) || tileInput instanceof ISidedInventory || tileInput instanceof IInventory);
-		boolean outputValid = tileOutput != null && (tileOutput.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.DOWN ) || tileOutput instanceof ISidedInventory || tileOutput instanceof IInventory);
+		boolean inputValid = tileInput != null && (tileInput.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, outputSide ) || tileInput instanceof ISidedInventory || tileInput instanceof IInventory);
+		boolean outputValid = tileOutput != null && (tileOutput.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inputSide ) || tileOutput instanceof ISidedInventory || tileOutput instanceof IInventory);
         Map<String,SortedSet<Integer>> slotMap = new HashMap<String,SortedSet<Integer>>();
 		if (inputValid && outputValid) {
-			IItemHandler invInput = InventoryHelper.getWrapper(tileInput);
-			IItemHandler invOutput = InventoryHelper.getWrapper(tileOutput);
+			IItemHandler invInput = InventoryHelper.getWrapper(tileInput, outputSide);
+			IItemHandler invOutput = InventoryHelper.getWrapper(tileOutput, inputSide);
 			for (int slot = 0; slot < invInput.getSlots(); slot++) {
                 if (!invInput.getStackInSlot(slot).equals(ItemStack.EMPTY)) {
-	                if (invInput instanceof ISidedInventory && !((ISidedInventory)invInput).canExtractItem(slot, invInput.getStackInSlot(slot), EnumFacing.DOWN)) {
+	                if (invInput instanceof ISidedInventory && !((ISidedInventory)invInput).canExtractItem(slot, invInput.getStackInSlot(slot), outputSide)) {
 		                continue;
 	                }
                     if (slotMap.containsKey(invInput.getStackInSlot(slot).getUnlocalizedName() + ":" + invInput.getStackInSlot(slot).getItemDamage())) {
@@ -310,32 +314,32 @@ public class TilePackager extends TileEntity implements ITickable
 		return false;
 	}
 
-	private BlockPos getInputSide() {
+	private EnumFacing getInputSide() {
 		switch (this.orientation) {
 			case NORTH:
-				return this.pos.east();
+				return EnumFacing.EAST;
 			case EAST:
-				return this.pos.south();
+				return EnumFacing.SOUTH;
 			case SOUTH:
-				return this.pos.west();
+				return EnumFacing.WEST;
 			case WEST:
-				return this.pos.north();
+				return EnumFacing.NORTH;
 		}
-		return this.pos.north();
+		return EnumFacing.NORTH;
 	}
 
-	private BlockPos getOutputSide() {
+	private EnumFacing getOutputSide() {
 		switch (this.orientation) {
 			case NORTH:
-				return this.pos.west();
+				return EnumFacing.WEST;
 			case EAST:
-				return this.pos.north();
+				return EnumFacing.NORTH;
 			case SOUTH:
-				return this.pos.east();
+				return EnumFacing.EAST;
 			case WEST:
-				return this.pos.south();
+				return EnumFacing.SOUTH;
 		}
-		return this.pos.south();
+		return EnumFacing.SOUTH;
 	}
 
 	@Override
@@ -380,7 +384,6 @@ public class TilePackager extends TileEntity implements ITickable
 	@Override
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
 		if (capability == CapabilityEnergy.ENERGY) {
-			this.markDirty();
 			return CapabilityEnergy.ENERGY.cast(storage);
 		}
 
