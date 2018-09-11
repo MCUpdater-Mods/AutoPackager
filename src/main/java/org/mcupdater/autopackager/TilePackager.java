@@ -1,6 +1,5 @@
 package org.mcupdater.autopackager;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -10,28 +9,24 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.EnergyStorage;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.wrapper.InvWrapper;
 import org.mcupdater.autopackager.helpers.InventoryHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class TilePackager extends TileEntity implements ITickable
 {
@@ -50,7 +45,7 @@ public class TilePackager extends TileEntity implements ITickable
 
 	}
 
-	private EnergyStorage storage = new EnergyStorage(AutoPackager.energyPerCycle * 100);
+	private EnergyStorage storage = new EnergyStorage(Math.max(AutoPackager.energyPerCycle * 100,100000));
 
 	private EnumFacing orientation = EnumFacing.DOWN;
 
@@ -61,6 +56,7 @@ public class TilePackager extends TileEntity implements ITickable
 	 */
 	private int tickCounter = 0;
 	private int tickDelay = AutoPackager.delayCycleNormal;
+	private int idleCycles = 0;
 	protected Mode mode;
 
 	public TilePackager() {
@@ -70,33 +66,80 @@ public class TilePackager extends TileEntity implements ITickable
 
 	@Override
 	public void update() {
-		if (++tickCounter >= tickDelay) {
-			tickCounter = 0;
-			if (storage.getEnergyStored() > AutoPackager.energyPerCycle) {
-				if (AutoPackager.ludicrousMode) {
-					boolean idle = true;
-					while (storage.getEnergyStored() > AutoPackager.energyPerCycle && tryCraft()) {
-						idle = false;
-						if (!AutoPackager.unbalanced) {
-							storage.extractEnergy(AutoPackager.energyPerCycle, false);
+		if (!world.isRemote) {
+			if (++tickCounter >= tickDelay) {
+				tickCounter = 0;
+				if (!isDisabled() && storage.getEnergyStored() > AutoPackager.energyPerCycle) {
+					if (AutoPackager.ludicrousMode) {
+						boolean idle = true;
+						while (storage.getEnergyStored() > AutoPackager.energyPerCycle && tryCraft()) {
+							idle = false;
+							idleCycles = 0;
+							if (!AutoPackager.unbalanced) {
+								storage.extractEnergy(AutoPackager.energyPerCycle, false);
+							}
+						}
+						if (idle) {
+							idleCycles++;
+							tickDelay = AutoPackager.delayCycleIdle * (AutoPackager.deepSleepEnabled ? Math.min(idleCycles, AutoPackager.deepSleepCount) : 1);
+						} else {
+							if (AutoPackager.unbalanced) {
+								storage.extractEnergy(AutoPackager.energyPerCycle, false);
+							}
+							tickDelay = AutoPackager.delayCycleNormal;
 						}
 					}
-					if (idle) {
-						tickDelay = AutoPackager.delayCycleIdle;
-					} else {
-						if (AutoPackager.unbalanced) {
-							storage.extractEnergy(AutoPackager.energyPerCycle, false);
-						}
+					if (tryCraft()) {
+						storage.extractEnergy(AutoPackager.energyPerCycle, false);
+						idleCycles = 0;
 						tickDelay = AutoPackager.delayCycleNormal;
+					} else {
+						idleCycles++;
+						tickDelay = AutoPackager.delayCycleIdle * (AutoPackager.deepSleepEnabled ? Math.min(idleCycles, AutoPackager.deepSleepCount) : 1);
 					}
-				}
-				if (tryCraft()) {
-					storage.extractEnergy(AutoPackager.energyPerCycle, false);
-					tickDelay = AutoPackager.delayCycleNormal;
-				} else {
-					tickDelay = AutoPackager.delayCycleIdle;
 				}
 			}
+			// Distribute energy
+			if (this.storage.getEnergyStored() > (this.storage.getMaxEnergyStored() / 2)) {
+				int splitEnergy = this.storage.getEnergyStored() - (this.storage.getMaxEnergyStored() / 2);
+				TileEntity inputSide = this.getWorld().getTileEntity(pos.offset(getInputSide()));
+				TileEntity outputSide = this.getWorld().getTileEntity(pos.offset(getOutputSide()));
+				if (inputSide != null && inputSide.hasCapability(CapabilityEnergy.ENERGY, getOutputSide()) && inputSide.getCapability(CapabilityEnergy.ENERGY, getOutputSide()).canReceive()) {
+					this.storage.extractEnergy(inputSide.getCapability(CapabilityEnergy.ENERGY, getOutputSide()).receiveEnergy(splitEnergy / 2, false), false);
+				}
+				if (outputSide != null && outputSide.hasCapability(CapabilityEnergy.ENERGY, getInputSide()) && outputSide.getCapability(CapabilityEnergy.ENERGY, getInputSide()).canReceive()) {
+					this.storage.extractEnergy(outputSide.getCapability(CapabilityEnergy.ENERGY, getInputSide()).receiveEnergy(splitEnergy / 2, false), false);
+				}
+			}
+		}
+	}
+
+	private boolean isDisabled() {
+		for (EnumFacing enumfacing : EnumFacing.values())
+		{
+			if (this.world.isSidePowered(pos.offset(enumfacing), enumfacing))
+			{
+				return true;
+			}
+		}
+
+		if (this.world.isSidePowered(pos, EnumFacing.DOWN))
+		{
+			return true;
+		}
+		else
+		{
+			BlockPos blockpos = pos.up();
+
+			for (EnumFacing enumfacing1 : EnumFacing.values())
+			{
+				if (enumfacing1 != EnumFacing.DOWN && this.world.isSidePowered(blockpos.offset(enumfacing1), enumfacing1))
+				{
+					return true;
+				}
+			}
+
+			return false;
 		}
 	}
 
