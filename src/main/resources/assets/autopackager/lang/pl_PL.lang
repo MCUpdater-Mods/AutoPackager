@@ -7,3 +7,7 @@ autopackager.mode.small=2x2 tylko
 autopackager.mode.large=3x3 tylko
 autopackager.mode.hollow=3x3 wydrążony
 autopackager.mode.unpackage=1x1 tylko
+autopackager.mode.cross=3x3 krzyż
+autopackager.mode.stair=3x3 schody
+autopackager.mode.slab=3x1 płyta
+autopackager.mode.wall=3x2 ściana

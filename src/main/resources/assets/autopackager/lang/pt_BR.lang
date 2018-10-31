@@ -7,3 +7,7 @@ autopackager.mode.small=2x2 só
 autopackager.mode.large=3x3 só
 autopackager.mode.hollow=3x3 vazio
 autopackager.mode.unpackage=1x1 só
+autopackager.mode.cross=3x3 cruz
+autopackager.mode.stair=3x3 escadas
+autopackager.mode.slab=3x1 laje
+autopackager.mode.wall=3x2 parede

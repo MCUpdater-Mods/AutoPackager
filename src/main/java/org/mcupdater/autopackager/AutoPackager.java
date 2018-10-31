@@ -29,10 +29,14 @@ public class AutoPackager {
 	public static boolean ludicrousMode;
 	public static boolean unbalanced;
 
-	public static Map<ItemStack,IRecipe> large = new HashMap<ItemStack, IRecipe>();
-	public static Map<ItemStack,IRecipe> small = new HashMap<ItemStack, IRecipe>();
-	public static Map<ItemStack,IRecipe> hollow = new HashMap<ItemStack, IRecipe>();
-	public static Map<ItemStack,IRecipe> single = new HashMap<ItemStack, IRecipe>();
+	public static Map<ItemStack,IRecipe> large = new HashMap<>();
+	public static Map<ItemStack,IRecipe> small = new HashMap<>();
+	public static Map<ItemStack,IRecipe> hollow = new HashMap<>();
+	public static Map<ItemStack,IRecipe> single = new HashMap<>();
+	public static Map<ItemStack,IRecipe> cross = new HashMap<>();
+	public static Map<ItemStack,IRecipe> stair = new HashMap<>();
+	public static Map<ItemStack,IRecipe> slab = new HashMap<>();
+	public static Map<ItemStack,IRecipe> wall = new HashMap<>();
 	public static ModMetadata metadata;
 	public static Logger logger;
 	public static boolean deepSleepEnabled;

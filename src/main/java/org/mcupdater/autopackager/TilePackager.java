@@ -31,7 +31,7 @@ import java.util.TreeSet;
 public class TilePackager extends TileEntity implements ITickable
 {
 	public enum Mode {
-		HYBRID("autopackager.mode.hybrid"), SMALL("autopackager.mode.small"), LARGE("autopackager.mode.large"), HOLLOW("autopackager.mode.hollow"), UNPACKAGE("autopackager.mode.unpackage"), HYBRID2("autopackager.mode.hybrid2");
+		HYBRID("autopackager.mode.hybrid"), SMALL("autopackager.mode.small"), LARGE("autopackager.mode.large"), HOLLOW("autopackager.mode.hollow"), UNPACKAGE("autopackager.mode.unpackage"), HYBRID2("autopackager.mode.hybrid2"), CROSS("autopackager.mode.cross"), STAIR("autopackager.mode.stair"), SLAB("autopackager.mode.slab"), WALL("autopackager.mode.wall");
 
 		private String message;
 		Mode(String message) {
@@ -193,6 +193,18 @@ public class TilePackager extends TileEntity implements ITickable
 		                case UNPACKAGE:
 		                    result = craftTiny(invInput, invOutput, slot);
 			                break;
+		                case CROSS:
+		                	result = craftCross(invInput, invOutput, slot);
+		                	break;
+		                case STAIR:
+		                	result = craftStair(invInput, invOutput, slot);
+		                	break;
+		                case SLAB:
+		                	result = craftSlab(invInput, invOutput, slot);
+		                	break;
+		                case WALL:
+		                	result = craftWall(invInput, invOutput, slot);
+		                	break;
 		                default:
 			                result = false;
 	                }
@@ -353,6 +365,138 @@ public class TilePackager extends TileEntity implements ITickable
 			        return true;
 		        }
 		    }
+		}
+		return false;
+	}
+
+	private boolean craftCross(IItemHandler invInput, IItemHandler invOutput, int slot) {
+		IRecipe result;
+		if (invInput.getStackInSlot(slot).getCount() >= 5) {
+			ItemStack testStack = invInput.getStackInSlot(slot).copy();
+			testStack.setCount(1);
+			if (!AutoPackager.cross.containsKey(testStack)) {
+				InventoryCrafting largeCraft = new InventoryCrafting(new Container()
+				{
+					@Override
+					public boolean canInteractWith(EntityPlayer entityPlayer) {
+						return false;
+					}
+				}, 3, 3);
+				for (int craftSlot = 0; craftSlot < 9; craftSlot++) {
+					largeCraft.setInventorySlotContents(craftSlot, (craftSlot == 0 || craftSlot == 2 || craftSlot == 6 || craftSlot == 8) ? ItemStack.EMPTY : testStack);
+				}
+				result = CraftingManager.findMatchingRecipe(largeCraft, this.getWorld());
+				AutoPackager.cross.put(testStack, result);
+			} else {
+				result = AutoPackager.cross.get(testStack);
+			}
+			if (result != null) {
+				ItemStack recipeOutput = result.getRecipeOutput().copy();
+				if (InventoryHelper.canStackFitInInventory(invOutput, recipeOutput)) {
+					invInput.extractItem(slot, 5, false);
+					InventoryHelper.insertItemStackIntoInventory(invOutput, recipeOutput);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	private boolean craftStair(IItemHandler invInput, IItemHandler invOutput, int slot) {
+		IRecipe result;
+		if (invInput.getStackInSlot(slot).getCount() >= 6) {
+			ItemStack testStack = invInput.getStackInSlot(slot).copy();
+			testStack.setCount(1);
+			if (!AutoPackager.stair.containsKey(testStack)) {
+				InventoryCrafting largeCraft = new InventoryCrafting(new Container()
+				{
+					@Override
+					public boolean canInteractWith(EntityPlayer entityPlayer) {
+						return false;
+					}
+				}, 3, 3);
+				for (int craftSlot = 0; craftSlot < 9; craftSlot++) {
+					largeCraft.setInventorySlotContents(craftSlot, (craftSlot == 1 || craftSlot == 2 || craftSlot == 5) ? ItemStack.EMPTY : testStack);
+				}
+				result = CraftingManager.findMatchingRecipe(largeCraft, this.getWorld());
+				AutoPackager.stair.put(testStack, result);
+			} else {
+				result = AutoPackager.stair.get(testStack);
+			}
+			if (result != null) {
+				ItemStack recipeOutput = result.getRecipeOutput().copy();
+				if (InventoryHelper.canStackFitInInventory(invOutput, recipeOutput)) {
+					invInput.extractItem(slot, 6, false);
+					InventoryHelper.insertItemStackIntoInventory(invOutput, recipeOutput);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	private boolean craftSlab(IItemHandler invInput, IItemHandler invOutput, int slot) {
+		IRecipe result;
+		if (invInput.getStackInSlot(slot).getCount() >= 3) {
+			ItemStack testStack = invInput.getStackInSlot(slot).copy();
+			testStack.setCount(1);
+			if (!AutoPackager.slab.containsKey(testStack)) {
+				InventoryCrafting largeCraft = new InventoryCrafting(new Container()
+				{
+					@Override
+					public boolean canInteractWith(EntityPlayer entityPlayer) {
+						return false;
+					}
+				}, 3, 3);
+				for (int craftSlot = 0; craftSlot < 9; craftSlot++) {
+					largeCraft.setInventorySlotContents(craftSlot, craftSlot < 6 ? ItemStack.EMPTY : testStack);
+				}
+				result = CraftingManager.findMatchingRecipe(largeCraft, this.getWorld());
+				AutoPackager.slab.put(testStack, result);
+			} else {
+				result = AutoPackager.slab.get(testStack);
+			}
+			if (result != null) {
+				ItemStack recipeOutput = result.getRecipeOutput().copy();
+				if (InventoryHelper.canStackFitInInventory(invOutput, recipeOutput)) {
+					invInput.extractItem(slot, 3, false);
+					InventoryHelper.insertItemStackIntoInventory(invOutput, recipeOutput);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	private boolean craftWall(IItemHandler invInput, IItemHandler invOutput, int slot) {
+		IRecipe result;
+		if (invInput.getStackInSlot(slot).getCount() >= 6) {
+			ItemStack testStack = invInput.getStackInSlot(slot).copy();
+			testStack.setCount(1);
+			if (!AutoPackager.wall.containsKey(testStack)) {
+				InventoryCrafting largeCraft = new InventoryCrafting(new Container()
+				{
+					@Override
+					public boolean canInteractWith(EntityPlayer entityPlayer) {
+						return false;
+					}
+				}, 3, 3);
+				for (int craftSlot = 0; craftSlot < 9; craftSlot++) {
+					largeCraft.setInventorySlotContents(craftSlot, craftSlot < 3 ? ItemStack.EMPTY : testStack);
+				}
+				result = CraftingManager.findMatchingRecipe(largeCraft, this.getWorld());
+				AutoPackager.wall.put(testStack, result);
+			} else {
+				result = AutoPackager.wall.get(testStack);
+			}
+			if (result != null) {
+				ItemStack recipeOutput = result.getRecipeOutput().copy();
+				if (InventoryHelper.canStackFitInInventory(invOutput, recipeOutput)) {
+					invInput.extractItem(slot, 6, false);
+					InventoryHelper.insertItemStackIntoInventory(invOutput, recipeOutput);
+					return true;
+				}
+			}
 		}
 		return false;
 	}
