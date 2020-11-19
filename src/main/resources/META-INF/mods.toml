@@ -1,0 +1,17 @@
+modLoader="javafml"
+loaderVersion="[32,)"
+license="Apache License 2.0"
+[[mods]]
+modId="autopackager"
+version="${version}"
+displayName="AutoPackager"
+authors="smbarbour"
+description='''
+Autocraft recipes made of a single item type
+'''
+[[dependencies.autopackager]]
+    modId="mculib"
+    mandatory=true
+    versionRange="[1.0,)"
+    ordering="NONE"
+    side="BOTH"

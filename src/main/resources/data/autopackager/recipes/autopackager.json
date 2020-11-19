@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "autopackager",
+  "pattern": [
+    "ipi",
+    "ptp",
+    "iri"
+  ],
+  "key": {
+    "i": {
+      "item": "minecraft:iron_ingot"
+    },
+    "p": {
+      "item": "minecraft:piston"
+    },
+    "t": {
+      "item": "minecraft:crafting_table"
+    },
+    "r": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "item": "autopackager:autopackager"
+  }
+}
