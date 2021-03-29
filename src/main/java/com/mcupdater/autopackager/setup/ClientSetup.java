@@ -6,6 +6,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 public class ClientSetup {
     public static void init(final FMLClientSetupEvent event) {
-        ScreenManager.registerFactory(Registration.PACKAGERBLOCK_CONTAINER.get(), ScreenPackager::new);
+        ScreenManager.register(Registration.PACKAGERBLOCK_CONTAINER.get(), ScreenPackager::new);
     }
 }

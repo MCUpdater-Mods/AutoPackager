@@ -13,7 +13,7 @@ public class ModSetup {
     public static final ItemGroup ITEM_GROUP = new ItemGroup("autopackager") {
 
         @Override
-        public ItemStack createIcon() {
+        public ItemStack makeIcon() {
             return new ItemStack(Registration.PACKAGERBLOCK.get());
         }
     };

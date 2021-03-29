@@ -32,12 +32,12 @@ public class Registration {
     }
 
     public static final RegistryObject<BlockPackager> PACKAGERBLOCK = BLOCKS.register("autopackager", BlockPackager::new);
-    public static final RegistryObject<Item> PACKAGERBLOCK_ITEM = ITEMS.register("autopackager", () -> new BlockItem(PACKAGERBLOCK.get(), new Item.Properties().group(ModSetup.ITEM_GROUP)));
-    public static final RegistryObject<TileEntityType<TilePackager>> PACKAGERBLOCK_TILE = TILES.register("autopackager", () -> TileEntityType.Builder.create(TilePackager::new, PACKAGERBLOCK.get()).build(null));
+    public static final RegistryObject<Item> PACKAGERBLOCK_ITEM = ITEMS.register("autopackager", () -> new BlockItem(PACKAGERBLOCK.get(), new Item.Properties().tab(ModSetup.ITEM_GROUP)));
+    public static final RegistryObject<TileEntityType<TilePackager>> PACKAGERBLOCK_TILE = TILES.register("autopackager", () -> TileEntityType.Builder.of(TilePackager::new, PACKAGERBLOCK.get()).build(null));
     public static final RegistryObject<ContainerType<ContainerPackager>> PACKAGERBLOCK_CONTAINER = CONTAINERS.register("autopackager", () -> IForgeContainerType.create((windowId, inv, data) -> {
         BlockPos pos = data.readBlockPos();
-        World world = inv.player.getEntityWorld();
-        TilePackager te = (TilePackager) world.getTileEntity(pos);
+        World world = inv.player.getCommandSenderWorld();
+        TilePackager te = (TilePackager) world.getBlockEntity(pos);
         return new ContainerPackager(windowId, world, pos, inv, inv.player, te.modeData);
     }));
 

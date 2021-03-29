@@ -1,5 +1,6 @@
 {
-    "block.autopackager": "Compactador Automático",
+    "block.autopackager.autopackager": "Compactador Automático",
+    "itemGroup.autopackager": "Compactador Automático",
 
     "autopackager.mode.current": "Modo atual:",
     "autopackager.mode.hybrid": "2x2 depois 3x3",

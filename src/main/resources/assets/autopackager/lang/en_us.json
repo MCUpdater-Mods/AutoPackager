@@ -1,5 +1,6 @@
 {
-    "block.autopackager": "AutoPackager",
+    "block.autopackager.autopackager": "AutoPackager",
+    "itemGroup.autopackager": "AutoPackager",
 
     "autopackager.mode.current": "Current Mode:",
     "autopackager.mode.hybrid": "2x2 then 3x3",

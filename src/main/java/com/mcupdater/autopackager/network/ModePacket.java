@@ -25,11 +25,12 @@ public class ModePacket {
 
     public static void handle(ModePacket msg, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
-            World world = ctx.get().getSender().world;
-            if (world.getTileEntity(msg.blockPos) instanceof TilePackager) {
-                TilePackager tilePackager = (TilePackager) world.getTileEntity(msg.blockPos);
+            World world = ctx.get().getSender().level;
+            if (world.getBlockEntity(msg.blockPos) instanceof TilePackager) {
+                TilePackager tilePackager = (TilePackager) world.getBlockEntity(msg.blockPos);
                 tilePackager.changeMode();
             }
         });
+        ctx.get().setPacketHandled(true);
     }
 }

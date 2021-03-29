@@ -67,7 +67,7 @@ public class TilePackager extends TileEntityPowered {
 
     public void setModeInternal(Mode newMode) {
         this.mode = newMode;
-        this.markDirty();
+        this.setChanged();
     }
 
     private int getModeInternal() {
@@ -81,12 +81,12 @@ public class TilePackager extends TileEntityPowered {
 
     public void changeMode() {
         mode = Mode.values()[(mode.ordinal() + 1) % Mode.values().length];
-        this.markDirty();
+        this.setChanged();
     }
 
     @Override
     public void tick() {
-        if (!this.world.isRemote) {
+        if (!this.level.isClientSide) {
             if (++tickCounter >= tickDelay) {
                 tickCounter = 0;
                 if (!isDisabled() && energyStorage.getEnergyStored() > Config.ENERGY_PER_CYCLE.get()) {
@@ -128,10 +128,10 @@ public class TilePackager extends TileEntityPowered {
         // (i.e. the input and output sides of the AutoPackager as well as the output side of the input inventory and input side of the output inventory)
         Direction inputSide =  getInputSide();
         Direction outputSide = getOutputSide();
-        BlockPos inputPos = pos.offset(inputSide);
-        BlockPos outputPos = pos.offset(outputSide);
-        TileEntity tileInput = this.getWorld().getTileEntity(inputPos);
-        TileEntity tileOutput = this.getWorld().getTileEntity(outputPos);
+        BlockPos inputPos = this.worldPosition.relative(inputSide);
+        BlockPos outputPos = this.worldPosition.relative(outputSide);
+        TileEntity tileInput = this.getLevel().getBlockEntity(inputPos);
+        TileEntity tileOutput = this.getLevel().getBlockEntity(outputPos);
         boolean inputValid = tileInput != null && (tileInput.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, outputSide).isPresent() || tileInput instanceof ISidedInventory || tileInput instanceof IInventory);
         boolean outputValid = tileOutput != null && (tileOutput.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inputSide).isPresent() || tileOutput instanceof ISidedInventory || tileOutput instanceof IInventory);
         Map<String, SortedSet<Integer>> slotMap = new HashMap<String,SortedSet<Integer>>();
@@ -140,15 +140,15 @@ public class TilePackager extends TileEntityPowered {
             IItemHandler invOutput = InventoryHelper.getWrapper(tileOutput, inputSide);
             for (int slot = 0; slot < invInput.getSlots(); slot++) {
                 if (!invInput.getStackInSlot(slot).equals(ItemStack.EMPTY)) {
-                    if (invInput instanceof ISidedInventory && !((ISidedInventory)invInput).canExtractItem(slot, invInput.getStackInSlot(slot), outputSide)) {
+                    if (invInput instanceof ISidedInventory && !((ISidedInventory)invInput).canTakeItemThroughFace(slot, invInput.getStackInSlot(slot), outputSide)) {
                         continue;
                     }
-                    if (slotMap.containsKey(invInput.getStackInSlot(slot).getTranslationKey())) {
-                        slotMap.get(invInput.getStackInSlot(slot).getTranslationKey()).add(slot);
+                    if (slotMap.containsKey(invInput.getStackInSlot(slot).getDescriptionId())) {
+                        slotMap.get(invInput.getStackInSlot(slot).getDescriptionId()).add(slot);
                     } else {
                         SortedSet<Integer> slotList = new TreeSet<Integer>();
                         slotList.add(slot);
-                        slotMap.put(invInput.getStackInSlot(slot).getTranslationKey(), slotList);
+                        slotMap.put(invInput.getStackInSlot(slot).getDescriptionId(), slotList);
                     }
                     boolean result;
                     switch (mode) {
@@ -193,14 +193,14 @@ public class TilePackager extends TileEntityPowered {
                     SortedSet<Integer> slots = entry.getValue();
                     while (slots.size() > 1) {
                         if (invInput.getStackInSlot(slots.first()).equals(ItemStack.EMPTY) ||
-                                !(invInput.getStackInSlot(slots.first()).getTranslationKey()).equals(entry.getKey()) ||
+                                !(invInput.getStackInSlot(slots.first()).getDescriptionId()).equals(entry.getKey()) ||
                                 invInput.getStackInSlot(slots.first()).getCount() >= invInput.getStackInSlot(slots.first()).getMaxStackSize()) {
                             slots.remove(slots.first());
                             continue;
                         }
                         if (invInput.getStackInSlot(slots.last()).equals(ItemStack.EMPTY) ||
-                                !(invInput.getStackInSlot(slots.last()).isItemEqual(invInput.getStackInSlot(slots.first()))) ||
-                                !ItemStack.areItemStackTagsEqual(invInput.getStackInSlot(slots.first()), invInput.getStackInSlot(slots.last()))) {
+                                !(invInput.getStackInSlot(slots.last()).sameItem(invInput.getStackInSlot(slots.first()))) ||
+                                !ItemStack.tagMatches(invInput.getStackInSlot(slots.first()), invInput.getStackInSlot(slots.last()))) {
                             slots.remove(slots.last());
                             continue;
                         }
@@ -220,23 +220,23 @@ public class TilePackager extends TileEntityPowered {
     private boolean isDisabled() {
         for (Direction direction : Direction.values())
         {
-            if (this.world.isSidePowered(pos.offset(direction), direction))
+            if (this.level.hasSignal(this.worldPosition.relative(direction), direction))
             {
                 return true;
             }
         }
 
-        if (this.world.isSidePowered(pos, Direction.DOWN))
+        if (this.level.hasSignal(this.worldPosition, Direction.DOWN))
         {
             return true;
         }
         else
         {
-            BlockPos blockpos = pos.up();
+            BlockPos blockpos = this.worldPosition.above();
 
             for (Direction direction : Direction.values())
             {
-                if (direction != Direction.DOWN && this.world.isSidePowered(blockpos.offset(direction), direction))
+                if (direction != Direction.DOWN && this.level.hasSignal(blockpos.relative(direction), direction))
                 {
                     return true;
                 }
@@ -247,8 +247,8 @@ public class TilePackager extends TileEntityPowered {
     }
 
     private Direction getInputSide() {
-        if (this.world != null) {
-            switch (this.world.getBlockState(this.pos).get(BlockStateProperties.FACING)) {
+        if (this.level != null) {
+            switch (this.level.getBlockState(this.worldPosition).getValue(BlockStateProperties.FACING)) {
                 case NORTH:
                     return Direction.EAST;
                 case EAST:
@@ -263,8 +263,8 @@ public class TilePackager extends TileEntityPowered {
     }
 
     private Direction getOutputSide() {
-        if (this.world != null) {
-            switch (this.world.getBlockState(this.pos).get(BlockStateProperties.FACING)) {
+        if (this.level != null) {
+            switch (this.level.getBlockState(this.worldPosition).getValue(BlockStateProperties.FACING)) {
                 case NORTH:
                     return Direction.WEST;
                 case EAST:
@@ -279,15 +279,15 @@ public class TilePackager extends TileEntityPowered {
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
-        super.write(compound);
+    public CompoundNBT save(CompoundNBT compound) {
+        super.save(compound);
         compound.putInt("mode", this.getModeInternal());
         return compound;
     }
 
     @Override
-    public void read(BlockState blockState, CompoundNBT compound) {
-        super.read(blockState, compound);
+    public void load(BlockState blockState, CompoundNBT compound) {
+        super.load(blockState, compound);
         this.setModeInternal(Mode.values()[compound.getInt("mode")]);
     }
 
@@ -299,12 +299,12 @@ public class TilePackager extends TileEntityPowered {
             if (!CraftingCache.SINGLE.containsKey(testStack)) {
                 CraftingInventory smallCraft = new CraftingInventory(new Container(ContainerType.CRAFTING, -1) {
                     @Override
-                    public boolean canInteractWith(PlayerEntity entityPlayer) {
+                    public boolean stillValid(PlayerEntity entityPlayer) {
                         return false;
                     }
                 }, 2, 2);
-                smallCraft.setInventorySlotContents(0, testStack);
-                Optional<ICraftingRecipe> recipe = world.getServer().getRecipeManager().getRecipe(IRecipeType.CRAFTING, smallCraft, this.getWorld());
+                smallCraft.setItem(0, testStack);
+                Optional<ICraftingRecipe> recipe = level.getServer().getRecipeManager().getRecipeFor(IRecipeType.CRAFTING, smallCraft, this.getLevel());
                 if (recipe.isPresent()) {
                     result = recipe.get();
                 }
@@ -313,7 +313,7 @@ public class TilePackager extends TileEntityPowered {
                 result = CraftingCache.SINGLE.get(testStack);
             }
             if (result != null) {
-                ItemStack recipeOutput = result.getRecipeOutput().copy();
+                ItemStack recipeOutput = result.getResultItem().copy();
                 if (InventoryHelper.canStackFitInInventory(invOutput, recipeOutput)) {
                     invInput.extractItem(slot, 1, false);
                     InventoryHelper.insertItemStackIntoInventory(invOutput, recipeOutput);
@@ -333,14 +333,14 @@ public class TilePackager extends TileEntityPowered {
                 CraftingInventory largeCraft = new CraftingInventory(new Container(ContainerType.CRAFTING, -1)
                 {
                     @Override
-                    public boolean canInteractWith(PlayerEntity entityPlayer) {
+                    public boolean stillValid(PlayerEntity entityPlayer) {
                         return false;
                     }
                 }, 3, 3);
                 for (int craftSlot = 0; craftSlot < 9; craftSlot++) {
-                    largeCraft.setInventorySlotContents(craftSlot, craftSlot == 4 ? ItemStack.EMPTY : testStack);
+                    largeCraft.setItem(craftSlot, craftSlot == 4 ? ItemStack.EMPTY : testStack);
                 }
-                Optional<ICraftingRecipe> recipe = world.getServer().getRecipeManager().getRecipe(IRecipeType.CRAFTING, largeCraft, this.getWorld());
+                Optional<ICraftingRecipe> recipe = level.getServer().getRecipeManager().getRecipeFor(IRecipeType.CRAFTING, largeCraft, this.getLevel());
                 if (recipe.isPresent()) {
                     result = recipe.get();
                 }
@@ -349,7 +349,7 @@ public class TilePackager extends TileEntityPowered {
                 result = CraftingCache.HOLLOW.get(testStack);
             }
             if (result != null) {
-                ItemStack recipeOutput = result.getRecipeOutput().copy();
+                ItemStack recipeOutput = result.getResultItem().copy();
                 if (InventoryHelper.canStackFitInInventory(invOutput, recipeOutput)) {
                     invInput.extractItem(slot, 8, false);
                     InventoryHelper.insertItemStackIntoInventory(invOutput, recipeOutput);
@@ -369,14 +369,14 @@ public class TilePackager extends TileEntityPowered {
                 CraftingInventory largeCraft = new CraftingInventory(new Container(ContainerType.CRAFTING, -1)
                 {
                     @Override
-                    public boolean canInteractWith(PlayerEntity entityPlayer) {
+                    public boolean stillValid(PlayerEntity entityPlayer) {
                         return false;
                     }
                 }, 3, 3);
                 for (int craftSlot = 0; craftSlot < 9; craftSlot++) {
-                    largeCraft.setInventorySlotContents(craftSlot, testStack);
+                    largeCraft.setItem(craftSlot, testStack);
                 }
-                Optional<ICraftingRecipe> recipe = world.getServer().getRecipeManager().getRecipe(IRecipeType.CRAFTING, largeCraft, this.getWorld());
+                Optional<ICraftingRecipe> recipe = level.getServer().getRecipeManager().getRecipeFor(IRecipeType.CRAFTING, largeCraft, this.getLevel());
                 if (recipe.isPresent()) {
                     result = recipe.get();
                 }
@@ -385,7 +385,7 @@ public class TilePackager extends TileEntityPowered {
                 result = CraftingCache.LARGE.get(testStack);
             }
             if (result != null) {
-                ItemStack recipeOutput = result.getRecipeOutput().copy();
+                ItemStack recipeOutput = result.getResultItem().copy();
                 if (InventoryHelper.canStackFitInInventory(invOutput, recipeOutput)) {
                     invInput.extractItem(slot, 9, false);
                     InventoryHelper.insertItemStackIntoInventory(invOutput, recipeOutput);
@@ -405,14 +405,14 @@ public class TilePackager extends TileEntityPowered {
                 CraftingInventory smallCraft = new CraftingInventory(new Container(ContainerType.CRAFTING, -1)
                 {
                     @Override
-                    public boolean canInteractWith(PlayerEntity entityPlayer) {
+                    public boolean stillValid(PlayerEntity entityPlayer) {
                         return false;
                     }
                 }, 2, 2);
                 for (int craftSlot = 0; craftSlot < 4; craftSlot++) {
-                    smallCraft.setInventorySlotContents(craftSlot, testStack);
+                    smallCraft.setItem(craftSlot, testStack);
                 }
-                Optional<ICraftingRecipe> recipe = world.getServer().getRecipeManager().getRecipe(IRecipeType.CRAFTING, smallCraft, this.getWorld());
+                Optional<ICraftingRecipe> recipe = level.getServer().getRecipeManager().getRecipeFor(IRecipeType.CRAFTING, smallCraft, this.getLevel());
                 if (recipe.isPresent()) {
                     result = recipe.get();
                 }
@@ -421,7 +421,7 @@ public class TilePackager extends TileEntityPowered {
                 result = CraftingCache.SMALL.get(testStack);
             }
             if (result != null) {
-                ItemStack recipeOutput = result.getRecipeOutput().copy();
+                ItemStack recipeOutput = result.getResultItem().copy();
                 if (InventoryHelper.canStackFitInInventory(invOutput, recipeOutput)) {
                     invInput.extractItem(slot, 4, false);
                     InventoryHelper.insertItemStackIntoInventory(invOutput, recipeOutput);
@@ -441,14 +441,14 @@ public class TilePackager extends TileEntityPowered {
                 CraftingInventory largeCraft = new CraftingInventory(new Container(ContainerType.CRAFTING, -1)
                 {
                     @Override
-                    public boolean canInteractWith(PlayerEntity entityPlayer) {
+                    public boolean stillValid(PlayerEntity entityPlayer) {
                         return false;
                     }
                 }, 3, 3);
                 for (int craftSlot = 0; craftSlot < 9; craftSlot++) {
-                    largeCraft.setInventorySlotContents(craftSlot, (craftSlot == 0 || craftSlot == 2 || craftSlot == 6 || craftSlot == 8) ? ItemStack.EMPTY : testStack);
+                    largeCraft.setItem(craftSlot, (craftSlot == 0 || craftSlot == 2 || craftSlot == 6 || craftSlot == 8) ? ItemStack.EMPTY : testStack);
                 }
-                Optional<ICraftingRecipe> recipe = world.getServer().getRecipeManager().getRecipe(IRecipeType.CRAFTING, largeCraft, this.getWorld());
+                Optional<ICraftingRecipe> recipe = level.getServer().getRecipeManager().getRecipeFor(IRecipeType.CRAFTING, largeCraft, this.getLevel());
                 if (recipe.isPresent()) {
                     result = recipe.get();
                 }
@@ -457,7 +457,7 @@ public class TilePackager extends TileEntityPowered {
                 result = CraftingCache.CROSS.get(testStack);
             }
             if (result != null) {
-                ItemStack recipeOutput = result.getRecipeOutput().copy();
+                ItemStack recipeOutput = result.getResultItem().copy();
                 if (InventoryHelper.canStackFitInInventory(invOutput, recipeOutput)) {
                     invInput.extractItem(slot, 5, false);
                     InventoryHelper.insertItemStackIntoInventory(invOutput, recipeOutput);
@@ -477,14 +477,14 @@ public class TilePackager extends TileEntityPowered {
                 CraftingInventory largeCraft = new CraftingInventory(new Container(ContainerType.CRAFTING, -1)
                 {
                     @Override
-                    public boolean canInteractWith(PlayerEntity entityPlayer) {
+                    public boolean stillValid(PlayerEntity entityPlayer) {
                         return false;
                     }
                 }, 3, 3);
                 for (int craftSlot = 0; craftSlot < 9; craftSlot++) {
-                    largeCraft.setInventorySlotContents(craftSlot, (craftSlot == 1 || craftSlot == 2 || craftSlot == 5) ? ItemStack.EMPTY : testStack);
+                    largeCraft.setItem(craftSlot, (craftSlot == 1 || craftSlot == 2 || craftSlot == 5) ? ItemStack.EMPTY : testStack);
                 }
-                Optional<ICraftingRecipe> recipe = world.getServer().getRecipeManager().getRecipe(IRecipeType.CRAFTING, largeCraft, this.getWorld());
+                Optional<ICraftingRecipe> recipe = level.getServer().getRecipeManager().getRecipeFor(IRecipeType.CRAFTING, largeCraft, this.getLevel());
                 if (recipe.isPresent()) {
                     result = recipe.get();
                 }
@@ -493,7 +493,7 @@ public class TilePackager extends TileEntityPowered {
                 result = CraftingCache.STAIR.get(testStack);
             }
             if (result != null) {
-                ItemStack recipeOutput = result.getRecipeOutput().copy();
+                ItemStack recipeOutput = result.getResultItem().copy();
                 if (InventoryHelper.canStackFitInInventory(invOutput, recipeOutput)) {
                     invInput.extractItem(slot, 6, false);
                     InventoryHelper.insertItemStackIntoInventory(invOutput, recipeOutput);
@@ -513,14 +513,14 @@ public class TilePackager extends TileEntityPowered {
                 CraftingInventory largeCraft = new CraftingInventory(new Container(ContainerType.CRAFTING, -1)
                 {
                     @Override
-                    public boolean canInteractWith(PlayerEntity entityPlayer) {
+                    public boolean stillValid(PlayerEntity entityPlayer) {
                         return false;
                     }
                 }, 3, 3);
                 for (int craftSlot = 0; craftSlot < 9; craftSlot++) {
-                    largeCraft.setInventorySlotContents(craftSlot, craftSlot < 6 ? ItemStack.EMPTY : testStack);
+                    largeCraft.setItem(craftSlot, craftSlot < 6 ? ItemStack.EMPTY : testStack);
                 }
-                Optional<ICraftingRecipe> recipe = world.getServer().getRecipeManager().getRecipe(IRecipeType.CRAFTING, largeCraft, this.getWorld());
+                Optional<ICraftingRecipe> recipe = level.getServer().getRecipeManager().getRecipeFor(IRecipeType.CRAFTING, largeCraft, this.getLevel());
                 if (recipe.isPresent()) {
                     result = recipe.get();
                 }
@@ -529,7 +529,7 @@ public class TilePackager extends TileEntityPowered {
                 result = CraftingCache.SLAB.get(testStack);
             }
             if (result != null) {
-                ItemStack recipeOutput = result.getRecipeOutput().copy();
+                ItemStack recipeOutput = result.getResultItem().copy();
                 if (InventoryHelper.canStackFitInInventory(invOutput, recipeOutput)) {
                     invInput.extractItem(slot, 3, false);
                     InventoryHelper.insertItemStackIntoInventory(invOutput, recipeOutput);
@@ -549,14 +549,14 @@ public class TilePackager extends TileEntityPowered {
                 CraftingInventory largeCraft = new CraftingInventory(new Container(ContainerType.CRAFTING, -1)
                 {
                     @Override
-                    public boolean canInteractWith(PlayerEntity entityPlayer) {
+                    public boolean stillValid(PlayerEntity entityPlayer) {
                         return false;
                     }
                 }, 3, 3);
                 for (int craftSlot = 0; craftSlot < 9; craftSlot++) {
-                    largeCraft.setInventorySlotContents(craftSlot, craftSlot < 3 ? ItemStack.EMPTY : testStack);
+                    largeCraft.setItem(craftSlot, craftSlot < 3 ? ItemStack.EMPTY : testStack);
                 }
-                Optional<ICraftingRecipe> recipe = world.getServer().getRecipeManager().getRecipe(IRecipeType.CRAFTING, largeCraft, this.getWorld());
+                Optional<ICraftingRecipe> recipe = level.getServer().getRecipeManager().getRecipeFor(IRecipeType.CRAFTING, largeCraft, this.getLevel());
                 if (recipe.isPresent()) {
                     result = recipe.get();
                 }
@@ -565,7 +565,7 @@ public class TilePackager extends TileEntityPowered {
                 result = CraftingCache.WALL.get(testStack);
             }
             if (result != null) {
-                ItemStack recipeOutput = result.getRecipeOutput().copy();
+                ItemStack recipeOutput = result.getResultItem().copy();
                 if (InventoryHelper.canStackFitInInventory(invOutput, recipeOutput)) {
                     invInput.extractItem(slot, 6, false);
                     InventoryHelper.insertItemStackIntoInventory(invOutput, recipeOutput);

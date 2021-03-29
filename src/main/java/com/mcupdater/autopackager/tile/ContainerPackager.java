@@ -21,7 +21,7 @@ public class ContainerPackager extends ContainerPowered {
 
     public ContainerPackager(int windowId, World world, BlockPos pos, PlayerInventory playerInventory, PlayerEntity player, IntReferenceHolder modeData) {
         super(Registration.PACKAGERBLOCK_CONTAINER.get(), windowId);
-        localTileEntity = world.getTileEntity(pos) instanceof TilePackager ? (TilePackager) world.getTileEntity(pos) : null;
+        localTileEntity = world.getBlockEntity(pos) instanceof TilePackager ? (TilePackager) world.getBlockEntity(pos) : null;
         tileEntity = localTileEntity;
         this.playerEntity = player;
         this.playerInventory = new InvWrapper(playerInventory);
@@ -29,7 +29,7 @@ public class ContainerPackager extends ContainerPowered {
 
         layoutPlayerInventorySlots(8,84);
         trackPower();
-        trackInt(this.modeData);
+        addDataSlot(this.modeData);
     }
 
     private void layoutPlayerInventorySlots(int leftCol, int topRow) {
@@ -59,8 +59,8 @@ public class ContainerPackager extends ContainerPowered {
     }
 
     @Override
-    public boolean canInteractWith(PlayerEntity playerIn) {
-        return isWithinUsableDistance(IWorldPosCallable.of(localTileEntity.getWorld(), localTileEntity.getPos()), playerEntity, Registration.PACKAGERBLOCK.get());
+    public boolean stillValid(PlayerEntity playerIn) {
+        return stillValid(IWorldPosCallable.create(localTileEntity.getLevel(), localTileEntity.getBlockPos()), playerEntity, Registration.PACKAGERBLOCK.get());
     }
 
     public TilePackager getTileEntity() {
