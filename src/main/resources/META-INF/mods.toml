@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[32,)"
+loaderVersion="[36,)"
 license="Apache License 2.0"
 [[mods]]
 modId="autopackager"
