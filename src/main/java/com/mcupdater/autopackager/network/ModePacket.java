@@ -1,10 +1,10 @@
 package com.mcupdater.autopackager.network;
 
-import com.mcupdater.autopackager.tile.TilePackager;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkEvent;
+import com.mcupdater.autopackager.block.PackagerEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
@@ -15,19 +15,19 @@ public class ModePacket {
         this.blockPos = blockPos;
     }
 
-    public static void toBytes(ModePacket msg, PacketBuffer packetBuffer) {
+    public static void toBytes(ModePacket msg, FriendlyByteBuf packetBuffer) {
         packetBuffer.writeBlockPos(msg.blockPos);
     }
 
-    public static ModePacket fromBytes(PacketBuffer packetBuffer) {
+    public static ModePacket fromBytes(FriendlyByteBuf packetBuffer) {
         return new ModePacket(packetBuffer.readBlockPos());
     }
 
     public static void handle(ModePacket msg, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
-            World world = ctx.get().getSender().level;
-            if (world.getBlockEntity(msg.blockPos) instanceof TilePackager) {
-                TilePackager tilePackager = (TilePackager) world.getBlockEntity(msg.blockPos);
+            Level level = ctx.get().getSender().level;
+            if (level.getBlockEntity(msg.blockPos) instanceof PackagerEntity) {
+                PackagerEntity tilePackager = (PackagerEntity) level.getBlockEntity(msg.blockPos);
                 tilePackager.changeMode();
             }
         });

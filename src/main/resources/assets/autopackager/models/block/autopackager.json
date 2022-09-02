@@ -1,8 +1,11 @@
 {
-  "parent": "block/orientable",
+  "parent": "mculib:block/machine",
   "textures": {
-    "top": "autopackager:blocks/packager_side",
-    "front": "autopackager:blocks/packager_front",
-    "side": "autopackager:blocks/packager_side"
+    "frame": "minecraft:block/copper_block",
+    "corner": "minecraft:block/copper_block",
+    "face": "minecraft:block/piston_bottom",
+    "inset": "minecraft:block/black_concrete",
+    "overlay": "autopackager:blocks/crafter",
+    "particle": "minecraft:block/copper_block"
   }
 }

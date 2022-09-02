@@ -2,13 +2,13 @@
   "type": "minecraft:crafting_shaped",
   "group": "autopackager",
   "pattern": [
-    "ipi",
+    "cpc",
     "ptp",
-    "iri"
+    "crc"
   ],
   "key": {
-    "i": {
-      "item": "minecraft:iron_ingot"
+    "c": {
+      "item": "minecraft:copper_ingot"
     },
     "p": {
       "item": "minecraft:piston"

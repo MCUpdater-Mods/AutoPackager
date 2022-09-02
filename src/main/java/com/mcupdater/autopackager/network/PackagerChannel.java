@@ -1,9 +1,9 @@
 package com.mcupdater.autopackager.network;
 
 import com.mcupdater.autopackager.AutoPackager;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.network.NetworkRegistry;
-import net.minecraftforge.fml.network.simple.SimpleChannel;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.simple.SimpleChannel;
 
 public class PackagerChannel {
     private static final String PROTOCOL_VERSION = "1";
